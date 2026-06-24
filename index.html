@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>สะสมดาว</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Thai+2:wght@500;600;700;800&family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#1d1748; --sky-mid:#3a2a6e; --sky-low:#7b4f9e; --glow:#ff9ed0;
+    --star:#FFD75E; --toy:#FF6FA5; --toy-soft:#ffc6de; --sea:#2FD3D3; --sea-soft:#aef2f1;
+    --text:#fff; --soft:rgba(255,255,255,.72);
+    --card:rgba(255,255,255,.09); --card-line:rgba(255,255,255,.16);
+    --danger:#ff7a8a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:'Mali',sans-serif;color:var(--text);
+    background:
+      radial-gradient(120% 80% at 50% 120%, var(--glow) 0%, transparent 45%),
+      linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-low) 100%);
+    background-attachment:fixed;min-height:100vh;overflow-x:hidden;position:relative;
+  }
+  .sky{position:fixed;inset:0;pointer-events:none;z-index:0;}
+  .sky .tw{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d,3s) ease-in-out infinite alternate;}
+  @keyframes tw{from{opacity:.15;transform:scale(.6);}to{opacity:1;transform:scale(1);}}
+
+  .wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:24px 18px 70px;}
+
+  /* header */
+  .head{text-align:center;margin-bottom:6px;position:relative;}
+  .title{font-family:'Baloo Thai 2',sans-serif;font-weight:800;font-size:clamp(28px,8.5vw,42px);text-shadow:0 4px 22px rgba(255,160,210,.5);}
+  .title .em{display:inline-block;animation:spin 6s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .soundbtn{position:absolute;top:2px;right:0;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--card-line);background:rgba(255,255,255,.1);color:#fff;font-size:20px;cursor:pointer;transition:.2s;}
+  .soundbtn:hover{background:rgba(255,255,255,.2);}
+  .soundbtn:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+  .nameline{margin-top:8px;font-size:15px;color:var(--soft);display:flex;gap:6px;justify-content:center;align-items:center;flex-wrap:wrap;}
+  .nameline input{font-family:'Mali',sans-serif;font-weight:600;font-size:16px;color:#fff;background:rgba(255,255,255,.12);border:1.5px solid var(--card-line);border-radius:999px;padding:5px 14px;width:150px;text-align:center;outline:none;transition:.2s;}
+  .nameline input::placeholder{color:rgba(255,255,255,.5);font-weight:500;}
+  .nameline input:focus{border-color:var(--star);background:rgba(255,255,255,.18);}
+
+  /* hero */
+  .hero{display:flex;flex-direction:column;align-items:center;margin:22px 0 6px;}
+  .moon{position:relative;width:190px;height:190px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 38% 32%, #fff7e0 0%, #ffe49a 38%, #ffcf63 70%, #f3b13c 100%);
+    box-shadow:0 0 50px 8px rgba(255,212,110,.55), inset -14px -16px 40px rgba(196,120,30,.35);animation:bob 4.5s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  .count{font-family:'Baloo Thai 2',sans-serif;font-weight:800;font-size:80px;color:#6b3a0e;line-height:1;text-shadow:0 2px 0 rgba(255,255,255,.4);}
+  .count.pop{animation:pop .5s cubic-bezier(.2,1.6,.4,1);}
+  @keyframes pop{0%{transform:scale(1);}40%{transform:scale(1.35);}100%{transform:scale(1);}}
+  .orbit{position:absolute;inset:-10px;animation:spin 9s linear infinite;}
+  .orbit-star{position:absolute;top:-6px;left:50%;transform:translateX(-50%);font-size:28px;filter:drop-shadow(0 0 8px var(--star));}
+  .hero-label{margin-top:16px;font-weight:600;font-size:17px;color:var(--soft);}
+  .cluster{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;max-width:330px;margin-top:12px;min-height:22px;}
+  .cluster .s{font-size:19px;filter:drop-shadow(0 0 5px var(--star));animation:tw 2.4s ease-in-out infinite alternate;animation-delay:var(--d,0s);}
+
+  /* section heading */
+  .sec-h{font-family:'Baloo Thai 2',sans-serif;font-weight:700;font-size:20px;margin:26px 0 12px;display:flex;align-items:center;gap:8px;}
+  .sec-h small{font-family:'Mali';font-weight:500;font-size:12px;color:var(--soft);}
+
+  /* tasks */
+  .card{background:var(--card);border:1.5px solid var(--card-line);border-radius:24px;padding:8px 10px;backdrop-filter:blur(8px);}
+  .task{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:18px;cursor:pointer;transition:.18s;}
+  .task:hover{background:rgba(255,255,255,.07);}
+  .task:active{transform:scale(.98);}
+  .tcheck{width:32px;height:32px;border-radius:50%;border:2.5px solid var(--card-line);flex:none;display:flex;align-items:center;justify-content:center;font-size:18px;transition:.25s;}
+  .task.done .tcheck{background:linear-gradient(180deg,#ffe07a,#ffc23c);border-color:#ffc23c;}
+  .temoji{font-size:24px;flex:none;}
+  .tlabel{flex:1;font-weight:600;font-size:17px;}
+  .task.done .tlabel{color:var(--soft);}
+  .plus{font-size:12px;color:var(--soft);flex:none;}
+  .task.done .plus{color:var(--star);font-weight:600;}
+
+  /* rewards */
+  .reward{display:flex;align-items:center;gap:14px;background:var(--card);border:1.5px solid var(--card-line);border-radius:24px;padding:16px 18px;margin-bottom:14px;backdrop-filter:blur(8px);position:relative;overflow:hidden;transition:.35s;}
+  .reward .ic{font-size:44px;flex:none;filter:grayscale(.7) brightness(.8);transition:.4s;width:54px;text-align:center;}
+  .reward .body{flex:1;min-width:0;}
+  .reward .rname{font-family:'Baloo Thai 2',sans-serif;font-weight:700;font-size:18px;word-break:break-word;}
+  .reward .rneed{font-size:13px;color:var(--soft);margin-bottom:9px;}
+  .bar{height:14px;background:rgba(0,0,0,.22);border-radius:999px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--toy-soft),var(--toy));transition:width .6s cubic-bezier(.3,1,.5,1);}
+  .reward .status{font-size:13px;font-weight:600;margin-top:8px;color:var(--soft);}
+  .reward .lock{font-size:22px;flex:none;}
+  .reward.done{border-color:var(--star);box-shadow:0 0 26px rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,215,94,.18),rgba(255,255,255,.06));}
+  .reward.done .ic{filter:none;animation:cheer 1.6s ease-in-out infinite;}
+  @keyframes cheer{0%,100%{transform:rotate(-7deg) scale(1);}50%{transform:rotate(7deg) scale(1.12);}}
+  .reward.done .status{color:#fff;}
+  .empty{color:var(--soft);font-size:14px;text-align:center;padding:14px;}
+
+  /* lock + parent */
+  .lockbar{display:flex;justify-content:center;margin:24px 0 14px;}
+  .lockbtn{font-family:'Mali';font-weight:600;font-size:15px;color:var(--soft);background:rgba(255,255,255,.08);border:1.5px solid var(--card-line);border-radius:999px;padding:10px 22px;cursor:pointer;transition:.2s;}
+  .lockbtn:hover{background:rgba(255,255,255,.16);color:#fff;}
+  .lockbtn:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+  .parent{background:rgba(255,255,255,.05);border:1.5px dashed var(--card-line);border-radius:24px;padding:18px 16px;margin-bottom:18px;}
+  .parent h3{font-family:'Baloo Thai 2';font-weight:700;font-size:16px;margin:18px 0 9px;color:#fff;}
+  .parent h3:first-child{margin-top:2px;}
+  .pbtns{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{font-family:'Baloo Thai 2';font-weight:700;font-size:15px;border:none;border-radius:14px;padding:11px 18px;cursor:pointer;transition:.15s;}
+  .btn-gold{background:linear-gradient(180deg,#ffe07a,#ffc23c);color:#5a2e00;box-shadow:0 5px 0 #d98e1c;}
+  .btn-gold:active{transform:translateY(4px);box-shadow:0 1px 0 #d98e1c;}
+  .btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid var(--card-line);}
+  .btn-ghost:active{transform:translateY(2px);}
+  .btn-danger{background:rgba(255,122,138,.16);color:var(--danger);border:1.5px solid rgba(255,122,138,.4);}
+  .btn:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+  .erow{display:flex;gap:7px;align-items:center;margin-bottom:8px;}
+  .erow input{font-family:'Mali';font-size:15px;color:#fff;background:rgba(255,255,255,.1);border:1.5px solid var(--card-line);border-radius:12px;padding:9px 11px;outline:none;}
+  .erow input:focus{border-color:var(--star);}
+  .erow .ico{width:46px;text-align:center;font-size:18px;padding-left:6px;padding-right:6px;}
+  .erow .nm{flex:1;min-width:0;}
+  .erow .num{width:62px;text-align:center;}
+  .del{flex:none;width:36px;height:38px;border-radius:12px;border:1.5px solid rgba(255,122,138,.4);background:rgba(255,122,138,.12);color:var(--danger);font-size:16px;cursor:pointer;}
+  .add-row{display:flex;gap:7px;margin-top:4px;}
+  .add-row input{flex:1;font-family:'Mali';font-size:15px;color:#fff;background:rgba(255,255,255,.08);border:1.5px solid var(--card-line);border-radius:12px;padding:9px 11px;outline:none;}
+  .add-row input:focus{border-color:var(--star);}
+  .add-row button{flex:none;}
+  .hint{font-size:12.5px;color:var(--soft);margin:4px 0 8px;}
+  .pinrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .pinrow input{width:120px;font-family:'Baloo Thai 2';letter-spacing:6px;text-align:center;font-size:18px;color:#fff;background:rgba(255,255,255,.1);border:1.5px solid var(--card-line);border-radius:12px;padding:9px;outline:none;}
+  .pinrow input:focus{border-color:var(--star);}
+
+  /* celebration + pin modal */
+  .overlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;background:rgba(20,12,50,.55);backdrop-filter:blur(3px);padding:20px;}
+  .overlay.show{display:flex;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;}to{opacity:1;}}
+  .modal{background:linear-gradient(180deg,#3a2a6e,#241a4d);border:2px solid var(--card-line);border-radius:28px;padding:30px 26px;text-align:center;max-width:340px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.5);animation:rise .45s cubic-bezier(.2,1.5,.4,1);}
+  @keyframes rise{from{transform:translateY(40px) scale(.85);opacity:0;}to{transform:none;opacity:1;}}
+  .modal.shake{animation:shake .4s;}
+  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-9px);}40%{transform:translateX(9px);}60%{transform:translateX(-6px);}80%{transform:translateX(6px);}}
+  .cel-emoji{font-size:78px;animation:cheer 1.4s ease-in-out infinite;}
+  .cel-title{font-family:'Baloo Thai 2';font-weight:800;font-size:26px;margin:10px 0 4px;}
+  .cel-sub{font-size:15px;color:var(--soft);margin-bottom:22px;}
+  .modal h4{font-family:'Baloo Thai 2';font-weight:700;font-size:20px;margin-bottom:6px;}
+  .modal p{font-size:14px;color:var(--soft);margin-bottom:16px;}
+  .pin-input{width:160px;letter-spacing:10px;text-align:center;font-size:24px;font-family:'Baloo Thai 2';color:#fff;background:rgba(255,255,255,.12);border:2px solid var(--card-line);border-radius:14px;padding:12px;outline:none;margin-bottom:18px;}
+  .pin-input:focus{border-color:var(--star);}
+  .modal-btns{display:flex;gap:10px;justify-content:center;}
+
+  /* fx */
+  .fx{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden;}
+  .shooter{position:absolute;font-size:32px;filter:drop-shadow(0 0 10px var(--star));}
+  .confetti{position:absolute;width:11px;height:16px;border-radius:3px;top:-20px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001s !important;animation-iteration-count:1 !important;}
+    .moon,.orbit,.title .em{animation:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="sky" id="sky"></div>
+
+<div class="wrap">
+  <div class="head">
+    <button class="soundbtn" id="soundBtn" aria-label="เปิด/ปิดเสียง">🔊</button>
+    <h1 class="title">สะสมดาว <span class="em">⭐</span></h1>
+    <div class="nameline">ดาวของ
+      <input id="name" type="text" maxlength="14" placeholder="ใส่ชื่อหนู" aria-label="ชื่อเด็ก">
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="moon"><span class="count" id="count">0</span><span class="orbit"><span class="orbit-star">⭐</span></span></div>
+    <div class="hero-label">ดวงที่สะสมได้</div>
+    <div class="cluster" id="cluster"></div>
+  </div>
+
+  <div class="sec-h">📋 งานวันนี้ <small id="todayNote"></small></div>
+  <div class="card" id="taskList"></div>
+
+  <div class="sec-h">🎁 รางวัลของหนู</div>
+  <div id="rewardList"></div>
+
+  <div class="lockbar"><button class="lockbtn" id="lockBtn">⚙️ โหมดผู้ปกครอง</button></div>
+
+  <div class="parent" id="parentPanel">
+    <h3>⭐ ให้ดาวพิเศษ</h3>
+    <div class="hint">ใช้ตอนหนูทำดีนอกเหนือรายการงาน</div>
+    <div class="pbtns">
+      <button class="btn btn-gold" id="mAdd">+ ให้ 1 ดาว</button>
+      <button class="btn btn-ghost" id="mRemove">– ลบ 1 ดาว</button>
+    </div>
+
+    <h3>📋 แก้ไขรายการงานประจำวัน</h3>
+    <div class="hint">งานจะรีเซ็ตทุกวัน ให้หนูทำใหม่ได้ทุกเช้า (แก้อิโมจิ/ชื่อได้)</div>
+    <div id="taskEditor"></div>
+    <div class="add-row">
+      <input id="newTask" type="text" maxlength="24" placeholder="เพิ่มงานใหม่ เช่น รดน้ำต้นไม้">
+      <button class="btn btn-ghost" id="addTask">เพิ่ม</button>
+    </div>
+
+    <h3>🎁 แก้ไขรางวัล</h3>
+    <div class="hint">ปรับชื่อรางวัล จำนวนดาว และอิโมจิได้</div>
+    <div id="rewardEditor"></div>
+    <div class="pbtns"><button class="btn btn-ghost" id="addReward">+ เพิ่มรางวัล</button></div>
+
+    <h3>🔒 รหัสผู้ปกครอง</h3>
+    <div class="hint" id="pinStatus"></div>
+    <div class="pinrow">
+      <input id="pinSet" type="password" inputmode="numeric" maxlength="4" placeholder="••••" aria-label="ตั้งรหัส 4 หลัก">
+      <button class="btn btn-gold" id="savePin">บันทึกรหัส</button>
+      <button class="btn btn-danger" id="removePin">ลบรหัส</button>
+    </div>
+
+    <h3>🔄 เริ่มใหม่</h3>
+    <div class="pbtns"><button class="btn btn-danger" id="resetBtn">เริ่มสะสมใหม่ (ลบดาวทั้งหมด)</button></div>
+  </div>
+</div>
+
+<div class="fx" id="fx"></div>
+
+<!-- celebration -->
+<div class="overlay" id="cel">
+  <div class="modal">
+    <div class="cel-emoji" id="celEmoji">🎁</div>
+    <div class="cel-title" id="celTitle">ปลดล็อกแล้ว</div>
+    <div class="cel-sub" id="celSub">หนูเก่งมาก ๆ</div>
+    <button class="btn btn-gold" id="celBtn">เย้! 🎉</button>
+  </div>
+</div>
+
+<!-- pin entry -->
+<div class="overlay" id="pinModal">
+  <div class="modal" id="pinModalBox">
+    <h4>🔒 ใส่รหัสผู้ปกครอง</h4>
+    <p>ใส่รหัส 4 หลักเพื่อเข้าโหมดผู้ปกครอง</p>
+    <input class="pin-input" id="pinEntry" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+    <div class="modal-btns">
+      <button class="btn btn-ghost" id="pinCancel">ยกเลิก</button>
+      <button class="btn btn-gold" id="pinOk">ตกลง</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY='starchart:v2';
+const clone=o=>JSON.parse(JSON.stringify(o));
+const DEFAULT={
+  count:0, name:'',
+  tasks:[
+    {id:'t1',emoji:'🦷',label:'แปรงฟัน'},
+    {id:'t2',emoji:'🧸',label:'เก็บของเล่น'},
+    {id:'t3',emoji:'📚',label:'ทำการบ้าน'},
+    {id:'t4',emoji:'🥦',label:'กินผัก'},
+    {id:'t5',emoji:'🛏️',label:'เก็บที่นอน'}
+  ],
+  rewards:[
+    {id:'r1',icon:'🧸',name:'ของเล่น 1 ชิ้น',threshold:15},
+    {id:'r2',icon:'🏖️',name:'ไปเที่ยวทะเล',threshold:30}
+  ],
+  done:{date:'',ids:[]}, pin:'', sound:true
+};
+let state=clone(DEFAULT);
+let parentUnlocked=false;
+const $=id=>document.getElementById(id);
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* sky */
+(function(){let h='';for(let i=0;i<70;i++){const s=(Math.random()*2.2+1).toFixed(1);
+  h+=`<span class="tw" style="left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;width:${s}px;height:${s}px;--d:${(Math.random()*3+2).toFixed(1)}s;animation-delay:${(Math.random()*3).toFixed(1)}s"></span>`;}
+  $('sky').innerHTML=h;})();
+
+/* storage */
+let saveT;
+function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{window.storage.set(KEY,JSON.stringify(state));}catch(e){console.error(e);}},300);}
+async function load(){try{const r=await window.storage.get(KEY);if(r&&r.value)state=Object.assign(clone(DEFAULT),JSON.parse(r.value));}catch(e){}}
+
+/* sound */
+let actx=null;
+function ensureAudio(){if(!actx){try{actx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}if(actx&&actx.state==='suspended')actx.resume();}
+function note(freq,t0,dur,type,peak){if(!actx)return;const o=actx.createOscillator(),g=actx.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(actx.destination);const now=actx.currentTime+t0;g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(peak||0.16,now+0.015);g.gain.exponentialRampToValueAtTime(0.0001,now+dur);o.start(now);o.stop(now+dur+0.03);}
+function playStar(){if(!state.sound)return;ensureAudio();note(784,0,0.18,'triangle',0.16);note(1175,0.07,0.22,'triangle',0.13);}
+function playUnlock(){if(!state.sound)return;ensureAudio();[523,659,784,1047].forEach((f,i)=>note(f,i*0.11,0.32,'triangle',0.16));note(1568,0.5,0.5,'sine',0.1);}
+
+/* date */
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function ensureDay(){const t=todayStr();if(state.done.date!==t){state.done.date=t;state.done.ids=[];}}
+
+/* fx */
+function shootingStar(){if(reduce)return;const s=document.createElement('div');s.className='shooter';s.textContent='🌟';const sx=window.innerWidth+40,sy=Math.random()*window.innerHeight*0.4+20;$('fx').appendChild(s);s.style.left=sx+'px';s.style.top=sy+'px';s.animate([{transform:'translate(0,0) rotate(0)',opacity:0},{opacity:1,offset:.15},{transform:`translate(${-sx-60}px,${window.innerHeight*0.5}px) rotate(40deg)`,opacity:0}],{duration:900,easing:'ease-in'}).onfinish=()=>s.remove();}
+function confetti(){if(reduce)return;const cs=['#FFD75E','#FF6FA5','#2FD3D3','#fff','#b08aff','#ff9ed0'];for(let i=0;i<60;i++){const p=document.createElement('div');p.className='confetti';p.style.left=(Math.random()*100)+'%';p.style.background=cs[i%cs.length];p.style.borderRadius=Math.random()<.3?'50%':'3px';$('fx').appendChild(p);p.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${Math.random()*200-100}px,${window.innerHeight+60}px) rotate(${Math.random()*720}deg)`,opacity:.9}],{duration:1800+Math.random()*1200,easing:'cubic-bezier(.2,.6,.4,1)'}).onfinish=()=>p.remove();}}
+function popCount(){const c=$('count');c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');}
+
+/* celebrate */
+function celebrate(r){$('celEmoji').textContent=r.icon||'🎉';$('celTitle').textContent='ได้'+r.name+'แล้ว!';$('celSub').textContent='สะสมครบ '+r.threshold+' ดวง เก่งมาก ๆ 🎉';$('cel').classList.add('show');confetti();setTimeout(confetti,400);setTimeout(confetti,900);}
+
+/* core */
+function applyCount(n){const prev=state.count;state.count=Math.max(0,n);save();renderDisplay();popCount();
+  if(state.count>prev){playStar();shootingStar();
+    const crossed=state.rewards.filter(r=>prev<r.threshold&&state.count>=r.threshold).sort((a,b)=>a.threshold-b.threshold);
+    if(crossed.length){celebrate(crossed[crossed.length-1]);playUnlock();}
+  }
+}
+function toggleTask(id){ensureDay();const i=state.done.ids.indexOf(id);if(i===-1){state.done.ids.push(id);applyCount(state.count+1);}else{state.done.ids.splice(i,1);applyCount(state.count-1);}}
+
+/* render: display parts (safe to call often) */
+function renderCluster(){let h='';for(let i=0;i<state.count;i++)h+=`<span class="s" style="--d:${(Math.random()*2).toFixed(1)}s">⭐</span>`;$('cluster').innerHTML=h;}
+function renderTasksDisplay(){ensureDay();const done=state.done.ids;
+  $('taskList').innerHTML=state.tasks.map(t=>{const d=done.includes(t.id);
+    return `<div class="task ${d?'done':''}" data-id="${t.id}"><div class="tcheck">${d?'⭐':''}</div><div class="temoji">${t.emoji||'🌟'}</div><div class="tlabel">${esc(t.label)}</div><div class="plus">${d?'+1 ⭐':'แตะ'}</div></div>`;
+  }).join('')||'<div class="empty">ยังไม่มีรายการงาน — เพิ่มได้ในโหมดผู้ปกครอง</div>';
+  $('taskList').querySelectorAll('.task').forEach(el=>el.addEventListener('click',()=>toggleTask(el.dataset.id)));
+  const left=state.tasks.length-done.length;
+  $('todayNote').textContent=state.tasks.length?(left>0?'เหลืออีก '+left+' งาน':'ครบแล้ว เก่งมาก! 🎉'):'';
+}
+function renderRewardsDisplay(){const list=[...state.rewards].sort((a,b)=>a.threshold-b.threshold);
+  $('rewardList').innerHTML=list.map(r=>{const prog=Math.min(state.count,r.threshold);const pct=r.threshold>0?prog/r.threshold*100:100;const done=state.count>=r.threshold;
+    return `<div class="reward ${done?'done':''}"><div class="ic">${r.icon||'🎁'}</div><div class="body"><div class="rname">${esc(r.name)}</div><div class="rneed">สะสมครบ ${r.threshold} ดวง</div><div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div><div class="status">${done?'ปลดล็อกแล้ว! เย้ 🎉':'อีก '+(r.threshold-state.count)+' ดวง ('+prog+'/'+r.threshold+')'}</div></div><div class="lock">${done?'✅':'🔒'}</div></div>`;
+  }).join('')||'<div class="empty">ยังไม่มีรางวัล — เพิ่มได้ในโหมดผู้ปกครอง</div>';
+}
+function renderDisplay(){$('count').textContent=state.count;$('name').value=state.name||'';renderCluster();renderTasksDisplay();renderRewardsDisplay();}
+
+/* render: parent panel */
+function isLocked(){return !!state.pin && !parentUnlocked;}
+function renderTaskEditor(){
+  $('taskEditor').innerHTML=state.tasks.map(t=>`<div class="erow" data-id="${t.id}"><input class="ico te-emoji" maxlength="2" value="${esc(t.emoji)}"><input class="nm te-label" maxlength="24" value="${esc(t.label)}"><button class="del" aria-label="ลบ">✕</button></div>`).join('');
+  $('taskEditor').querySelectorAll('.erow').forEach(row=>{const id=row.dataset.id;
+    row.querySelector('.te-emoji').addEventListener('input',e=>{const t=state.tasks.find(x=>x.id===id);if(t){t.emoji=e.target.value;save();renderTasksDisplay();}});
+    row.querySelector('.te-label').addEventListener('input',e=>{const t=state.tasks.find(x=>x.id===id);if(t){t.label=e.target.value;save();renderTasksDisplay();}});
+    row.querySelector('.del').addEventListener('click',()=>{state.tasks=state.tasks.filter(x=>x.id!==id);state.done.ids=state.done.ids.filter(x=>x!==id);save();renderTaskEditor();renderTasksDisplay();});
+  });
+}
+function renderRewardEditor(){
+  $('rewardEditor').innerHTML=state.rewards.map(r=>`<div class="erow" data-id="${r.id}"><input class="ico re-icon" maxlength="2" value="${esc(r.icon)}"><input class="nm re-name" maxlength="28" value="${esc(r.name)}"><input class="num re-th" type="number" min="1" value="${r.threshold}"><button class="del" aria-label="ลบ">✕</button></div>`).join('');
+  $('rewardEditor').querySelectorAll('.erow').forEach(row=>{const id=row.dataset.id;
+    row.querySelector('.re-icon').addEventListener('input',e=>{const r=state.rewards.find(x=>x.id===id);if(r){r.icon=e.target.value;save();renderRewardsDisplay();}});
+    row.querySelector('.re-name').addEventListener('input',e=>{const r=state.rewards.find(x=>x.id===id);if(r){r.name=e.target.value;save();renderRewardsDisplay();}});
+    row.querySelector('.re-th').addEventListener('input',e=>{const r=state.rewards.find(x=>x.id===id);if(r){r.threshold=Math.max(1,parseInt(e.target.value)||1);save();renderRewardsDisplay();}});
+    row.querySelector('.del').addEventListener('click',()=>{state.rewards=state.rewards.filter(x=>x.id!==id);save();renderRewardEditor();renderRewardsDisplay();});
+  });
+}
+function updatePinUI(){$('pinStatus').textContent=state.pin?'ตั้งรหัสไว้แล้ว — เด็กต้องใส่รหัสจึงเข้าโหมดนี้ได้':'ยังไม่ได้ตั้งรหัส (ใครก็เข้าโหมดผู้ปกครองได้)';$('removePin').style.display=state.pin?'inline-block':'none';}
+function renderParent(){
+  const locked=isLocked();
+  $('parentPanel').style.display=locked?'none':'block';
+  $('lockBtn').textContent=state.pin?(parentUnlocked?'🔓 ออกจากโหมดผู้ปกครอง':'🔒 โหมดผู้ปกครอง (ใส่รหัส)'):'⚙️ โหมดผู้ปกครอง';
+  if(!locked){renderTaskEditor();renderRewardEditor();updatePinUI();}
+}
+function render(){renderDisplay();renderParent();$('soundBtn').textContent=state.sound?'🔊':'🔇';}
+
+/* pin modal */
+function openPin(){$('pinEntry').value='';$('pinModal').classList.add('show');setTimeout(()=>$('pinEntry').focus(),50);}
+function closePin(){$('pinModal').classList.remove('show');}
+function submitPin(){if($('pinEntry').value===state.pin){parentUnlocked=true;closePin();render();}else{const b=$('pinModalBox');b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400);$('pinEntry').value='';}}
+
+/* events */
+$('soundBtn').addEventListener('click',()=>{state.sound=!state.sound;ensureAudio();if(state.sound)playStar();save();$('soundBtn').textContent=state.sound?'🔊':'🔇';});
+$('name').addEventListener('input',e=>{state.name=e.target.value;save();});
+$('mAdd').addEventListener('click',()=>applyCount(state.count+1));
+$('mRemove').addEventListener('click',()=>applyCount(state.count-1));
+$('addTask').addEventListener('click',()=>{const v=$('newTask').value.trim();if(!v)return;state.tasks.push({id:uid(),emoji:'🌟',label:v});$('newTask').value='';save();renderTaskEditor();renderTasksDisplay();});
+$('newTask').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').click();});
+$('addReward').addEventListener('click',()=>{const mx=Math.max(0,...state.rewards.map(r=>r.threshold));state.rewards.push({id:uid(),icon:'🎁',name:'รางวัลใหม่',threshold:mx+15});save();renderRewardEditor();renderRewardsDisplay();});
+$('savePin').addEventListener('click',()=>{const v=$('pinSet').value;if(/^\d{4}$/.test(v)){state.pin=v;$('pinSet').value='';save();updatePinUI();render();}else{$('pinStatus').textContent='⚠️ รหัสต้องเป็นตัวเลข 4 หลัก';}});
+$('removePin').addEventListener('click',()=>{state.pin='';parentUnlocked=true;save();updatePinUI();render();});
+$('lockBtn').addEventListener('click',()=>{if(state.pin){if(parentUnlocked){parentUnlocked=false;render();}else openPin();}else{parentUnlocked=true;render();$('pinSet')&&$('pinSet').focus();}});
+$('pinOk').addEventListener('click',submitPin);
+$('pinCancel').addEventListener('click',closePin);
+$('pinEntry').addEventListener('keydown',e=>{if(e.key==='Enter')submitPin();});
+$('pinModal').addEventListener('click',e=>{if(e.target===$('pinModal'))closePin();});
+$('celBtn').addEventListener('click',()=>$('cel').classList.remove('show'));
+$('cel').addEventListener('click',e=>{if(e.target===$('cel'))$('cel').classList.remove('show');});
+
+let resetArmed=false,resetT;
+$('resetBtn').addEventListener('click',()=>{
+  if(!resetArmed){resetArmed=true;$('resetBtn').textContent='แตะอีกครั้งเพื่อยืนยัน';resetT=setTimeout(()=>{resetArmed=false;$('resetBtn').textContent='เริ่มสะสมใหม่ (ลบดาวทั้งหมด)';},3000);return;}
+  clearTimeout(resetT);resetArmed=false;$('resetBtn').textContent='เริ่มสะสมใหม่ (ลบดาวทั้งหมด)';
+  state.count=0;state.done.ids=[];save();render();
+});
+
+/* init */
+(async()=>{await load();ensureDay();if(state.pin)parentUnlocked=false;render();})();
+</script>
+</body>
+</html>
