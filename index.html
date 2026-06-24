@@ -30,9 +30,7 @@
   @keyframes riseIn{from{opacity:0;transform:translateY(26px) scale(.97);}to{opacity:1;transform:none;}}
   .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px;}
   .profile-chip{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.1);border:1.5px solid var(--card-line);border-radius:999px;padding:6px 13px 6px 8px;color:#fff;font-family:'Mali';font-weight:600;font-size:14px;cursor:pointer;transition:.2s;max-width:70%;}
-  .profile-chip:hover{background:rgba(255,255,255,.2);}
-  .profile-chip .av{font-size:21px;}
-  .profile-chip .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .profile-chip:hover{background:rgba(255,255,255,.2);}.profile-chip .av{font-size:21px;}.profile-chip .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .soundbtn{width:42px;height:42px;flex:none;border-radius:50%;border:1.5px solid var(--card-line);background:rgba(255,255,255,.1);color:#fff;font-size:20px;cursor:pointer;transition:.2s;}
   .soundbtn:hover{background:rgba(255,255,255,.2);transform:scale(1.08);}
   .head{text-align:center;}
@@ -56,7 +54,7 @@
   .hero-label{margin-top:16px;font-weight:600;font-size:17px;color:var(--soft);}
   .cluster{display:flex;flex-wrap:wrap;justify-content:center;gap:5px;max-width:330px;margin-top:12px;min-height:22px;}
   .cluster .s{font-size:19px;filter:drop-shadow(0 0 5px var(--star));animation:tw 2.4s ease-in-out infinite alternate;animation-delay:var(--d,0s);}
-  .sec-h{font-family:'Baloo Thai 2',sans-serif;font-weight:700;font-size:20px;margin:26px 0 12px;display:flex;align-items:center;gap:8px;}
+  .sec-h{font-family:'Baloo Thai 2',sans-serif;font-weight:700;font-size:20px;margin:26px 0 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .sec-h small{font-family:'Mali';font-weight:500;font-size:12px;color:var(--soft);}
   .card{background:var(--card);border:1.5px solid var(--card-line);border-radius:24px;padding:8px 10px;backdrop-filter:blur(8px);}
   .task{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:18px;cursor:pointer;transition:transform .15s,background .18s;}
@@ -67,6 +65,10 @@
   .tlabel{flex:1;font-weight:600;font-size:17px;}
   .task.done .tlabel{color:var(--soft);}
   .plus{font-size:12px;color:var(--soft);flex:none;}.task.done .plus{color:var(--star);font-weight:600;}
+  .task.co.pending{background:rgba(255,215,94,.14);border:1px solid rgba(255,215,94,.4);}
+  .task.co.done .tlabel{color:var(--soft);}
+  .plus.done{color:var(--star);font-weight:700;}
+  .co-confirm{font-family:'Baloo Thai 2';font-weight:700;font-size:13px;color:#5a2e00;background:linear-gradient(180deg,#ffe07a,#ffc23c);border:none;border-radius:10px;padding:7px 12px;cursor:pointer;flex:none;}
   .reward{display:flex;align-items:center;gap:14px;background:var(--card);border:1.5px solid var(--card-line);border-radius:24px;padding:16px 18px;margin-bottom:14px;backdrop-filter:blur(8px);position:relative;overflow:hidden;transition:.4s;}
   .reward:hover{transform:translateY(-2px);}
   .reward .ic{font-size:44px;flex:none;filter:grayscale(.7) brightness(.8);transition:.4s;width:54px;text-align:center;}
@@ -91,6 +93,19 @@
   .react{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 6px;border-radius:20px;background:var(--card);border:1.5px solid var(--card-line);cursor:pointer;transition:.15s;font-family:'Mali';}
   .react:hover{background:rgba(255,255,255,.16);transform:translateY(-3px);}.react:active{transform:scale(.93);}
   .react .re{font-size:32px;}.react .rl{font-size:13px;color:var(--soft);font-weight:600;}
+  /* wheel */
+  .wheel-wrap{position:relative;width:min(280px,80vw);margin:0 auto 14px;}
+  .wheel-wrap svg{width:100%;height:auto;display:block;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35));transform-origin:50% 50%;}
+  .wheel-pointer{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:30px;color:#fff;z-index:2;filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));}
+  /* calendar */
+  .cal-month{text-align:center;font-family:'Baloo Thai 2';font-weight:700;margin-bottom:8px;}
+  .cal-head{display:flex;justify-content:center;gap:16px;margin-bottom:10px;font-weight:600;color:var(--soft);}
+  .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;background:var(--card);border:1.5px solid var(--card-line);border-radius:20px;padding:12px;}
+  .cal-dow{text-align:center;font-size:12px;color:var(--soft);font-weight:600;padding-bottom:2px;}
+  .cal-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:14px;color:var(--soft);}
+  .cal-cell.empty{visibility:hidden;}
+  .cal-cell.has{background:rgba(255,215,94,.22);color:#fff;}
+  .cal-cell.today{border:2px solid var(--star);color:#fff;font-weight:700;}
   .lockbar{display:flex;justify-content:center;margin:24px 0 14px;}
   .lockbtn{font-family:'Mali';font-weight:600;font-size:15px;color:var(--soft);background:rgba(255,255,255,.08);border:1.5px solid var(--card-line);border-radius:999px;padding:10px 22px;cursor:pointer;transition:.2s;}
   .lockbtn:hover{background:rgba(255,255,255,.16);color:#fff;}
@@ -101,6 +116,7 @@
   .btn{font-family:'Baloo Thai 2';font-weight:700;font-size:15px;border:none;border-radius:14px;padding:11px 18px;cursor:pointer;transition:.15s;}
   .btn-gold{background:linear-gradient(180deg,#ffe07a,#ffc23c);color:#5a2e00;box-shadow:0 5px 0 #d98e1c;}
   .btn-gold:active{transform:translateY(4px);box-shadow:0 1px 0 #d98e1c;}
+  .btn-gold:disabled{opacity:.5;box-shadow:none;cursor:not-allowed;}
   .btn-ghost{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid var(--card-line);}
   .btn-ghost:active{transform:translateY(2px);}
   .btn-danger{background:rgba(255,122,138,.16);color:var(--danger);border:1.5px solid rgba(255,122,138,.4);}
@@ -109,7 +125,7 @@
   .erow input:focus{border-color:var(--star);}
   .erow .ico{width:46px;text-align:center;font-size:18px;}
   .erow .nm{flex:1;min-width:0;}
-  .erow .num{width:62px;text-align:center;}
+  .erow .num{width:58px;text-align:center;}
   .del{flex:none;width:36px;height:38px;border-radius:12px;border:1.5px solid rgba(255,122,138,.4);background:rgba(255,122,138,.12);color:var(--danger);font-size:16px;cursor:pointer;}
   .add-row{display:flex;gap:7px;margin-top:4px;}
   .add-row input{flex:1;font-family:'Mali';font-size:15px;color:#fff;background:rgba(255,255,255,.08);border:1.5px solid var(--card-line);border-radius:12px;padding:9px 11px;outline:none;}
@@ -131,7 +147,7 @@
   .cel-rays{position:absolute;top:14px;left:50%;width:240px;height:240px;transform:translateX(-50%);background:conic-gradient(from 0deg,rgba(255,215,120,0) 0deg,rgba(255,215,120,.35) 18deg,rgba(255,215,120,0) 36deg,rgba(255,215,120,.35) 54deg,rgba(255,215,120,0) 72deg,rgba(255,215,120,.35) 90deg,rgba(255,215,120,0) 108deg,rgba(255,215,120,.35) 126deg,rgba(255,215,120,0) 144deg,rgba(255,215,120,.35) 162deg,rgba(255,215,120,0) 180deg,rgba(255,215,120,.35) 198deg,rgba(255,215,120,0) 216deg,rgba(255,215,120,.35) 234deg,rgba(255,215,120,0) 252deg,rgba(255,215,120,.35) 270deg,rgba(255,215,120,0) 288deg,rgba(255,215,120,.35) 306deg,rgba(255,215,120,0) 324deg,rgba(255,215,120,.35) 342deg,rgba(255,215,120,0) 360deg);border-radius:50%;animation:spin 9s linear infinite;mask:radial-gradient(circle,transparent 36%,#000 38%);-webkit-mask:radial-gradient(circle,transparent 36%,#000 38%);pointer-events:none;}
   .cel-emoji{position:relative;font-size:80px;animation:popper .6s cubic-bezier(.2,1.7,.4,1),cheer 1.5s ease-in-out .6s infinite;}
   @keyframes popper{from{transform:scale(0) rotate(-30deg);}to{transform:scale(1) rotate(0);}}
-  .cel-title{position:relative;font-family:'Baloo Thai 2';font-weight:800;font-size:26px;margin:10px 0 4px;}
+  .cel-title{position:relative;font-family:'Baloo Thai 2';font-weight:800;font-size:24px;margin:10px 0 4px;}
   .cel-sub{position:relative;font-size:15px;color:var(--soft);margin-bottom:22px;}
   .modal h4{font-family:'Baloo Thai 2';font-weight:700;font-size:22px;margin-bottom:6px;position:relative;}
   .modal p{font-size:14px;color:var(--soft);margin-bottom:16px;position:relative;}
@@ -150,14 +166,17 @@
   .pitem .pnm{flex:1;text-align:left;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .pitem .pct{font-size:13px;color:var(--soft);}
   .pitem .pdel{width:32px;height:32px;flex:none;border-radius:9px;border:1.5px solid rgba(255,122,138,.4);background:rgba(255,122,138,.12);color:var(--danger);cursor:pointer;font-size:13px;}
-  .tabs{display:flex;gap:6px;margin-bottom:14px;background:rgba(255,255,255,.06);border-radius:14px;padding:4px;position:relative;}
+  .tabs{display:flex;gap:6px;margin-bottom:14px;background:rgba(255,255,255,.06);border-radius:14px;padding:4px;}
   .tab{flex:1;font-family:'Baloo Thai 2';font-weight:700;font-size:15px;border:none;background:transparent;color:var(--soft);padding:9px;border-radius:11px;cursor:pointer;transition:.2s;}
   .tab.active{background:linear-gradient(180deg,#ffe07a,#ffc23c);color:#5a2e00;}
   .auth-err{color:var(--danger);font-size:13px;min-height:18px;margin:2px 0 8px;font-weight:600;}
   .auth-note{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:14px;line-height:1.5;position:relative;}
   .acct-bar{display:flex;align-items:center;gap:8px;justify-content:center;font-size:13px;color:var(--soft);margin-bottom:14px;flex-wrap:wrap;}
   .acct-bar b{color:#fff;}.acct-bar .btn{padding:7px 14px;font-size:13px;}
-  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:rgba(20,12,50,.94);border:1.5px solid var(--card-line);color:#fff;font-weight:600;font-size:15px;padding:11px 20px;border-radius:999px;z-index:90;opacity:0;transition:.3s;pointer-events:none;}
+  .box-emoji{font-size:90px;animation:boxshake 1s ease-in-out infinite;display:inline-block;}
+  @keyframes boxshake{0%,100%{transform:rotate(-6deg) scale(1);}50%{transform:rotate(6deg) scale(1.06);}}
+  .box-result{font-family:'Baloo Thai 2';font-weight:800;font-size:22px;margin:8px 0 18px;min-height:26px;}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:rgba(20,12,50,.94);border:1.5px solid var(--card-line);color:#fff;font-weight:600;font-size:15px;padding:11px 20px;border-radius:999px;z-index:90;opacity:0;transition:.3s;pointer-events:none;max-width:90%;text-align:center;}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
   .fx{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden;}
   .shooter{position:absolute;font-size:30px;filter:drop-shadow(0 0 12px var(--star));}
@@ -165,7 +184,7 @@
   .spark{position:absolute;font-size:18px;color:#fff7d0;filter:drop-shadow(0 0 6px var(--star));will-change:transform;}
   .confetti{position:absolute;top:-20px;font-size:16px;will-change:transform;}
   .fw{position:absolute;width:8px;height:8px;border-radius:50%;will-change:transform;}
-  @media (prefers-reduced-motion: reduce){*{animation-duration:.001s !important;animation-iteration-count:1 !important;}.moon-wrap,.orbit,.title .em,.aurora span,.bar-fill::after,.reward.done::before,.cel-rays{animation:none !important;}}
+  @media (prefers-reduced-motion: reduce){*{animation-duration:.001s !important;animation-iteration-count:1 !important;}.moon-wrap,.orbit,.title .em,.aurora span,.bar-fill::after,.reward.done::before,.cel-rays,.box-emoji{animation:none !important;}}
 </style>
 </head>
 <body>
@@ -174,10 +193,7 @@
 
 <div class="wrap" id="wrap" style="visibility:hidden">
   <div class="head reveal" style="animation-delay:.05s">
-    <div class="topbar">
-      <button class="profile-chip" id="profileChip"><span class="av" id="chipAv">🐻</span><span class="nm" id="chipName">หนู</span><span>▾</span></button>
-      <button class="soundbtn" id="soundBtn" aria-label="เปิด/ปิดเสียง">🔊</button>
-    </div>
+    <div class="topbar"><button class="profile-chip" id="profileChip"><span class="av" id="chipAv">🐻</span><span class="nm" id="chipName">หนู</span><span>▾</span></button><button class="soundbtn" id="soundBtn" aria-label="เสียง">🔊</button></div>
     <h1 class="title">สะสมดาว <span class="em">⭐</span></h1>
     <div class="hero-name" id="heroName">ดาวของหนู</div>
     <div class="note-banner" id="noteBanner" style="display:none"></div>
@@ -187,27 +203,26 @@
     <div class="hero-label">ดวงที่สะสมได้</div>
     <div class="cluster" id="cluster"></div>
   </div>
-  <div class="reveal" style="animation-delay:.27s"><div class="sec-h">📋 งานวันนี้ <small id="todayNote"></small></div><div class="card" id="taskList"></div></div>
-  <div class="reveal" style="animation-delay:.36s"><div class="sec-h">🎁 รางวัลของหนู</div><div id="rewardList"></div></div>
-  <div class="reveal" style="animation-delay:.45s"><div class="sec-h">💖 ส่งใจให้พ่อแม่ <small>แตะเพื่อส่งให้พ่อแม่</small></div><div class="react-grid" id="reactGrid"></div></div>
-  <div class="lockbar reveal" style="animation-delay:.54s"><button class="lockbtn" id="lockBtn">⚙️ โหมดผู้ปกครอง</button></div>
+  <div class="reveal" style="animation-delay:.25s"><div class="sec-h">📋 งานวันนี้ <small id="todayNote"></small></div><div class="card" id="taskList"></div></div>
+  <div class="reveal" style="animation-delay:.32s"><div class="sec-h">🤝 ภารกิจคู่กับพ่อแม่ <small>ทำด้วยกัน พ่อแม่กดยืนยัน</small></div><div class="card" id="coList"></div></div>
+  <div class="reveal" style="animation-delay:.39s"><div class="sec-h">🎁 รางวัลของหนู</div><div id="rewardList"></div></div>
+  <div class="reveal" style="animation-delay:.46s"><div class="sec-h">🎡 วงล้อกิจกรรมครอบครัว <small id="wheelCostNote"></small></div><div class="wheel-wrap"><div class="wheel-pointer">🔻</div><svg id="wheelSvg" viewBox="0 0 200 200"></svg></div><div class="pbtns" style="justify-content:center"><button class="btn btn-gold" id="spinBtn">หมุนวงล้อ</button></div></div>
+  <div class="reveal" style="animation-delay:.53s"><div class="sec-h">📅 ปฏิทินดาว</div><div class="cal-month" id="calMonth"></div><div class="cal-head"><span id="streakNow">🔥 0 วัน</span><span id="streakBest">🏆 สูงสุด 0</span></div><div class="cal" id="cal"></div></div>
+  <div class="reveal" style="animation-delay:.6s"><div class="sec-h">💖 ส่งใจให้พ่อแม่ <small>แตะเพื่อส่งให้พ่อแม่</small></div><div class="react-grid" id="reactGrid"></div></div>
+  <div class="lockbar reveal" style="animation-delay:.67s"><button class="lockbtn" id="lockBtn">⚙️ โหมดผู้ปกครอง</button></div>
   <div class="parent" id="parentPanel">
     <h3>👤 โปรไฟล์นี้</h3><div class="hint">เปลี่ยนตัวการ์ตูนและชื่อได้</div>
     <div class="erow"><input class="ico" id="profAvatar" maxlength="2"><input class="nm" id="profName" maxlength="14" placeholder="ชื่อหนู"></div>
     <h3>💌 ข้อความจากหนู</h3><div class="rlog" id="reactLog"></div><div class="pbtns"><button class="btn btn-ghost" id="clearReact">ล้างข้อความ</button></div>
-    <h3>📣 ฝากข้อความถึงหนู</h3><div class="hint">ข้อความนี้จะโชว์ให้หนูเห็นด้านบนสุด</div>
+    <h3>📣 ฝากข้อความถึงหนู</h3><div class="hint">โชว์ให้หนูเห็นด้านบนสุด</div>
     <div class="add-row"><input id="noteInput" maxlength="60" placeholder="เช่น เก่งมากลูก รักนะ ❤️"><button class="btn btn-gold" id="saveNote">บันทึก</button></div>
     <div class="pbtns" style="margin-top:8px"><button class="btn btn-ghost" id="clearNote">ลบข้อความ</button></div>
-    <h3>⭐ ให้ดาวพิเศษ</h3><div class="hint">ใช้ตอนหนูทำดีนอกเหนือรายการงาน</div>
-    <div class="pbtns"><button class="btn btn-gold" id="mAdd">+ ให้ 1 ดาว</button><button class="btn btn-ghost" id="mRemove">– ลบ 1 ดาว</button></div>
-    <h3>📋 แก้ไขรายการงานประจำวัน</h3><div class="hint">งานจะรีเซ็ตทุกวัน ให้หนูทำใหม่ได้ทุกเช้า</div>
-    <div id="taskEditor"></div>
-    <div class="add-row"><input id="newTask" type="text" maxlength="24" placeholder="เพิ่มงานใหม่ เช่น รดน้ำต้นไม้"><button class="btn btn-ghost" id="addTask">เพิ่ม</button></div>
-    <h3>🎁 แก้ไขรางวัล</h3><div class="hint">ปรับชื่อรางวัล จำนวนดาว และอิโมจิได้</div>
-    <div id="rewardEditor"></div>
-    <div class="pbtns"><button class="btn btn-ghost" id="addReward">+ เพิ่มรางวัล</button></div>
-    <h3>🔒 รหัสล็อกโหมดผู้ปกครอง</h3><div class="hint" id="pinStatus"></div>
-    <div class="pinrow"><input id="pinSet" type="password" inputmode="numeric" maxlength="4" placeholder="••••"><button class="btn btn-gold" id="savePin">บันทึกรหัส</button><button class="btn btn-danger" id="removePin">ลบรหัส</button></div>
+    <h3>⭐ ให้ดาวพิเศษ</h3><div class="pbtns"><button class="btn btn-gold" id="mAdd">+ ให้ 1 ดาว</button><button class="btn btn-ghost" id="mRemove">– ลบ 1 ดาว</button></div>
+    <h3>📋 แก้ไขงานประจำวัน</h3><div id="taskEditor"></div><div class="add-row"><input id="newTask" maxlength="24" placeholder="เพิ่มงานใหม่"><button class="btn btn-ghost" id="addTask">เพิ่ม</button></div>
+    <h3>🤝 แก้ไขภารกิจคู่</h3><div class="hint">อิโมจิ · ชื่อ · ดาวโบนัส</div><div id="coEditor"></div><div class="add-row"><input id="newCo" maxlength="24" placeholder="เพิ่มภารกิจคู่ใหม่"><button class="btn btn-ghost" id="addCo">เพิ่ม</button></div>
+    <h3>🎡 แก้ไขวงล้อกิจกรรม</h3><div class="erow"><span class="hint" style="margin:0">หมุน 1 ครั้งใช้</span><input class="num" id="wheelCostInput" type="number" min="1"><span class="hint" style="margin:0">⭐</span></div><div id="wheelEditor"></div><div class="add-row"><input id="newWheel" maxlength="24" placeholder="เพิ่มกิจกรรมใหม่"><button class="btn btn-ghost" id="addWheel">เพิ่ม</button></div>
+    <h3>🎁 แก้ไขรางวัล</h3><div id="rewardEditor"></div><div class="pbtns"><button class="btn btn-ghost" id="addReward">+ เพิ่มรางวัล</button></div>
+    <h3>🔒 รหัสล็อกโหมดผู้ปกครอง</h3><div class="hint" id="pinStatus"></div><div class="pinrow"><input id="pinSet" type="password" inputmode="numeric" maxlength="4" placeholder="••••"><button class="btn btn-gold" id="savePin">บันทึกรหัส</button><button class="btn btn-danger" id="removePin">ลบรหัส</button></div>
     <h3>🔄 เริ่มใหม่</h3><div class="pbtns"><button class="btn btn-danger" id="resetBtn">เริ่มสะสมใหม่ (ลบดาวทั้งหมด)</button></div>
   </div>
 </div>
@@ -216,33 +231,28 @@
 <div class="toast" id="toast"></div>
 
 <div class="overlay" id="cel"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji" id="celEmoji">🎁</div><div class="cel-title" id="celTitle">ปลดล็อกแล้ว</div><div class="cel-sub" id="celSub">หนูเก่งมาก ๆ</div><button class="btn btn-gold" id="celBtn" style="position:relative">เย้! 🎉</button></div></div>
-<div class="overlay" id="pinModal"><div class="modal" id="pinModalBox"><h4>🔒 ใส่รหัสผู้ปกครอง</h4><p>ใส่รหัส 4 หลักเพื่อเข้าโหมดผู้ปกครอง</p><input class="pin-input" id="pinEntry" type="password" inputmode="numeric" maxlength="4" placeholder="••••"><div class="modal-btns"><button class="btn btn-ghost" id="pinCancel">ยกเลิก</button><button class="btn btn-gold" id="pinOk">ตกลง</button></div></div></div>
-
+<div class="overlay" id="wheelRes"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji" id="wrEmoji">🎡</div><div class="cel-title" id="wrTitle"></div><div class="cel-sub" id="wrSub"></div><button class="btn btn-gold" id="wrBtn" style="position:relative">ไปเล่นกัน! 🎉</button></div></div>
+<div class="overlay" id="surprise"><div class="modal"><div class="cel-rays"></div><h4>🎁 กล่องเซอร์ไพรส์!</h4><p>เปิดกับพ่อแม่กันเลย</p><div class="box-emoji" id="boxInner">🎁</div><div class="box-result" id="boxResult"></div><button class="btn btn-gold" id="boxBtn" style="position:relative">เปิดกล่อง! ✨</button></div></div>
+<div class="overlay" id="pinModal"><div class="modal" id="pinModalBox"><h4>🔒 ใส่รหัสผู้ปกครอง</h4><p>ใส่รหัส 4 หลัก</p><input class="pin-input" id="pinEntry" type="password" inputmode="numeric" maxlength="4" placeholder="••••"><div class="modal-btns"><button class="btn btn-ghost" id="pinCancel">ยกเลิก</button><button class="btn btn-gold" id="pinOk">ตกลง</button></div></div></div>
 <div class="overlay" id="welcome" style="z-index:75"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">🌟</div><h4>เพิ่มเด็กคนใหม่</h4><p>เลือกตัวการ์ตูนแล้วใส่ชื่อ</p><div class="av-grid" id="avGrid"></div><input class="welcome-input" id="welcomeName" maxlength="14" placeholder="ใส่ชื่อหนู"><div class="modal-btns"><button class="btn btn-ghost" id="welcomeCancel" style="display:none">ยกเลิก</button><button class="btn btn-gold" id="welcomeGo">เริ่มเลย ✨</button></div></div></div>
-
 <div class="overlay" id="profilesOverlay" style="z-index:75"><div class="modal"><h4>👨‍👩‍👧 ใครจะเล่นดี?</h4><div class="acct-bar">บัญชี: <b id="acctName">@user</b><button class="btn btn-ghost" id="signOut">ออกจากระบบ</button></div><div class="plist" id="plist"></div><div class="modal-btns"><button class="btn btn-ghost" id="profClose">ปิด</button><button class="btn btn-gold" id="addProfile">+ เพิ่มเด็ก</button></div></div></div>
-
-<div class="overlay show" id="auth" style="z-index:80"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">⭐</div><h4 id="authTitle">เข้าสู่ระบบ</h4><p>สะสมดาวของครอบครัว</p>
-  <div class="tabs"><button class="tab active" id="tabLogin">เข้าสู่ระบบ</button><button class="tab" id="tabReg">สมัครสมาชิก</button></div>
-  <input class="welcome-input" id="authUser" placeholder="ชื่อผู้ใช้" autocomplete="username">
-  <input class="welcome-input" id="authPass" type="password" placeholder="รหัสผ่าน" autocomplete="current-password">
-  <input class="welcome-input" id="authPass2" type="password" placeholder="ยืนยันรหัสผ่าน" style="display:none">
-  <div class="auth-err" id="authErr"></div>
-  <button class="btn btn-gold" id="authGo" style="width:100%">เข้าสู่ระบบ</button>
-  <div class="auth-note">🔒 ระบบสำหรับใช้ในครอบครัว ข้อมูลเก็บในแอป ไม่ใช่ระบบความปลอดภัยระดับสูง — อย่าใช้รหัสผ่านสำคัญหรือซ้ำกับอีเมล/ธนาคาร</div>
-</div></div>
+<div class="overlay show" id="auth" style="z-index:80"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">⭐</div><h4 id="authTitle">เข้าสู่ระบบ</h4><p>สะสมดาวของครอบครัว</p><div class="tabs"><button class="tab active" id="tabLogin">เข้าสู่ระบบ</button><button class="tab" id="tabReg">สมัครสมาชิก</button></div><input class="welcome-input" id="authUser" placeholder="ชื่อผู้ใช้" autocomplete="username"><input class="welcome-input" id="authPass" type="password" placeholder="รหัสผ่าน" autocomplete="current-password"><input class="welcome-input" id="authPass2" type="password" placeholder="ยืนยันรหัสผ่าน" style="display:none"><div class="auth-err" id="authErr"></div><button class="btn btn-gold" id="authGo" style="width:100%">เข้าสู่ระบบ</button><div class="auth-note">🔒 ระบบสำหรับใช้ในครอบครัว ข้อมูลเก็บในแอป ไม่ใช่ระบบความปลอดภัยระดับสูง — อย่าใช้รหัสผ่านสำคัญหรือซ้ำกับอีเมล/ธนาคาร</div></div></div>
 
 <script>
-const clone=o=>JSON.parse(JSON.stringify(o));
 const $=id=>document.getElementById(id);
 const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const AVATARS=['🐻','🐯','🦄','🐱','🐶','🐰','🦁','🐸','🐧','🐙','🐨','🐵'];
 const REACTIONS=[{e:'😘',l:'หอมแก้ม'},{e:'🥰',l:'รักพ่อแม่'},{e:'🤗',l:'กอดหน่อย'},{e:'🙏',l:'ขอบคุณ'},{e:'🌟',l:'หนูเก่ง'},{e:'🍰',l:'หิวข้าว'}];
+const WCOLORS=['#FF8FB3','#7BD6FF','#FFD36E','#9BE89B','#C79BFF','#FFB37B','#7FE3D4','#FF9BD0'];
+const TH_MONTHS=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
 function defTasks(){return [{id:'t1',emoji:'🦷',label:'แปรงฟัน'},{id:'t2',emoji:'🧸',label:'เก็บของเล่น'},{id:'t3',emoji:'📚',label:'ทำการบ้าน'},{id:'t4',emoji:'🥦',label:'กินผัก'},{id:'t5',emoji:'🛏️',label:'เก็บที่นอน'}];}
 function defRewards(){return [{id:'r1',icon:'🧸',name:'ของเล่น 1 ชิ้น',threshold:15},{id:'r2',icon:'🏖️',name:'ไปเที่ยวทะเล',threshold:30}];}
-function makeProfile(name,avatar){return {id:uid(),name:name||'หนู',avatar:avatar||'🐻',pin:'',sound:true,count:0,tasks:defTasks(),rewards:defRewards(),done:{date:'',ids:[]},reactions:[],parentNote:''};}
+function defWheel(){return [{e:'📖',l:'อ่านนิทานกับพ่อแม่'},{e:'🙈',l:'เล่นซ่อนหา'},{e:'🧁',l:'ทำขนมด้วยกัน'},{e:'🌳',l:'ไปเล่นที่สวน'},{e:'🍿',l:'ดูการ์ตูนด้วยกัน'},{e:'🤗',l:'กอดอุ่น ๆ 1 นาที'},{e:'💃',l:'เต้นด้วยกัน'},{e:'🎲',l:'เล่นบอร์ดเกม'}];}
+function defCo(){return [{id:uid(),e:'📖',l:'อ่านนิทานกับพ่อแม่',bonus:3},{id:uid(),e:'🍳',l:'ทำอาหารด้วยกัน',bonus:3},{id:uid(),e:'⚽',l:'เล่นกีฬากับพ่อแม่',bonus:2},{id:uid(),e:'🧹',l:'ช่วยงานบ้านกับแม่',bonus:2}];}
+function makeProfile(name,avatar){return {id:uid(),name:name||'หนู',avatar:avatar||'🐻',pin:'',sound:true,count:0,tasks:defTasks(),rewards:defRewards(),done:{date:'',ids:[]},reactions:[],parentNote:'',wheelOptions:defWheel(),wheelCost:5,coquests:defCo(),coDone:{date:'',pending:[],done:[]},streak:{days:{},current:0,best:0,lastDate:''},_lastBox:0};}
+function normalizeProfile(p){if(!p.tasks)p.tasks=defTasks();if(!p.rewards)p.rewards=defRewards();if(!p.done)p.done={date:'',ids:[]};if(!p.reactions)p.reactions=[];if(p.parentNote==null)p.parentNote='';if(!p.wheelOptions)p.wheelOptions=defWheel();if(p.wheelCost==null)p.wheelCost=5;if(!p.coquests)p.coquests=defCo();if(!p.coDone)p.coDone={date:'',pending:[],done:[]};if(!p.streak)p.streak={days:{},current:0,best:0,lastDate:''};if(p._lastBox==null)p._lastBox=0;if(p.pin==null)p.pin='';if(p.sound==null)p.sound=true;return p;}
 
 let store={profiles:[],activeId:null};
 let state=null,currentUser=null,parentUnlocked=false,selectedAvatar=AVATARS[0];
@@ -251,26 +261,20 @@ function active(){return store.profiles.find(p=>p.id===store.activeId)||null;}
 /* sky */
 (function(){let h='';for(let i=0;i<72;i++){const s=(Math.random()*2.2+1).toFixed(1);h+=`<span class="tw" style="left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;width:${s}px;height:${s}px;--d:${(Math.random()*3+2).toFixed(1)}s;animation-delay:${(Math.random()*3).toFixed(1)}s"></span>`;}for(let i=0;i<9;i++){h+=`<span class="sp" style="left:${(Math.random()*96+2).toFixed(1)}%;top:${(Math.random()*70).toFixed(1)}%;--d:${(Math.random()*3+3).toFixed(1)}s;animation-delay:${(Math.random()*4).toFixed(1)}s">✦</span>`;}$('sky').innerHTML=h;})();
 
-/* low-level storage */
-async function sget(key,shared){try{const r=await window.storage.get(key,!!shared);return r&&r.value?JSON.parse(r.value):null;}catch(e){return null;}}
-async function sset(key,val,shared){try{await window.storage.set(key,JSON.stringify(val),!!shared);}catch(e){console.error(e);}}
-async function sdel(key,shared){try{await window.storage.delete(key,!!shared);}catch(e){try{await window.storage.set(key,JSON.stringify(null),!!shared);}catch(_){}}}
-
-/* auth + account */
+/* storage */
+async function sget(key,sh){try{const r=await window.storage.get(key,!!sh);return r&&r.value?JSON.parse(r.value):null;}catch(e){return null;}}
+async function sset(key,v,sh){try{await window.storage.set(key,JSON.stringify(v),!!sh);}catch(e){console.error(e);}}
+async function sdel(key,sh){try{await window.storage.delete(key,!!sh);}catch(e){try{await window.storage.set(key,JSON.stringify(null),!!sh);}catch(_){}}}
 const dataKey=u=>'sc:data:'+u;
 function randSalt(){return Math.random().toString(36).slice(2)+Date.now().toString(36);}
-async function hashPass(text,salt){const data=new TextEncoder().encode(salt+'|'+text);if(window.crypto&&crypto.subtle){const buf=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');}let h=0;const s=salt+'|'+text;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 'w'+h.toString(16);}
+async function hashPass(t,salt){const data=new TextEncoder().encode(salt+'|'+t);if(window.crypto&&crypto.subtle){const b=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}let h=0;const s=salt+'|'+t;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 'w'+h.toString(16);}
 async function loadUsers(){return (await sget('sc:users',true))||{};}
 async function saveUsers(u){await sset('sc:users',u,true);}
 async function setSession(u){await sset('sc:session',{user:u},false);}
 async function getSession(){return await sget('sc:session',false);}
-
-let saveT;
-function save(){clearTimeout(saveT);saveT=setTimeout(()=>{if(currentUser)sset(dataKey(currentUser),store,true);},300);}
-
-async function maybeImportOld(){const flag=await sget('sc:migrated',false);if(flag)return;const old=await sget('starchart:v3',false);if(old&&old.profiles&&old.profiles.length&&!store.profiles.length){store.profiles=old.profiles;store.activeId=old.activeId||old.profiles[0].id;await sset(dataKey(currentUser),store,true);}await sset('sc:migrated',true,false);}
-
-async function enterAccount(u){currentUser=u;store=(await sget(dataKey(u),true))||{profiles:[],activeId:null};await maybeImportOld();if(store.activeId&&!active())store.activeId=store.profiles[0]?store.profiles[0].id:null;parentUnlocked=false;$('auth').classList.remove('show');state=active();render();if(!active())openWelcome(false);}
+let saveT;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{if(currentUser)sset(dataKey(currentUser),store,true);},300);}
+async function maybeImportOld(){const flag=await sget('sc:migrated',false);if(flag)return;const old=await sget('starchart:v3',false);if(old&&old.profiles&&old.profiles.length&&!store.profiles.length){store.profiles=old.profiles.map(normalizeProfile);store.activeId=old.activeId||store.profiles[0].id;await sset(dataKey(currentUser),store,true);}await sset('sc:migrated',true,false);}
+async function enterAccount(u){currentUser=u;store=(await sget(dataKey(u),true))||{profiles:[],activeId:null};await maybeImportOld();store.profiles.forEach(normalizeProfile);if(store.activeId&&!active())store.activeId=store.profiles[0]?store.profiles[0].id:null;parentUnlocked=false;$('auth').classList.remove('show');state=active();render();if(!active())openWelcome(false);}
 
 /* sound */
 let actx=null;
@@ -282,7 +286,10 @@ function playReact(){if(!state||!state.sound)return;ensureAudio();note(660,0,0.1
 
 /* date */
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function isoOf(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function isoToday(){return isoOf(new Date());}
 function ensureDay(){if(!state)return;const t=todayStr();if(state.done.date!==t){state.done.date=t;state.done.ids=[];}}
+function ensureCoDay(){if(!state)return;const t=todayStr();if(state.coDone.date!==t){state.coDone.date=t;state.coDone.pending=[];state.coDone.done=[];}}
 function timeAgo(t){const s=Math.floor((Date.now()-t)/1000);if(s<60)return'เมื่อสักครู่';const m=Math.floor(s/60);if(m<60)return m+' นาทีที่แล้ว';const h=Math.floor(m/60);if(h<24)return h+' ชม.ที่แล้ว';return Math.floor(h/24)+' วันที่แล้ว';}
 
 /* animations */
@@ -296,35 +303,60 @@ function floatReaction(btn,emoji){if(reduce)return;const r=btn.getBoundingClient
 let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1900);}
 function celebrate(r){$('celEmoji').textContent=r.icon||'🎉';$('celTitle').textContent='ได้'+r.name+'แล้ว!';$('celSub').textContent='สะสมครบ '+r.threshold+' ดวง เก่งมาก ๆ 🎉';$('cel').classList.add('show');confetti();setTimeout(confetti,380);firework();setTimeout(firework,350);setTimeout(firework,700);}
 
+/* streak */
+function markStarDay(){const s=state.streak;const today=isoToday();const first=!s.days[today];if(first){const d=new Date();d.setDate(d.getDate()-1);const yest=isoOf(d);if(s.lastDate===yest)s.current=(s.current||0)+1;else s.current=1;s.lastDate=today;if(s.current>(s.best||0))s.best=s.current;}s.days[today]=(s.days[today]||0)+1;if(first&&(s.current===3||(s.current%7===0&&s.current>0))){toast('🔥 ทำต่อเนื่อง '+s.current+' วันแล้ว!');confetti();}renderStreak();}
+
+/* surprise */
+let surpriseShowing=false;
+function maybeSurprise(){if(surpriseShowing)return;if(Date.now()-(state._lastBox||0)<15000)return;if(Math.random()<0.15)openSurprise();}
+function openSurprise(){surpriseShowing=true;state._lastBox=Date.now();save();$('boxInner').textContent='🎁';$('boxBtn').style.display='inline-block';$('boxResult').textContent='';$('surprise').classList.add('show');}
+function openBox(){$('boxBtn').style.display='none';const bonus=1+Math.floor(Math.random()*3);const box=$('boxInner');box.textContent='🎉';if(box.animate)box.animate([{transform:'scale(1)'},{transform:'scale(1.4)'},{transform:'scale(1)'}],{duration:500});$('boxResult').textContent='ได้โบนัส '+bonus+' ดาว! 🌟';confetti();const r=box.getBoundingClientRect();surpriseShowing=false;earnStars(bonus,r.left+r.width/2,r.top+r.height/2);setTimeout(()=>$('surprise').classList.remove('show'),1500);}
+
 /* core */
 function checkMilestone(prev){const c=state.rewards.filter(r=>prev<r.threshold&&state.count>=r.threshold).sort((a,b)=>a.threshold-b.threshold);if(c.length){celebrate(c[c.length-1]);playUnlock();}}
-function earnStar(sx,sy){const prev=state.count;state.count++;save();renderTasksDisplay();const land=()=>{rollTo(state.count);moonBurst();playStar();renderRewardsDisplay();renderCluster();checkMilestone(prev);};if(reduce){land();return;}flyStar(sx,sy,land);}
-function decCount(){if(state.count<=0)return;state.count--;save();rollTo(state.count);renderRewardsDisplay();renderCluster();renderTasksDisplay();}
-function toggleTask(id,el){ensureDay();const i=state.done.ids.indexOf(id);if(i===-1){state.done.ids.push(id);const c=el.querySelector('.tcheck').getBoundingClientRect();earnStar(c.left+c.width/2,c.top+c.height/2);}else{state.done.ids.splice(i,1);decCount();}}
+function earnStars(n,sx,sy){const prev=state.count;state.count+=n;save();renderTasksDisplay();renderCoDisplay();const land=()=>{rollTo(state.count);moonBurst();playStar();renderRewardsDisplay();renderCluster();renderWheel();markStarDay();checkMilestone(prev);maybeSurprise();};if(reduce){land();return;}flyStar(sx,sy,land);}
+function decCount(){if(state.count<=0)return;state.count--;save();rollTo(state.count);renderRewardsDisplay();renderCluster();renderTasksDisplay();renderWheel();}
+function spendStars(n){state.count=Math.max(0,state.count-n);save();rollTo(state.count);renderRewardsDisplay();renderCluster();}
+function toggleTask(id,el){ensureDay();const i=state.done.ids.indexOf(id);if(i===-1){state.done.ids.push(id);const c=el.querySelector('.tcheck').getBoundingClientRect();earnStars(1,c.left+c.width/2,c.top+c.height/2);}else{state.done.ids.splice(i,1);decCount();}}
 function sendReaction(i,btn){const r=REACTIONS[i];state.reactions.unshift({e:r.e,l:r.l,t:Date.now()});if(state.reactions.length>60)state.reactions.length=60;save();floatReaction(btn,r.e);playReact();toast('ส่งให้พ่อแม่แล้ว 💌');if(!isLocked())renderReactLog();}
 
+/* co-quest */
+function coTap(id){ensureCoDay();if(state.coDone.done.includes(id))return;const pi=state.coDone.pending.indexOf(id);if(pi===-1){state.coDone.pending.push(id);save();renderCoDisplay();toast('บอกพ่อแม่ให้กดยืนยันนะ 💛');}else{state.coDone.pending.splice(pi,1);save();renderCoDisplay();}}
+function coConfirm(id,btn){ensureCoDay();const q=state.coquests.find(x=>x.id===id);if(!q)return;const pi=state.coDone.pending.indexOf(id);if(pi!==-1)state.coDone.pending.splice(pi,1);if(!state.coDone.done.includes(id))state.coDone.done.push(id);save();renderCoDisplay();const r=btn.getBoundingClientRect();earnStars(q.bonus,r.left+r.width/2,r.top+r.height/2);toast('เก่งมาก! ได้โบนัส '+q.bonus+' ดาว 🎉');}
+
+/* wheel */
+function pt(cx,cy,r,deg){const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+let spinning=false,wheelRot=0;
+function renderWheel(){if(spinning)return;const opts=state.wheelOptions,n=opts.length,seg=360/n,cx=100,cy=100,r=96;let h='';for(let i=0;i<n;i++){const a0=i*seg,a1=(i+1)*seg,[x0,y0]=pt(cx,cy,r,a0),[x1,y1]=pt(cx,cy,r,a1),large=seg>180?1:0;h+=`<path d="M${cx},${cy} L${x0.toFixed(1)},${y0.toFixed(1)} A${r},${r} 0 ${large} 1 ${x1.toFixed(1)},${y1.toFixed(1)} Z" fill="${WCOLORS[i%WCOLORS.length]}" stroke="rgba(255,255,255,.55)" stroke-width="1"/>`;const mid=i*seg+seg/2,[tx,ty]=pt(cx,cy,60,mid);h+=`<text x="${tx.toFixed(1)}" y="${ty.toFixed(1)}" font-size="20" text-anchor="middle" dominant-baseline="central">${opts[i].e}</text>`;}h+=`<circle cx="100" cy="100" r="17" fill="#221a48" stroke="#fff" stroke-width="2"/><text x="100" y="100" font-size="16" text-anchor="middle" dominant-baseline="central">🎡</text>`;const svg=$('wheelSvg');svg.innerHTML=h;svg.style.transform=`rotate(${wheelRot}deg)`;$('spinBtn').textContent='หมุนวงล้อ (ใช้ '+state.wheelCost+' ⭐)';$('spinBtn').disabled=state.count<state.wheelCost;$('wheelCostNote').textContent='มีดาว '+state.count+' ดวง';}
+function spinWheel(){if(spinning)return;if(state.count<state.wheelCost){toast('ดาวไม่พอ ต้องมี '+state.wheelCost+' ดวง');return;}spinning=true;$('spinBtn').disabled=true;spendStars(state.wheelCost);const n=state.wheelOptions.length,seg=360/n,i=Math.floor(Math.random()*n);const base=wheelRot-(wheelRot%360);wheelRot=base+360*5+(360-(i*seg+seg/2));const svg=$('wheelSvg');if(reduce){svg.style.transform=`rotate(${wheelRot}deg)`;spinning=false;renderWheel();wheelDone(i);return;}svg.style.transition='transform 4.2s cubic-bezier(.15,.9,.25,1)';requestAnimationFrame(()=>{svg.style.transform=`rotate(${wheelRot}deg)`;});const onEnd=()=>{svg.removeEventListener('transitionend',onEnd);svg.style.transition='';spinning=false;renderWheel();wheelDone(i);};svg.addEventListener('transitionend',onEnd);}
+function wheelDone(i){const o=state.wheelOptions[i];$('wrEmoji').textContent=o.e;$('wrTitle').textContent=o.l;$('wrSub').textContent='ไปทำกิจกรรมนี้กับพ่อแม่กันเลย!';$('wheelRes').classList.add('show');confetti();playUnlock();}
+
 /* render */
-function renderCluster(){let h='';for(let i=0;i<state.count;i++)h+=`<span class="s" style="--d:${(Math.random()*2).toFixed(1)}s">⭐</span>`;$('cluster').innerHTML=h;}
-function renderTasksDisplay(){ensureDay();const done=state.done.ids;$('taskList').innerHTML=state.tasks.map(t=>{const d=done.includes(t.id);return `<div class="task ${d?'done':''}" data-id="${t.id}"><div class="tcheck">${d?'⭐':''}</div><div class="temoji">${t.emoji||'🌟'}</div><div class="tlabel">${esc(t.label)}</div><div class="plus">${d?'+1 ⭐':'แตะ'}</div></div>`;}).join('')||'<div class="empty">ยังไม่มีรายการงาน — เพิ่มได้ในโหมดผู้ปกครอง</div>';$('taskList').querySelectorAll('.task').forEach(el=>el.addEventListener('click',()=>toggleTask(el.dataset.id,el)));const left=state.tasks.length-done.length;$('todayNote').textContent=state.tasks.length?(left>0?'เหลืออีก '+left+' งาน':'ครบแล้ว เก่งมาก! 🎉'):'';}
-function renderRewardsDisplay(){const list=[...state.rewards].sort((a,b)=>a.threshold-b.threshold);$('rewardList').innerHTML=list.map(r=>{const prog=Math.min(state.count,r.threshold);const pct=r.threshold>0?prog/r.threshold*100:100;const done=state.count>=r.threshold;const tip=(pct>0&&pct<100)?'<span class="bar-tip">⭐</span>':'';return `<div class="reward ${done?'done':''}"><div class="ic">${r.icon||'🎁'}</div><div class="body"><div class="rname">${esc(r.name)}</div><div class="rneed">สะสมครบ ${r.threshold} ดวง</div><div class="bar"><div class="bar-fill" style="width:${pct}%">${tip}</div></div><div class="status">${done?'ปลดล็อกแล้ว! เย้ 🎉':'อีก '+(r.threshold-state.count)+' ดวง ('+prog+'/'+r.threshold+')'}</div></div><div class="lock">${done?'✅':'🔒'}</div></div>`;}).join('')||'<div class="empty">ยังไม่มีรางวัล — เพิ่มได้ในโหมดผู้ปกครอง</div>';}
+function renderCluster(){let h='';const cap=Math.min(state.count,120);for(let i=0;i<cap;i++)h+=`<span class="s" style="--d:${(Math.random()*2).toFixed(1)}s">⭐</span>`;$('cluster').innerHTML=h;}
+function renderTasksDisplay(){ensureDay();const done=state.done.ids;$('taskList').innerHTML=state.tasks.map(t=>{const d=done.includes(t.id);return `<div class="task ${d?'done':''}" data-id="${t.id}"><div class="tcheck">${d?'⭐':''}</div><div class="temoji">${t.emoji||'🌟'}</div><div class="tlabel">${esc(t.label)}</div><div class="plus">${d?'+1 ⭐':'แตะ'}</div></div>`;}).join('')||'<div class="empty">ยังไม่มีรายการงาน</div>';$('taskList').querySelectorAll('.task').forEach(el=>el.addEventListener('click',()=>toggleTask(el.dataset.id,el)));const left=state.tasks.length-done.length;$('todayNote').textContent=state.tasks.length?(left>0?'เหลืออีก '+left+' งาน':'ครบแล้ว เก่งมาก! 🎉'):'';}
+function renderCoDisplay(){ensureCoDay();$('coList').innerHTML=state.coquests.map(q=>{const pend=state.coDone.pending.includes(q.id),done=state.coDone.done.includes(q.id);let right;if(done)right=`<div class="plus done">✅ +${q.bonus}</div>`;else if(pend)right=isLocked()?`<div class="plus">รอพ่อแม่ ⏳</div>`:`<button class="co-confirm" data-id="${q.id}">ยืนยัน ✓</button>`;else right=`<div class="plus">+${q.bonus} ⭐</div>`;return `<div class="task co ${done?'done':pend?'pending':''}" data-id="${q.id}"><div class="temoji">${q.e}</div><div class="tlabel">${esc(q.l)}</div>${right}</div>`;}).join('')||'<div class="empty">ยังไม่มีภารกิจคู่ — เพิ่มได้ในโหมดผู้ปกครอง</div>';$('coList').querySelectorAll('.co').forEach(row=>{row.addEventListener('click',e=>{if(e.target.classList.contains('co-confirm'))return;coTap(row.dataset.id);});});$('coList').querySelectorAll('.co-confirm').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();coConfirm(b.dataset.id,b);}));}
+function renderRewardsDisplay(){const list=[...state.rewards].sort((a,b)=>a.threshold-b.threshold);$('rewardList').innerHTML=list.map(r=>{const prog=Math.min(state.count,r.threshold);const pct=r.threshold>0?prog/r.threshold*100:100;const done=state.count>=r.threshold;const tip=(pct>0&&pct<100)?'<span class="bar-tip">⭐</span>':'';return `<div class="reward ${done?'done':''}"><div class="ic">${r.icon||'🎁'}</div><div class="body"><div class="rname">${esc(r.name)}</div><div class="rneed">สะสมครบ ${r.threshold} ดวง</div><div class="bar"><div class="bar-fill" style="width:${pct}%">${tip}</div></div><div class="status">${done?'ปลดล็อกแล้ว! เย้ 🎉':'อีก '+(r.threshold-state.count)+' ดวง ('+prog+'/'+r.threshold+')'}</div></div><div class="lock">${done?'✅':'🔒'}</div></div>`;}).join('')||'<div class="empty">ยังไม่มีรางวัล</div>';}
+function renderStreak(){const s=state.streak;$('streakNow').textContent='🔥 ต่อเนื่อง '+(s.current||0)+' วัน';$('streakBest').textContent='🏆 สูงสุด '+(s.best||0)+' วัน';const now=new Date(),y=now.getFullYear(),m=now.getMonth();$('calMonth').textContent=TH_MONTHS[m]+' '+y;const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),td=now.getDate();const dow=['อา','จ','อ','พ','พฤ','ศ','ส'];let h=dow.map(d=>`<div class="cal-dow">${d}</div>`).join('');for(let i=0;i<first;i++)h+='<div class="cal-cell empty"></div>';for(let d=1;d<=days;d++){const key=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;const has=s.days&&s.days[key];h+=`<div class="cal-cell ${has?'has':''} ${d===td?'today':''}">${has?'⭐':d}</div>`;}$('cal').innerHTML=h;}
 function renderReactGrid(){$('reactGrid').innerHTML=REACTIONS.map((r,i)=>`<button class="react" data-i="${i}"><span class="re">${r.e}</span><span class="rl">${r.l}</span></button>`).join('');$('reactGrid').querySelectorAll('.react').forEach(b=>b.addEventListener('click',()=>sendReaction(+b.dataset.i,b)));}
 function renderChip(){$('chipAv').textContent=state.avatar||'🐻';$('chipName').textContent=state.name||'หนู';$('heroName').textContent='ดาวของ '+(state.name||'หนู');}
 function renderNote(){const nb=$('noteBanner');if(state.parentNote){nb.style.display='flex';nb.innerHTML='<span class="h">💌</span><span>พ่อแม่ฝากบอก: '+esc(state.parentNote)+'</span>';}else nb.style.display='none';}
-function renderDisplay(){$('countInner').textContent=state.count;renderChip();renderNote();renderCluster();renderTasksDisplay();renderRewardsDisplay();renderReactGrid();}
+function renderDisplay(){$('countInner').textContent=state.count;renderChip();renderNote();renderCluster();renderTasksDisplay();renderCoDisplay();renderRewardsDisplay();renderWheel();renderStreak();renderReactGrid();}
 function isLocked(){return !!state.pin && !parentUnlocked;}
 function renderTaskEditor(){$('taskEditor').innerHTML=state.tasks.map(t=>`<div class="erow" data-id="${t.id}"><input class="ico te-emoji" maxlength="2" value="${esc(t.emoji)}"><input class="nm te-label" maxlength="24" value="${esc(t.label)}"><button class="del">✕</button></div>`).join('');$('taskEditor').querySelectorAll('.erow').forEach(row=>{const id=row.dataset.id;row.querySelector('.te-emoji').addEventListener('input',e=>{const t=state.tasks.find(x=>x.id===id);if(t){t.emoji=e.target.value;save();renderTasksDisplay();}});row.querySelector('.te-label').addEventListener('input',e=>{const t=state.tasks.find(x=>x.id===id);if(t){t.label=e.target.value;save();renderTasksDisplay();}});row.querySelector('.del').addEventListener('click',()=>{state.tasks=state.tasks.filter(x=>x.id!==id);state.done.ids=state.done.ids.filter(x=>x!==id);save();renderTaskEditor();renderTasksDisplay();});});}
+function renderCoEditor(){$('coEditor').innerHTML=state.coquests.map(q=>`<div class="erow" data-id="${q.id}"><input class="ico co-e" maxlength="2" value="${esc(q.e)}"><input class="nm co-l" maxlength="24" value="${esc(q.l)}"><input class="num co-b" type="number" min="1" value="${q.bonus}"><button class="del">✕</button></div>`).join('');$('coEditor').querySelectorAll('.erow').forEach(row=>{const id=row.dataset.id;row.querySelector('.co-e').addEventListener('input',e=>{const q=state.coquests.find(x=>x.id===id);if(q){q.e=e.target.value;save();renderCoDisplay();}});row.querySelector('.co-l').addEventListener('input',e=>{const q=state.coquests.find(x=>x.id===id);if(q){q.l=e.target.value;save();renderCoDisplay();}});row.querySelector('.co-b').addEventListener('input',e=>{const q=state.coquests.find(x=>x.id===id);if(q){q.bonus=Math.max(1,parseInt(e.target.value)||1);save();renderCoDisplay();}});row.querySelector('.del').addEventListener('click',()=>{state.coquests=state.coquests.filter(x=>x.id!==id);save();renderCoEditor();renderCoDisplay();});});}
+function renderWheelEditor(){$('wheelCostInput').value=state.wheelCost;$('wheelEditor').innerHTML=state.wheelOptions.map((o,i)=>`<div class="erow" data-i="${i}"><input class="ico w-e" maxlength="2" value="${esc(o.e)}"><input class="nm w-l" maxlength="24" value="${esc(o.l)}"><button class="del">✕</button></div>`).join('');$('wheelEditor').querySelectorAll('.erow').forEach(row=>{const i=+row.dataset.i;row.querySelector('.w-e').addEventListener('input',e=>{state.wheelOptions[i].e=e.target.value;save();renderWheel();});row.querySelector('.w-l').addEventListener('input',e=>{state.wheelOptions[i].l=e.target.value;save();});row.querySelector('.del').addEventListener('click',()=>{if(state.wheelOptions.length<=2){toast('ต้องมีอย่างน้อย 2 ช่อง');return;}state.wheelOptions.splice(i,1);save();renderWheelEditor();renderWheel();});});}
 function renderRewardEditor(){$('rewardEditor').innerHTML=state.rewards.map(r=>`<div class="erow" data-id="${r.id}"><input class="ico re-icon" maxlength="2" value="${esc(r.icon)}"><input class="nm re-name" maxlength="28" value="${esc(r.name)}"><input class="num re-th" type="number" min="1" value="${r.threshold}"><button class="del">✕</button></div>`).join('');$('rewardEditor').querySelectorAll('.erow').forEach(row=>{const id=row.dataset.id;row.querySelector('.re-icon').addEventListener('input',e=>{const r=state.rewards.find(x=>x.id===id);if(r){r.icon=e.target.value;save();renderRewardsDisplay();}});row.querySelector('.re-name').addEventListener('input',e=>{const r=state.rewards.find(x=>x.id===id);if(r){r.name=e.target.value;save();renderRewardsDisplay();}});row.querySelector('.re-th').addEventListener('input',e=>{const r=state.rewards.find(x=>x.id===id);if(r){r.threshold=Math.max(1,parseInt(e.target.value)||1);save();renderRewardsDisplay();}});row.querySelector('.del').addEventListener('click',()=>{state.rewards=state.rewards.filter(x=>x.id!==id);save();renderRewardEditor();renderRewardsDisplay();});});}
 function renderReactLog(){const log=$('reactLog');if(!state.reactions.length){log.innerHTML='<div class="empty">ยังไม่มีข้อความจากหนู</div>';return;}log.innerHTML=state.reactions.slice(0,30).map(r=>`<div class="ri"><span class="re">${r.e}</span><span>${esc(r.l)}</span><span class="rt">${timeAgo(r.t)}</span></div>`).join('');}
 function updatePinUI(){$('pinStatus').textContent=state.pin?'ตั้งรหัสไว้แล้ว — เด็กต้องใส่รหัสจึงเข้าโหมดนี้ได้':'ยังไม่ได้ตั้งรหัส (ใครก็เข้าโหมดผู้ปกครองได้)';$('removePin').style.display=state.pin?'inline-block':'none';}
-function renderParent(){const locked=isLocked();$('parentPanel').style.display=locked?'none':'block';$('lockBtn').textContent=state.pin?(parentUnlocked?'🔓 ออกจากโหมดผู้ปกครอง':'🔒 โหมดผู้ปกครอง (ใส่รหัส)'):'⚙️ โหมดผู้ปกครอง';if(!locked){$('profAvatar').value=state.avatar||'🐻';$('profName').value=state.name||'';$('noteInput').value=state.parentNote||'';renderTaskEditor();renderRewardEditor();renderReactLog();updatePinUI();}}
-function render(){state=active();const has=!!state;$('wrap').style.visibility=has?'visible':'hidden';if(!has)return;ensureDay();renderDisplay();renderParent();$('soundBtn').textContent=state.sound?'🔊':'🔇';}
+function renderParent(){const locked=isLocked();$('parentPanel').style.display=locked?'none':'block';$('lockBtn').textContent=state.pin?(parentUnlocked?'🔓 ออกจากโหมดผู้ปกครอง':'🔒 โหมดผู้ปกครอง (ใส่รหัส)'):'⚙️ โหมดผู้ปกครอง';if(!locked){$('profAvatar').value=state.avatar||'🐻';$('profName').value=state.name||'';$('noteInput').value=state.parentNote||'';renderTaskEditor();renderCoEditor();renderWheelEditor();renderRewardEditor();renderReactLog();updatePinUI();}}
+function render(){state=active();const has=!!state;$('wrap').style.visibility=has?'visible':'hidden';if(!has)return;ensureDay();ensureCoDay();renderDisplay();renderParent();$('soundBtn').textContent=state.sound?'🔊':'🔇';}
 
 /* pin */
 function openPin(){$('pinEntry').value='';$('pinModal').classList.add('show');setTimeout(()=>$('pinEntry').focus(),50);}
 function closePin(){$('pinModal').classList.remove('show');}
 function submitPin(){if($('pinEntry').value===state.pin){parentUnlocked=true;closePin();render();}else{const b=$('pinModalBox');b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),400);$('pinEntry').value='';}}
 
-/* welcome (child) */
+/* welcome */
 function buildAvGrid(){$('avGrid').innerHTML=AVATARS.map(a=>`<button class="av ${a===selectedAvatar?'sel':''}" data-a="${a}">${a}</button>`).join('');$('avGrid').querySelectorAll('.av').forEach(b=>b.addEventListener('click',()=>{selectedAvatar=b.dataset.a;$('avGrid').querySelectorAll('.av').forEach(x=>x.classList.toggle('sel',x.dataset.a===selectedAvatar));}));}
 let welcomeAdd=false;
 function openWelcome(addMode){welcomeAdd=addMode;selectedAvatar=AVATARS[Math.floor(Math.random()*AVATARS.length)];$('welcomeName').value='';buildAvGrid();$('welcomeCancel').style.display=addMode?'inline-block':'none';$('welcome').classList.add('show');setTimeout(()=>$('welcomeName').focus(),60);}
@@ -337,28 +369,11 @@ function closeProfiles(){$('profilesOverlay').classList.remove('show');}
 function switchProfile(id){store.activeId=id;parentUnlocked=false;save();closeProfiles();render();const p=active();toast('สวัสดี '+(p?p.name:'')+'! '+(p?p.avatar:''));}
 function deleteProfile(id){store.profiles=store.profiles.filter(p=>p.id!==id);if(store.activeId===id)store.activeId=store.profiles[0]?store.profiles[0].id:null;save();if(!store.profiles.length){closeProfiles();render();openWelcome(false);}else{openProfiles();render();}}
 
-/* auth ui */
+/* auth */
 let authMode='login';
 function setAuthMode(m){authMode=m;$('tabLogin').classList.toggle('active',m==='login');$('tabReg').classList.toggle('active',m==='register');$('authPass2').style.display=m==='register'?'block':'none';$('authTitle').textContent=m==='login'?'เข้าสู่ระบบ':'สมัครสมาชิก';$('authGo').textContent=m==='login'?'เข้าสู่ระบบ':'สมัครสมาชิก ✨';$('authErr').textContent='';}
 function showAuth(){$('wrap').style.visibility='hidden';$('authUser').value='';$('authPass').value='';$('authPass2').value='';setAuthMode('login');$('auth').classList.add('show');}
-async function doAuth(){
-  const u=$('authUser').value.trim(),p=$('authPass').value;
-  if(u.length<2){$('authErr').textContent='ชื่อผู้ใช้ต้องยาวอย่างน้อย 2 ตัว';return;}
-  if(p.length<4){$('authErr').textContent='รหัสผ่านต้องยาวอย่างน้อย 4 ตัว';return;}
-  $('authGo').disabled=true;
-  const users=await loadUsers();
-  if(authMode==='register'){
-    if(users[u]){$('authErr').textContent='ชื่อผู้ใช้นี้ถูกใช้แล้ว';$('authGo').disabled=false;return;}
-    if($('authPass2').value!==p){$('authErr').textContent='รหัสผ่านยืนยันไม่ตรงกัน';$('authGo').disabled=false;return;}
-    const salt=randSalt();const ph=await hashPass(p,salt);users[u]={user:u,salt,passHash:ph,created:Date.now()};await saveUsers(users);
-    await setSession(u);ensureAudio();await enterAccount(u);toast('สมัครสำเร็จ ยินดีต้อนรับ '+u+'! 🎉');
-  } else {
-    const rec=users[u];if(!rec){$('authErr').textContent='ไม่พบชื่อผู้ใช้นี้';$('authGo').disabled=false;return;}
-    const ph=await hashPass(p,rec.salt);if(ph!==rec.passHash){$('authErr').textContent='รหัสผ่านไม่ถูกต้อง';$('authGo').disabled=false;return;}
-    await setSession(u);ensureAudio();await enterAccount(u);toast('ยินดีต้อนรับกลับ '+u+'! ⭐');
-  }
-  $('authGo').disabled=false;
-}
+async function doAuth(){const u=$('authUser').value.trim(),p=$('authPass').value;if(u.length<2){$('authErr').textContent='ชื่อผู้ใช้ต้องยาวอย่างน้อย 2 ตัว';return;}if(p.length<4){$('authErr').textContent='รหัสผ่านต้องยาวอย่างน้อย 4 ตัว';return;}$('authGo').disabled=true;const users=await loadUsers();if(authMode==='register'){if(users[u]){$('authErr').textContent='ชื่อผู้ใช้นี้ถูกใช้แล้ว';$('authGo').disabled=false;return;}if($('authPass2').value!==p){$('authErr').textContent='รหัสผ่านยืนยันไม่ตรงกัน';$('authGo').disabled=false;return;}const salt=randSalt();const ph=await hashPass(p,salt);users[u]={user:u,salt,passHash:ph,created:Date.now()};await saveUsers(users);await setSession(u);ensureAudio();await enterAccount(u);toast('สมัครสำเร็จ ยินดีต้อนรับ '+u+'! 🎉');}else{const rec=users[u];if(!rec){$('authErr').textContent='ไม่พบชื่อผู้ใช้นี้';$('authGo').disabled=false;return;}const ph=await hashPass(p,rec.salt);if(ph!==rec.passHash){$('authErr').textContent='รหัสผ่านไม่ถูกต้อง';$('authGo').disabled=false;return;}await setSession(u);ensureAudio();await enterAccount(u);toast('ยินดีต้อนรับกลับ '+u+'! ⭐');}$('authGo').disabled=false;}
 async function signOut(){await sdel('sc:session',false);currentUser=null;store={profiles:[],activeId:null};state=null;parentUnlocked=false;closeProfiles();showAuth();}
 
 /* events */
@@ -382,10 +397,15 @@ $('profName').addEventListener('input',e=>{state.name=e.target.value;save();rend
 $('clearReact').addEventListener('click',()=>{state.reactions=[];save();renderReactLog();});
 $('saveNote').addEventListener('click',()=>{state.parentNote=$('noteInput').value.trim();save();renderNote();toast('บันทึกข้อความแล้ว 💛');});
 $('clearNote').addEventListener('click',()=>{state.parentNote='';$('noteInput').value='';save();renderNote();});
-$('mAdd').addEventListener('click',()=>{const r=$('mAdd').getBoundingClientRect();earnStar(r.left+r.width/2,r.top+r.height/2);});
+$('mAdd').addEventListener('click',()=>{const r=$('mAdd').getBoundingClientRect();earnStars(1,r.left+r.width/2,r.top+r.height/2);});
 $('mRemove').addEventListener('click',decCount);
 $('addTask').addEventListener('click',()=>{const v=$('newTask').value.trim();if(!v)return;state.tasks.push({id:uid(),emoji:'🌟',label:v});$('newTask').value='';save();renderTaskEditor();renderTasksDisplay();});
 $('newTask').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').click();});
+$('addCo').addEventListener('click',()=>{const v=$('newCo').value.trim();if(!v)return;state.coquests.push({id:uid(),e:'🤝',l:v,bonus:2});$('newCo').value='';save();renderCoEditor();renderCoDisplay();});
+$('newCo').addEventListener('keydown',e=>{if(e.key==='Enter')$('addCo').click();});
+$('wheelCostInput').addEventListener('input',e=>{state.wheelCost=Math.max(1,parseInt(e.target.value)||1);save();renderWheel();});
+$('addWheel').addEventListener('click',()=>{const v=$('newWheel').value.trim();if(!v)return;state.wheelOptions.push({e:'🎈',l:v});$('newWheel').value='';save();renderWheelEditor();renderWheel();});
+$('newWheel').addEventListener('keydown',e=>{if(e.key==='Enter')$('addWheel').click();});
 $('addReward').addEventListener('click',()=>{const mx=Math.max(0,...state.rewards.map(r=>r.threshold));state.rewards.push({id:uid(),icon:'🎁',name:'รางวัลใหม่',threshold:mx+15});save();renderRewardEditor();renderRewardsDisplay();});
 $('savePin').addEventListener('click',()=>{const v=$('pinSet').value;if(/^\d{4}$/.test(v)){state.pin=v;$('pinSet').value='';save();updatePinUI();render();}else{$('pinStatus').textContent='⚠️ รหัสต้องเป็นตัวเลข 4 หลัก';}});
 $('removePin').addEventListener('click',()=>{state.pin='';parentUnlocked=true;save();updatePinUI();render();});
@@ -396,6 +416,10 @@ $('pinEntry').addEventListener('keydown',e=>{if(e.key==='Enter')submitPin();});
 $('pinModal').addEventListener('click',e=>{if(e.target===$('pinModal'))closePin();});
 $('celBtn').addEventListener('click',()=>$('cel').classList.remove('show'));
 $('cel').addEventListener('click',e=>{if(e.target===$('cel'))$('cel').classList.remove('show');});
+$('spinBtn').addEventListener('click',spinWheel);
+$('wrBtn').addEventListener('click',()=>$('wheelRes').classList.remove('show'));
+$('wheelRes').addEventListener('click',e=>{if(e.target===$('wheelRes'))$('wheelRes').classList.remove('show');});
+$('boxBtn').addEventListener('click',openBox);
 let resetArmed=false,resetT;
 $('resetBtn').addEventListener('click',()=>{if(!resetArmed){resetArmed=true;$('resetBtn').textContent='แตะอีกครั้งเพื่อยืนยัน';resetT=setTimeout(()=>{resetArmed=false;$('resetBtn').textContent='เริ่มสะสมใหม่ (ลบดาวทั้งหมด)';},3000);return;}clearTimeout(resetT);resetArmed=false;$('resetBtn').textContent='เริ่มสะสมใหม่ (ลบดาวทั้งหมด)';state.count=0;state.done.ids=[];save();render();});
 
