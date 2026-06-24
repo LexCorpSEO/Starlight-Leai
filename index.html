@@ -186,6 +186,31 @@
   .fw{position:absolute;width:8px;height:8px;border-radius:50%;will-change:transform;}
   @media (prefers-reduced-motion: reduce){*{animation-duration:.001s !important;animation-iteration-count:1 !important;}.moon-wrap,.orbit,.title .em,.aurora span,.bar-fill::after,.reward.done::before,.cel-rays,.box-emoji{animation:none !important;}}
 </style>
+<!-- ===== Firebase (compat SDK via CDN) ===== -->
+<script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore-compat.js"></script>
+<script>
+  /* ▼▼▼ ใส่ค่าจาก Firebase Console ของคุณตรงนี้ (Project settings → Your apps → Web) ▼▼▼ */
+  const firebaseConfig = {
+    apiKey: "AIzaSyCphPJBNCFvLeF0fMoPV36Ekc76aMWcWbk",
+    authDomain: "starlight-leai.firebaseapp.com",
+    projectId: "starlight-leai",
+    storageBucket: "starlight-leai.firebasestorage.app",
+    messagingSenderId: "635646696065",
+    appId: "1:635646696065:web:65097fe67d19288cea8b80"
+  };
+  /* ▲▲▲ แก้ 6 บรรทัดบนให้เป็นของโปรเจกต์คุณ ▲▲▲ */
+  window.fbReady=false;
+  try{
+    if(typeof firebase!=='undefined' && firebaseConfig.apiKey && firebaseConfig.apiKey.indexOf("PASTE")===-1){
+      firebase.initializeApp(firebaseConfig);
+      window.auth=firebase.auth();
+      window.db=firebase.firestore();
+      window.fbReady=true;
+    }
+  }catch(e){ console.error("Firebase init error:",e); }
+</script>
 </head>
 <body>
 <div class="aurora"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
@@ -236,7 +261,7 @@
 <div class="overlay" id="pinModal"><div class="modal" id="pinModalBox"><h4>🔒 ใส่รหัสผู้ปกครอง</h4><p>ใส่รหัส 4 หลัก</p><input class="pin-input" id="pinEntry" type="password" inputmode="numeric" maxlength="4" placeholder="••••"><div class="modal-btns"><button class="btn btn-ghost" id="pinCancel">ยกเลิก</button><button class="btn btn-gold" id="pinOk">ตกลง</button></div></div></div>
 <div class="overlay" id="welcome" style="z-index:75"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">🌟</div><h4>เพิ่มเด็กคนใหม่</h4><p>เลือกตัวการ์ตูนแล้วใส่ชื่อ</p><div class="av-grid" id="avGrid"></div><input class="welcome-input" id="welcomeName" maxlength="14" placeholder="ใส่ชื่อหนู"><div class="modal-btns"><button class="btn btn-ghost" id="welcomeCancel" style="display:none">ยกเลิก</button><button class="btn btn-gold" id="welcomeGo">เริ่มเลย ✨</button></div></div></div>
 <div class="overlay" id="profilesOverlay" style="z-index:75"><div class="modal"><h4>👨‍👩‍👧 ใครจะเล่นดี?</h4><div class="acct-bar">บัญชี: <b id="acctName">@user</b><button class="btn btn-ghost" id="signOut">ออกจากระบบ</button></div><div class="plist" id="plist"></div><div class="modal-btns"><button class="btn btn-ghost" id="profClose">ปิด</button><button class="btn btn-gold" id="addProfile">+ เพิ่มเด็ก</button></div></div></div>
-<div class="overlay show" id="auth" style="z-index:80"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">⭐</div><h4 id="authTitle">เข้าสู่ระบบ</h4><p>สะสมดาวของครอบครัว</p><div class="tabs"><button class="tab active" id="tabLogin">เข้าสู่ระบบ</button><button class="tab" id="tabReg">สมัครสมาชิก</button></div><input class="welcome-input" id="authUser" placeholder="ชื่อผู้ใช้" autocomplete="username"><input class="welcome-input" id="authPass" type="password" placeholder="รหัสผ่าน" autocomplete="current-password"><input class="welcome-input" id="authPass2" type="password" placeholder="ยืนยันรหัสผ่าน" style="display:none"><div class="auth-err" id="authErr"></div><button class="btn btn-gold" id="authGo" style="width:100%">เข้าสู่ระบบ</button><div class="auth-note">🔒 ระบบสำหรับใช้ในครอบครัว ข้อมูลเก็บในแอป ไม่ใช่ระบบความปลอดภัยระดับสูง — อย่าใช้รหัสผ่านสำคัญหรือซ้ำกับอีเมล/ธนาคาร</div></div></div>
+<div class="overlay show" id="auth" style="z-index:80"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">⭐</div><h4 id="authTitle">เข้าสู่ระบบ</h4><p>สะสมดาวของครอบครัว</p><div class="tabs"><button class="tab active" id="tabLogin">เข้าสู่ระบบ</button><button class="tab" id="tabReg">สมัครสมาชิก</button></div><input class="welcome-input" id="authUser" type="email" placeholder="อีเมล" autocomplete="email"><input class="welcome-input" id="authPass" type="password" placeholder="รหัสผ่าน (อย่างน้อย 6 ตัว)" autocomplete="current-password"><input class="welcome-input" id="authPass2" type="password" placeholder="ยืนยันรหัสผ่าน" style="display:none"><div class="auth-err" id="authErr"></div><button class="btn btn-gold" id="authGo" style="width:100%">เข้าสู่ระบบ</button><button id="forgotPass" style="background:none;border:none;color:var(--soft);font-family:'Mali';font-size:13px;text-decoration:underline;cursor:pointer;margin-top:12px">ลืมรหัสผ่าน?</button><div class="auth-note">🔒 ล็อกอินจริงด้วย Firebase — เข้าได้ทุกเครื่องด้วยอีเมลเดียวกัน</div></div></div>
 
 <script>
 const $=id=>document.getElementById(id);
@@ -261,29 +286,13 @@ function active(){return store.profiles.find(p=>p.id===store.activeId)||null;}
 /* sky */
 (function(){let h='';for(let i=0;i<72;i++){const s=(Math.random()*2.2+1).toFixed(1);h+=`<span class="tw" style="left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;width:${s}px;height:${s}px;--d:${(Math.random()*3+2).toFixed(1)}s;animation-delay:${(Math.random()*3).toFixed(1)}s"></span>`;}for(let i=0;i<9;i++){h+=`<span class="sp" style="left:${(Math.random()*96+2).toFixed(1)}%;top:${(Math.random()*70).toFixed(1)}%;--d:${(Math.random()*3+3).toFixed(1)}s;animation-delay:${(Math.random()*4).toFixed(1)}s">✦</span>`;}$('sky').innerHTML=h;})();
 
-/* storage — uses window.storage inside Claude, else localStorage on a normal website (GitHub Pages) */
-const HAS_WS=(typeof window!=='undefined')&&window.storage&&typeof window.storage.get==='function';
-const lsKey=(key,sh)=>'SL_'+(sh?'shared_':'usr_')+key;
-function lsAvailable(){try{const k='__sl_test__';localStorage.setItem(k,'1');localStorage.removeItem(k);return true;}catch(e){return false;}}
-const HAS_LS=lsAvailable();
-async function sget(key,sh){try{if(HAS_WS){const r=await window.storage.get(key,!!sh);return r&&r.value?JSON.parse(r.value):null;}if(HAS_LS){const raw=localStorage.getItem(lsKey(key,sh));return raw?JSON.parse(raw):null;}return null;}catch(e){return null;}}
-async function sset(key,v,sh){try{if(HAS_WS){await window.storage.set(key,JSON.stringify(v),!!sh);return;}if(HAS_LS){localStorage.setItem(lsKey(key,sh),JSON.stringify(v));}}catch(e){console.error('save error',e);}}
-async function sdel(key,sh){try{if(HAS_WS){await window.storage.delete(key,!!sh);return;}if(HAS_LS){localStorage.removeItem(lsKey(key,sh));}}catch(e){}}
-const dataKey=u=>'sc:data:'+u;
-function randSalt(){return Math.random().toString(36).slice(2)+Date.now().toString(36);}
-async function hashPass(t,salt){const data=new TextEncoder().encode(salt+'|'+t);if(window.crypto&&crypto.subtle){const b=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}let h=0;const s=salt+'|'+t;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 'w'+h.toString(16);}
-async function loadUsers(){return (await sget('sc:users',true))||{};}
-async function saveUsers(u){await sset('sc:users',u,true);}
-async function setSession(u){await sset('sc:session',{user:u},false);}
-async function getSession(){return await sget('sc:session',false);}
+/* ===== Firebase: storage + account (data synced to Firestore per user) ===== */
 let saveT,pendingSave=false;
-function save(){pendingSave=true;clearTimeout(saveT);saveT=setTimeout(flushNow,220);}
-function flushNow(){if(pendingSave&&currentUser){pendingSave=false;sset(dataKey(currentUser),store,true);}}
+function save(){pendingSave=true;clearTimeout(saveT);saveT=setTimeout(flushNow,500);}
+function flushNow(){if(pendingSave&&currentUser&&window.fbReady){pendingSave=false;try{db.collection('users').doc(currentUser).set(store);}catch(e){console.error('save error',e);}}}
 window.addEventListener('pagehide',flushNow);
-window.addEventListener('beforeunload',flushNow);
 document.addEventListener('visibilitychange',()=>{if(document.hidden)flushNow();});
-async function maybeImportOld(){const flag=await sget('sc:migrated',false);if(flag)return;const old=await sget('starchart:v3',false);if(old&&old.profiles&&old.profiles.length&&!store.profiles.length){store.profiles=old.profiles.map(normalizeProfile);store.activeId=old.activeId||store.profiles[0].id;await sset(dataKey(currentUser),store,true);}await sset('sc:migrated',true,false);}
-async function enterAccount(u){currentUser=u;store=(await sget(dataKey(u),true))||{profiles:[],activeId:null};await maybeImportOld();store.profiles.forEach(normalizeProfile);if(store.activeId&&!active())store.activeId=store.profiles[0]?store.profiles[0].id:null;parentUnlocked=false;$('auth').classList.remove('show');state=active();render();if(!active())openWelcome(false);}
+async function enterAccount(uid){currentUser=uid;let data=null;try{const snap=await db.collection('users').doc(uid).get();if(snap.exists)data=snap.data();}catch(e){console.error('load error',e);}store=data||{profiles:[],activeId:null};store.profiles=(store.profiles||[]).map(normalizeProfile);if(store.activeId&&!active())store.activeId=store.profiles[0]?store.profiles[0].id:null;if(!data){try{await db.collection('users').doc(uid).set(store);}catch(e){console.error(e);}}parentUnlocked=false;$('auth').classList.remove('show');state=active();render();if(!active())openWelcome(false);}
 
 /* sound */
 let actx=null;
@@ -375,7 +384,7 @@ function closeWelcome(){$('welcome').classList.remove('show');}
 function addChild(){const name=$('welcomeName').value.trim()||'หนู';const p=makeProfile(name,selectedAvatar);store.profiles.push(p);store.activeId=p.id;parentUnlocked=false;save();closeWelcome();render();ensureAudio();playUnlock();confetti();toast('เพิ่ม '+name+' แล้ว! 🌟');}
 
 /* profiles */
-function openProfiles(){$('acctName').textContent='@'+(currentUser||'');$('plist').innerHTML=store.profiles.map(p=>`<div class="pitem ${p.id===store.activeId?'active':''}" data-id="${p.id}"><span class="pav">${p.avatar||'🐻'}</span><span class="pnm">${esc(p.name)}</span><span class="pct">⭐ ${p.count}</span><button class="pdel" data-del="${p.id}">✕</button></div>`).join('')||'<div class="empty">ยังไม่มีเด็ก กด "เพิ่มเด็ก"</div>';$('plist').querySelectorAll('.pitem').forEach(it=>{it.addEventListener('click',e=>{if(e.target.classList.contains('pdel'))return;switchProfile(it.dataset.id);});});$('plist').querySelectorAll('.pdel').forEach(b=>{let armed=false,tm;b.addEventListener('click',e=>{e.stopPropagation();if(!armed){armed=true;b.textContent='?';tm=setTimeout(()=>{armed=false;b.textContent='✕';},2500);return;}clearTimeout(tm);deleteProfile(b.dataset.del);});});$('profilesOverlay').classList.add('show');}
+function openProfiles(){$('acctName').textContent=(window.auth&&auth.currentUser&&auth.currentUser.email)||'บัญชีนี้';$('plist').innerHTML=store.profiles.map(p=>`<div class="pitem ${p.id===store.activeId?'active':''}" data-id="${p.id}"><span class="pav">${p.avatar||'🐻'}</span><span class="pnm">${esc(p.name)}</span><span class="pct">⭐ ${p.count}</span><button class="pdel" data-del="${p.id}">✕</button></div>`).join('')||'<div class="empty">ยังไม่มีเด็ก กด "เพิ่มเด็ก"</div>';$('plist').querySelectorAll('.pitem').forEach(it=>{it.addEventListener('click',e=>{if(e.target.classList.contains('pdel'))return;switchProfile(it.dataset.id);});});$('plist').querySelectorAll('.pdel').forEach(b=>{let armed=false,tm;b.addEventListener('click',e=>{e.stopPropagation();if(!armed){armed=true;b.textContent='?';tm=setTimeout(()=>{armed=false;b.textContent='✕';},2500);return;}clearTimeout(tm);deleteProfile(b.dataset.del);});});$('profilesOverlay').classList.add('show');}
 function closeProfiles(){$('profilesOverlay').classList.remove('show');}
 function switchProfile(id){store.activeId=id;parentUnlocked=false;save();closeProfiles();render();const p=active();toast('สวัสดี '+(p?p.name:'')+'! '+(p?p.avatar:''));}
 function deleteProfile(id){store.profiles=store.profiles.filter(p=>p.id!==id);if(store.activeId===id)store.activeId=store.profiles[0]?store.profiles[0].id:null;save();if(!store.profiles.length){closeProfiles();render();openWelcome(false);}else{openProfiles();render();}}
@@ -384,13 +393,16 @@ function deleteProfile(id){store.profiles=store.profiles.filter(p=>p.id!==id);if
 let authMode='login';
 function setAuthMode(m){authMode=m;$('tabLogin').classList.toggle('active',m==='login');$('tabReg').classList.toggle('active',m==='register');$('authPass2').style.display=m==='register'?'block':'none';$('authTitle').textContent=m==='login'?'เข้าสู่ระบบ':'สมัครสมาชิก';$('authGo').textContent=m==='login'?'เข้าสู่ระบบ':'สมัครสมาชิก ✨';$('authErr').textContent='';}
 function showAuth(){$('wrap').style.visibility='hidden';$('authUser').value='';$('authPass').value='';$('authPass2').value='';setAuthMode('login');$('auth').classList.add('show');}
-async function doAuth(){const u=$('authUser').value.trim(),p=$('authPass').value;if(u.length<2){$('authErr').textContent='ชื่อผู้ใช้ต้องยาวอย่างน้อย 2 ตัว';return;}if(p.length<4){$('authErr').textContent='รหัสผ่านต้องยาวอย่างน้อย 4 ตัว';return;}$('authGo').disabled=true;const users=await loadUsers();if(authMode==='register'){if(users[u]){$('authErr').textContent='ชื่อผู้ใช้นี้ถูกใช้แล้ว';$('authGo').disabled=false;return;}if($('authPass2').value!==p){$('authErr').textContent='รหัสผ่านยืนยันไม่ตรงกัน';$('authGo').disabled=false;return;}const salt=randSalt();const ph=await hashPass(p,salt);users[u]={user:u,salt,passHash:ph,created:Date.now()};await saveUsers(users);await setSession(u);ensureAudio();await enterAccount(u);toast('สมัครสำเร็จ ยินดีต้อนรับ '+u+'! 🎉');}else{const rec=users[u];if(!rec){$('authErr').textContent='ไม่พบชื่อผู้ใช้นี้';$('authGo').disabled=false;return;}const ph=await hashPass(p,rec.salt);if(ph!==rec.passHash){$('authErr').textContent='รหัสผ่านไม่ถูกต้อง';$('authGo').disabled=false;return;}await setSession(u);ensureAudio();await enterAccount(u);toast('ยินดีต้อนรับกลับ '+u+'! ⭐');}$('authGo').disabled=false;}
-async function signOut(){await sdel('sc:session',false);currentUser=null;store={profiles:[],activeId:null};state=null;parentUnlocked=false;closeProfiles();showAuth();}
+function authErrMsg(e){const c=(e&&e.code)||'';const m={'auth/email-already-in-use':'อีเมลนี้ถูกใช้แล้ว ลองเข้าสู่ระบบแทน','auth/invalid-email':'อีเมลไม่ถูกต้อง','auth/weak-password':'รหัสผ่านอ่อนเกินไป (อย่างน้อย 6 ตัว)','auth/user-not-found':'ไม่พบบัญชีนี้','auth/wrong-password':'รหัสผ่านไม่ถูกต้อง','auth/invalid-credential':'อีเมลหรือรหัสผ่านไม่ถูกต้อง','auth/too-many-requests':'ลองมากเกินไป กรุณารอสักครู่','auth/network-request-failed':'เชื่อมต่ออินเทอร์เน็ตไม่ได้','auth/operation-not-allowed':'ยังไม่ได้เปิด Email/Password ใน Firebase Console'};return m[c]||('เกิดข้อผิดพลาด: '+((e&&e.message)||c));}
+async function doAuth(){const email=$('authUser').value.trim(),p=$('authPass').value;if(!window.fbReady){$('authErr').textContent='⚠️ ยังตั้งค่า Firebase ไม่เสร็จ (ดูคู่มือในแชท)';return;}if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){$('authErr').textContent='กรุณาใส่อีเมลให้ถูกต้อง';return;}if(p.length<6){$('authErr').textContent='รหัสผ่านต้องยาวอย่างน้อย 6 ตัว';return;}$('authGo').disabled=true;$('authErr').textContent='';try{ensureAudio();if(authMode==='register'){if($('authPass2').value!==p){$('authErr').textContent='รหัสผ่านยืนยันไม่ตรงกัน';$('authGo').disabled=false;return;}await auth.createUserWithEmailAndPassword(email,p);toast('สมัครสำเร็จ! 🎉');}else{await auth.signInWithEmailAndPassword(email,p);toast('ยินดีต้อนรับกลับ! ⭐');}}catch(e){$('authErr').textContent=authErrMsg(e);}$('authGo').disabled=false;}
+async function resetPass(){const email=$('authUser').value.trim();if(!window.fbReady){$('authErr').textContent='⚠️ ยังตั้งค่า Firebase ไม่เสร็จ';return;}if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){$('authErr').textContent='ใส่อีเมลก่อน แล้วกด "ลืมรหัสผ่าน" อีกครั้ง';return;}try{await auth.sendPasswordResetEmail(email);toast('ส่งลิงก์รีเซ็ตรหัสไปที่อีเมลแล้ว 📧');}catch(e){$('authErr').textContent=authErrMsg(e);}}
+async function signOut(){try{await auth.signOut();}catch(e){}currentUser=null;store={profiles:[],activeId:null};state=null;parentUnlocked=false;closeProfiles();showAuth();}
 
 /* events */
 $('tabLogin').addEventListener('click',()=>setAuthMode('login'));
 $('tabReg').addEventListener('click',()=>setAuthMode('register'));
 $('authGo').addEventListener('click',doAuth);
+$('forgotPass').addEventListener('click',resetPass);
 $('authPass').addEventListener('keydown',e=>{if(e.key==='Enter'&&authMode==='login')doAuth();});
 $('authPass2').addEventListener('keydown',e=>{if(e.key==='Enter')doAuth();});
 $('signOut').addEventListener('click',signOut);
@@ -439,7 +451,8 @@ function ambient(){shootingStar();setTimeout(ambient,7000+Math.random()*9000);}
 if(!reduce)setTimeout(ambient,4500);
 
 /* init */
-(async()=>{const sess=await getSession();if(sess&&sess.user){const users=await loadUsers();if(users[sess.user]){await enterAccount(sess.user);return;}}showAuth();})();
+if(window.fbReady){auth.onAuthStateChanged(async(user)=>{if(user){await enterAccount(user.uid);}else{showAuth();}});}
+else{showAuth();$('authErr').textContent='⚠️ ยังไม่ได้ใส่ค่า Firebase config — ใส่ในไฟล์ index.html ตามคู่มือในแชท';}
 </script>
 </body>
 </html>
