@@ -261,10 +261,14 @@ function active(){return store.profiles.find(p=>p.id===store.activeId)||null;}
 /* sky */
 (function(){let h='';for(let i=0;i<72;i++){const s=(Math.random()*2.2+1).toFixed(1);h+=`<span class="tw" style="left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*100).toFixed(1)}%;width:${s}px;height:${s}px;--d:${(Math.random()*3+2).toFixed(1)}s;animation-delay:${(Math.random()*3).toFixed(1)}s"></span>`;}for(let i=0;i<9;i++){h+=`<span class="sp" style="left:${(Math.random()*96+2).toFixed(1)}%;top:${(Math.random()*70).toFixed(1)}%;--d:${(Math.random()*3+3).toFixed(1)}s;animation-delay:${(Math.random()*4).toFixed(1)}s">✦</span>`;}$('sky').innerHTML=h;})();
 
-/* storage */
-async function sget(key,sh){try{const r=await window.storage.get(key,!!sh);return r&&r.value?JSON.parse(r.value):null;}catch(e){return null;}}
-async function sset(key,v,sh){try{await window.storage.set(key,JSON.stringify(v),!!sh);}catch(e){console.error(e);}}
-async function sdel(key,sh){try{await window.storage.delete(key,!!sh);}catch(e){try{await window.storage.set(key,JSON.stringify(null),!!sh);}catch(_){}}}
+/* storage — uses window.storage inside Claude, else localStorage on a normal website (GitHub Pages) */
+const HAS_WS=(typeof window!=='undefined')&&window.storage&&typeof window.storage.get==='function';
+const lsKey=(key,sh)=>'SL_'+(sh?'shared_':'usr_')+key;
+function lsAvailable(){try{const k='__sl_test__';localStorage.setItem(k,'1');localStorage.removeItem(k);return true;}catch(e){return false;}}
+const HAS_LS=lsAvailable();
+async function sget(key,sh){try{if(HAS_WS){const r=await window.storage.get(key,!!sh);return r&&r.value?JSON.parse(r.value):null;}if(HAS_LS){const raw=localStorage.getItem(lsKey(key,sh));return raw?JSON.parse(raw):null;}return null;}catch(e){return null;}}
+async function sset(key,v,sh){try{if(HAS_WS){await window.storage.set(key,JSON.stringify(v),!!sh);return;}if(HAS_LS){localStorage.setItem(lsKey(key,sh),JSON.stringify(v));}}catch(e){console.error('save error',e);}}
+async function sdel(key,sh){try{if(HAS_WS){await window.storage.delete(key,!!sh);return;}if(HAS_LS){localStorage.removeItem(lsKey(key,sh));}}catch(e){}}
 const dataKey=u=>'sc:data:'+u;
 function randSalt(){return Math.random().toString(36).slice(2)+Date.now().toString(36);}
 async function hashPass(t,salt){const data=new TextEncoder().encode(salt+'|'+t);if(window.crypto&&crypto.subtle){const b=await crypto.subtle.digest('SHA-256',data);return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');}let h=0;const s=salt+'|'+t;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return 'w'+h.toString(16);}
@@ -272,7 +276,12 @@ async function loadUsers(){return (await sget('sc:users',true))||{};}
 async function saveUsers(u){await sset('sc:users',u,true);}
 async function setSession(u){await sset('sc:session',{user:u},false);}
 async function getSession(){return await sget('sc:session',false);}
-let saveT;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{if(currentUser)sset(dataKey(currentUser),store,true);},300);}
+let saveT,pendingSave=false;
+function save(){pendingSave=true;clearTimeout(saveT);saveT=setTimeout(flushNow,220);}
+function flushNow(){if(pendingSave&&currentUser){pendingSave=false;sset(dataKey(currentUser),store,true);}}
+window.addEventListener('pagehide',flushNow);
+window.addEventListener('beforeunload',flushNow);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)flushNow();});
 async function maybeImportOld(){const flag=await sget('sc:migrated',false);if(flag)return;const old=await sget('starchart:v3',false);if(old&&old.profiles&&old.profiles.length&&!store.profiles.length){store.profiles=old.profiles.map(normalizeProfile);store.activeId=old.activeId||store.profiles[0].id;await sset(dataKey(currentUser),store,true);}await sset('sc:migrated',true,false);}
 async function enterAccount(u){currentUser=u;store=(await sget(dataKey(u),true))||{profiles:[],activeId:null};await maybeImportOld();store.profiles.forEach(normalizeProfile);if(store.activeId&&!active())store.activeId=store.profiles[0]?store.profiles[0].id:null;parentUnlocked=false;$('auth').classList.remove('show');state=active();render();if(!active())openWelcome(false);}
 
