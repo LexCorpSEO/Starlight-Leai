@@ -23,7 +23,7 @@
   body{font-family:'Mali',sans-serif;color:var(--text);background:transparent;min-height:100vh;overscroll-behavior:none;position:relative;}
   .skybg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(150% 100% at 50% 122%,rgba(255,158,208,.24) 0%,transparent 54%),linear-gradient(180deg,#160f3d 0%,#1e1448 40%,#271a5a 72%,#30206a 100%);}
   
-  /* --- แสงเหนือลื่นไหล --- */
+  /* --- แสงเหนือมินิมอล ลื่นไหลแบบนิ่งๆ --- */
   .aurora{position:fixed;inset:-15%;z-index:0;pointer-events:none;filter:blur(32px);opacity:.6;animation:auroraBreath 10s ease-in-out infinite alternate;}
   @keyframes auroraBreath{0%{opacity:.4;} 100%{opacity:.7;}}
   .aurora span{position:absolute;border-radius:50%;}
@@ -306,17 +306,16 @@
     </div>
     <div class="pm-pane" data-pane="tasks">
       <h3>📋 งานประจำวัน</h3><div class="erow"><span class="hint" style="margin:0">ทำครบ</span><input class="num" id="tasksPerStarInput" type="number" min="1"><span class="hint" style="margin:0">งาน = 1 ⭐</span></div><div id="taskEditor"></div>
-      <!-- เปลี่ยนช่องเพิ่มงานให้มีช่องใส่อิโมจิด้วย -->
+      <!-- ช่องใส่อิโมจิขยาย maxlength เป็น 10 เพื่อรองรับคีย์บอร์ดมือถือ -->
       <div class="add-row">
-        <input id="newTaskIcon" class="ico" maxlength="2" placeholder="🌟">
+        <input id="newTaskIcon" class="ico" maxlength="10" placeholder="🌟">
         <input id="newTask" class="nm" maxlength="24" placeholder="เพิ่มงานใหม่">
         <button class="btn btn-ghost" id="addTask">เพิ่ม</button>
       </div>
       
       <h3>🤝 ภารกิจคู่</h3><div class="hint">แต่ละภารกิจได้ 1 ดาว (อิโมจิ · ชื่อ)</div><div id="coEditor"></div>
-      <!-- เปลี่ยนช่องเพิ่มภารกิจคู่ให้มีช่องใส่อิโมจิด้วย -->
       <div class="add-row">
-        <input id="newCoIcon" class="ico" maxlength="2" placeholder="🤝">
+        <input id="newCoIcon" class="ico" maxlength="10" placeholder="🤝">
         <input id="newCo" class="nm" maxlength="24" placeholder="เพิ่มภารกิจคู่ใหม่">
         <button class="btn btn-ghost" id="addCo">เพิ่ม</button>
       </div>
@@ -324,9 +323,8 @@
     <div class="pm-pane" data-pane="rewards">
       <h3>🎁 รางวัล</h3><div id="rewardEditor"></div><div class="pbtns"><button class="btn btn-ghost" id="addReward">+ เพิ่มรางวัล</button></div>
       <h3>🎡 วงล้อกิจกรรม</h3><div class="erow"><span class="hint" style="margin:0">หมุนได้วันละ</span><input class="num" id="wheelPerDayInput" type="number" min="1"><span class="hint" style="margin:0">ครั้ง (ไม่ใช้ดาว)</span></div><div id="wheelEditor"></div>
-      <!-- เปลี่ยนช่องเพิ่มกิจกรรมวงล้อให้มีช่องใส่อิโมจิด้วย -->
       <div class="add-row">
-        <input id="newWheelIcon" class="ico" maxlength="2" placeholder="🎈">
+        <input id="newWheelIcon" class="ico" maxlength="10" placeholder="🎈">
         <input id="newWheel" class="nm" maxlength="24" placeholder="เพิ่มกิจกรรมใหม่">
         <button class="btn btn-ghost" id="addWheel">เพิ่ม</button>
       </div>
@@ -508,10 +506,10 @@ function renderChip(){$('chipAv').textContent=state.avatar||'🐻';$('chipName')
 function renderNote(){const nb=$('noteBanner');if(state.parentNote){nb.style.display='flex';nb.innerHTML='<span class="h">💌</span><span>พ่อแม่ฝากบอก: '+esc(state.parentNote)+'</span>';}else nb.style.display='none';}
 function renderDisplay(){$('countInner').textContent=state.count;renderChip();renderNote();renderCluster();renderTasksDisplay();renderCoDisplay();renderRewardsDisplay();renderWheel();renderStreak();renderReactGrid();}
 function isLocked(){return !!state.pin && !parentUnlocked;}
-function renderTaskEditor(){$('taskEditor').innerHTML=state.tasks.map(t=>`<div class="erow" data-id="${t.id}"><input class="ico te-emoji" maxlength="2" value="${esc(t.emoji)}"><input class="nm te-label" maxlength="24" value="${esc(t.label)}"><button class="del">✕</button></div>`).join('');}
-function renderCoEditor(){$('coEditor').innerHTML=state.coquests.map(q=>`<div class="erow" data-id="${q.id}"><input class="ico co-e" maxlength="2" value="${esc(q.e)}"><input class="nm co-l" maxlength="24" value="${esc(q.l)}"><button class="del">✕</button></div>`).join('');}
-function renderWheelEditor(){$('wheelPerDayInput').value=state.wheelPerDay||3;$('tasksPerStarInput').value=state.tasksPerStar||3;$('wheelEditor').innerHTML=state.wheelOptions.map((o,i)=>`<div class="erow" data-i="${i}"><input class="ico w-e" maxlength="2" value="${esc(o.e)}"><input class="nm w-l" maxlength="24" value="${esc(o.l)}"><button class="del">✕</button></div>`).join('');}
-function renderRewardEditor(){$('rewardEditor').innerHTML=state.rewards.map(r=>`<div class="erow" data-id="${r.id}"><input class="ico re-icon" maxlength="2" value="${esc(r.icon)}"><input class="nm re-name" maxlength="28" value="${esc(r.name)}"><input class="num re-th" type="number" min="1" value="${r.threshold}"><button class="del">✕</button></div>`).join('');}
+function renderTaskEditor(){$('taskEditor').innerHTML=state.tasks.map(t=>`<div class="erow" data-id="${t.id}"><input class="ico te-emoji" maxlength="10" value="${esc(t.emoji)}"><input class="nm te-label" maxlength="24" value="${esc(t.label)}"><button class="del">✕</button></div>`).join('');}
+function renderCoEditor(){$('coEditor').innerHTML=state.coquests.map(q=>`<div class="erow" data-id="${q.id}"><input class="ico co-e" maxlength="10" value="${esc(q.e)}"><input class="nm co-l" maxlength="24" value="${esc(q.l)}"><button class="del">✕</button></div>`).join('');}
+function renderWheelEditor(){$('wheelPerDayInput').value=state.wheelPerDay||3;$('tasksPerStarInput').value=state.tasksPerStar||3;$('wheelEditor').innerHTML=state.wheelOptions.map((o,i)=>`<div class="erow" data-i="${i}"><input class="ico w-e" maxlength="10" value="${esc(o.e)}"><input class="nm w-l" maxlength="24" value="${esc(o.l)}"><button class="del">✕</button></div>`).join('');}
+function renderRewardEditor(){$('rewardEditor').innerHTML=state.rewards.map(r=>`<div class="erow" data-id="${r.id}"><input class="ico re-icon" maxlength="10" value="${esc(r.icon)}"><input class="nm re-name" maxlength="28" value="${esc(r.name)}"><input class="num re-th" type="number" min="1" value="${r.threshold}"><button class="del">✕</button></div>`).join('');}
 function renderReactLog(){const log=$('reactLog');if(!state.reactions.length){log.innerHTML='<div class="empty">ยังไม่มีข้อความจากหนู</div>';return;}log.innerHTML=state.reactions.slice(0,30).map(r=>`<div class="ri"><span class="re">${r.e}</span><span>${esc(r.l)}</span><span class="rt">${timeAgo(r.t)}</span></div>`).join('');}
 function updatePinUI(){$('pinStatus').textContent=state.pin?'ตั้งรหัสไว้แล้ว — เด็กต้องใส่รหัสจึงเข้าโหมดนี้ได้':'ยังไม่ได้ตั้งรหัส (ใครก็เข้าโหมดผู้ปกครองได้)';$('removePin').style.display=state.pin?'inline-block':'none';}
 function renderParentEditors(){$('profName').value=state.name||'';buildAvGridInto('profAvatarGrid',state.avatar||'🐻');$('noteInput').value=state.parentNote||'';renderTaskEditor();renderCoEditor();renderWheelEditor();renderRewardEditor();renderReactLog();updatePinUI();}
@@ -719,10 +717,9 @@ $('clearNote').addEventListener('click',()=>{state.parentNote='';$('noteInput').
 $('mAdd').addEventListener('click',()=>{const r=$('mAdd').getBoundingClientRect();earnStars(1,r.left+r.width/2,r.top+r.height/2);});
 $('mRemove').addEventListener('click',decCount);
 
-/* อัปเดตฟังก์ชันเพิ่มข้อมูล ให้ดึงอิโมจิจากช่อง input ใหม่ */
 $('addTask').addEventListener('click',()=>{
   const v=$('newTask').value.trim();
-  const ic=$('newTaskIcon').value.trim()||'🌟'; // ถ้าไม่ใส่ ให้เป็น 🌟
+  const ic=$('newTaskIcon').value.trim()||'🌟';
   if(!v)return;
   state.tasks.push({id:uid(),emoji:ic,label:v});
   $('newTask').value='';
@@ -733,7 +730,7 @@ $('newTask').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').clic
 
 $('addCo').addEventListener('click',()=>{
   const v=$('newCo').value.trim();
-  const ic=$('newCoIcon').value.trim()||'🤝'; // ถ้าไม่ใส่ ให้เป็น 🤝
+  const ic=$('newCoIcon').value.trim()||'🤝';
   if(!v)return;
   state.coquests.push({id:uid(),e:ic,l:v});
   $('newCo').value='';
@@ -744,7 +741,7 @@ $('newCo').addEventListener('keydown',e=>{if(e.key==='Enter')$('addCo').click();
 
 $('addWheel').addEventListener('click',()=>{
   const v=$('newWheel').value.trim();
-  const ic=$('newWheelIcon').value.trim()||'🎈'; // ถ้าไม่ใส่ ให้เป็น 🎈
+  const ic=$('newWheelIcon').value.trim()||'🎈';
   if(!v)return;
   state.wheelOptions.push({e:ic,l:v});
   $('newWheel').value='';
