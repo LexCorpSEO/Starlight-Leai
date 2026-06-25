@@ -22,9 +22,11 @@
   html{background:#160f3d;overscroll-behavior:none;}
   body{font-family:'Mali',sans-serif;color:var(--text);background:var(--sky-top);min-height:100vh;overflow-x:hidden;overscroll-behavior:none;position:relative;}
   body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(120% 80% at 50% 120%,var(--glow) 0%,transparent 45%),linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 55%,var(--sky-low) 100%);}
-  .aurora{position:fixed;inset:-25%;z-index:0;pointer-events:none;filter:blur(60px);opacity:.66;animation:auroraBreath 16s ease-in-out infinite;will-change:opacity;}
+  .aurora{position:fixed;inset:-25%;z-index:0;pointer-events:none;filter:blur(54px);opacity:.78;animation:auroraBreath 16s ease-in-out infinite;will-change:opacity;}
   @keyframes auroraBreath{0%,100%{opacity:.6;}50%{opacity:.82;}}
-  .aurora span{position:absolute;border-radius:50%;mix-blend-mode:screen;will-change:transform;transform:translateZ(0);}
+  .aurora span{position:absolute;border-radius:50%;will-change:transform;transform:translateZ(0);}
+  .scrolling .aurora,.scrolling .aurora span,.scrolling .aurora-band{animation-play-state:paused !important;}
+  body.lite .aurora,body.lite .aurora span,body.lite .aurora-band{animation:none !important;}
   .a1{width:55vw;height:55vw;left:-10%;top:-5%;background:radial-gradient(circle,#5be0d4,transparent 65%);animation:drift1 18s ease-in-out infinite;}
   .a2{width:50vw;height:50vw;right:-10%;top:10%;background:radial-gradient(circle,#c47bff,transparent 65%);animation:drift2 22s ease-in-out infinite;}
   .a3{width:60vw;height:60vw;left:15%;bottom:-15%;background:radial-gradient(circle,#ff8fc4,transparent 65%);animation:drift3 26s ease-in-out infinite;}
@@ -222,7 +224,7 @@
   .ins li{font-family:'Mali',sans-serif;font-size:14px;line-height:1.5;}
   .ins li b{color:var(--star);}
   .a4{width:52vw;height:52vw;left:4%;top:-12%;background:radial-gradient(circle,rgba(87,240,168,.9),transparent 64%);animation:drift1 30s ease-in-out infinite reverse;}
-  .aurora-band{position:fixed;top:-12%;left:-25%;right:-25%;height:64%;z-index:0;pointer-events:none;filter:blur(40px);opacity:.5;mix-blend-mode:screen;background:repeating-linear-gradient(74deg,transparent 0 50px,rgba(95,240,180,.55) 70px 96px,transparent 122px 178px,rgba(110,200,255,.45) 202px 232px,transparent 262px 332px,rgba(180,130,255,.5) 360px 402px,transparent 452px 540px);-webkit-mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);animation:band 26s ease-in-out infinite;will-change:transform;}
+  .aurora-band{position:fixed;top:-12%;left:-25%;right:-25%;height:64%;z-index:0;pointer-events:none;filter:blur(34px);opacity:.42;background:repeating-linear-gradient(74deg,transparent 0 50px,rgba(95,240,180,.55) 70px 96px,transparent 122px 178px,rgba(110,200,255,.45) 202px 232px,transparent 262px 332px,rgba(180,130,255,.5) 360px 402px,transparent 452px 540px);-webkit-mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);animation:band 26s ease-in-out infinite;will-change:transform;transform:translateZ(0);}
   .aurora-band.b2{height:54%;opacity:.34;filter:blur(54px);background:repeating-linear-gradient(96deg,transparent 0 70px,rgba(120,255,210,.5) 95px 120px,transparent 150px 220px,rgba(150,140,255,.45) 250px 285px,transparent 320px 420px);animation:band2 34s ease-in-out infinite;}
   .aurora-band.b3{height:72%;opacity:.3;filter:blur(48px);background:repeating-linear-gradient(84deg,transparent 0 90px,rgba(80,235,255,.5) 110px 138px,transparent 168px 250px,rgba(190,150,255,.42) 280px 312px,transparent 350px 470px);animation:band3 30s ease-in-out infinite;}
   @keyframes band{0%,100%{transform:translateX(0) skewX(-9deg) scaleY(1);opacity:.46;}50%{transform:translateX(-70px) skewX(7deg) scaleY(1.1);opacity:.6;}}
@@ -330,7 +332,7 @@
 <div class="overlay" id="surprise"><div class="modal"><div class="cel-rays"></div><h4>🎁 กล่องเซอร์ไพรส์!</h4><p>เปิดกับพ่อแม่กันเลย</p><div class="box-emoji" id="boxInner">🎁</div><div class="box-result" id="boxResult"></div><button class="btn btn-gold" id="boxBtn" style="position:relative">เปิดกล่อง! ✨</button></div></div>
 <div class="overlay" id="pinModal"><div class="modal" id="pinModalBox"><h4>🔒 ใส่รหัสผู้ปกครอง</h4><p>ใส่รหัส 4 หลัก</p><input class="pin-input" id="pinEntry" type="password" inputmode="numeric" maxlength="4" placeholder="••••"><div class="modal-btns"><button class="btn btn-ghost" id="pinCancel">ยกเลิก</button><button class="btn btn-gold" id="pinOk">ตกลง</button></div></div></div>
 <div class="overlay" id="welcome" style="z-index:75"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">🌟</div><h4>เพิ่มเด็กคนใหม่</h4><p>เลือกตัวการ์ตูนแล้วใส่ชื่อ</p><div class="av-grid" id="avGrid"></div><input class="welcome-input" id="welcomeName" maxlength="14" placeholder="ใส่ชื่อหนู"><div class="modal-btns"><button class="btn btn-ghost" id="welcomeCancel" style="display:none">ยกเลิก</button><button class="btn btn-gold" id="welcomeGo">เริ่มเลย ✨</button></div></div></div>
-<div class="overlay" id="profilesOverlay" style="z-index:75"><div class="modal"><h4>👨‍👩‍👧 ใครจะเล่นดี?</h4><div class="acct-bar">บัญชี: <b id="acctName">@user</b><button class="btn btn-ghost" id="signOut">ออกจากระบบ</button></div><button class="btn btn-gold" id="installBtn" style="display:none;width:100%;margin-bottom:10px">📲 ติดตั้งแอปลงเครื่อง</button><div class="pbtns" style="margin-bottom:10px"><button class="btn btn-ghost" id="exportBtn">💾 สำรองข้อมูล</button><button class="btn btn-ghost" id="importBtn">📥 กู้คืน</button></div><input type="file" id="importFile" accept="application/json,.json" style="display:none"><div class="plist" id="plist"></div><div class="modal-btns"><button class="btn btn-ghost" id="profClose">ปิด</button><button class="btn btn-gold" id="addProfile">+ เพิ่มเด็ก</button></div></div></div>
+<div class="overlay" id="profilesOverlay" style="z-index:75"><div class="modal"><h4>👨‍👩‍👧 ใครจะเล่นดี?</h4><div class="acct-bar">บัญชี: <b id="acctName">@user</b><button class="btn btn-ghost" id="signOut">ออกจากระบบ</button></div><button class="btn btn-gold" id="installBtn" style="display:none;width:100%;margin-bottom:10px">📲 ติดตั้งแอปลงเครื่อง</button><div class="pbtns" style="margin-bottom:10px"><button class="btn btn-ghost" id="exportBtn">💾 สำรองข้อมูล</button><button class="btn btn-ghost" id="importBtn">📥 กู้คืน</button></div><button class="btn btn-ghost" id="liteBtn" style="width:100%;margin-bottom:10px">🌌 แสงเหนือ: เคลื่อนไหว</button><input type="file" id="importFile" accept="application/json,.json" style="display:none"><div class="plist" id="plist"></div><div class="modal-btns"><button class="btn btn-ghost" id="profClose">ปิด</button><button class="btn btn-gold" id="addProfile">+ เพิ่มเด็ก</button></div></div></div>
 <div class="overlay" id="auth" style="z-index:80"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">⭐</div><h4 id="authTitle">เข้าสู่ระบบ</h4><p>สะสมดาวของครอบครัว</p>
 <div id="emailPane">
 <div class="tabs"><button class="tab active" id="tabLogin">เข้าสู่ระบบ</button><button class="tab" id="tabReg">สมัครสมาชิก</button></div>
@@ -576,6 +578,9 @@ if(window.fbReady){auth.onAuthStateChanged(async(user)=>{authResolved=true;if(us
 else{showAuth();$('authErr').textContent='⚠️ ยังไม่ได้ใส่ค่า Firebase config — ใส่ในไฟล์ index.html ตามคู่มือในแชท';}
 
 /* ===== PWA: install + offline ===== */
+let _scrollT;function _onScroll(){document.body.classList.add('scrolling');clearTimeout(_scrollT);_scrollT=setTimeout(()=>document.body.classList.remove('scrolling'),150);}
+window.addEventListener('scroll',_onScroll,{passive:true});
+document.addEventListener('scroll',_onScroll,{passive:true,capture:true});
 if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(e=>console.warn('SW register failed',e));});}
 let deferredPrompt=null;
 function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent);}
@@ -588,6 +593,11 @@ async function doInstall(){if(deferredPrompt){$('installHelp').classList.remove(
 if($('installBtn')){$('installBtn').addEventListener('click',openInstallHelp);if(!isStandalone())$('installBtn').style.display='block';}
 $('installNowBtn').addEventListener('click',doInstall);
 $('installHelpClose').addEventListener('click',()=>$('installHelp').classList.remove('show'));
+function liteOn(){try{return localStorage.getItem('sl_lite')==='1';}catch(_){return false;}}
+function applyLite(){const on=liteOn();document.body.classList.toggle('lite',on);const b=$('liteBtn');if(b)b.textContent=on?'🌌 แสงเหนือ: นิ่ง (ลื่นสุด)':'🌌 แสงเหนือ: เคลื่อนไหว';}
+function toggleLite(){const on=liteOn();try{localStorage.setItem('sl_lite',on?'0':'1');}catch(_){}applyLite();toast(on?'เปิดแสงเหนือเคลื่อนไหว ✨':'ลดเอฟเฟกต์แล้ว ลื่นขึ้น 🚀');}
+applyLite();
+if($('liteBtn'))$('liteBtn').addEventListener('click',toggleLite);
 </script>
 </body>
 </html>
