@@ -23,7 +23,7 @@
   body{font-family:'Mali',sans-serif;color:var(--text);background:transparent;min-height:100vh;overscroll-behavior:none;position:relative;}
   .skybg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(150% 100% at 50% 122%,rgba(255,158,208,.24) 0%,transparent 54%),linear-gradient(180deg,#160f3d 0%,#1e1448 40%,#271a5a 72%,#30206a 100%);}
   
-  /* --- แสงเหนือที่ปรับแต่งให้ลื่นไหล (ลดการใช้ GPU/RAM) --- */
+  /* --- แสงเหนือลื่นไหล --- */
   .aurora{position:fixed;inset:-15%;z-index:0;pointer-events:none;filter:blur(32px);opacity:.6;animation:auroraBreath 10s ease-in-out infinite alternate;}
   @keyframes auroraBreath{0%{opacity:.4;} 100%{opacity:.7;}}
   .aurora span{position:absolute;border-radius:50%;}
@@ -36,7 +36,6 @@
   .aurora-band.b2{height:54%;opacity:.34;filter:blur(32px);background:repeating-linear-gradient(96deg,transparent 0 70px,rgba(120,255,210,.5) 95px 120px,transparent 150px 220px,rgba(150,140,255,.45) 250px 285px,transparent 320px 420px);animation:bandBreath 18s ease-in-out infinite alternate-reverse;}
   .aurora-band.b3{height:72%;opacity:.3;filter:blur(32px);background:repeating-linear-gradient(84deg,transparent 0 90px,rgba(80,235,255,.5) 110px 138px,transparent 168px 250px,rgba(190,150,255,.42) 280px 312px,transparent 350px 470px);animation:bandBreath 22s ease-in-out infinite alternate;}
   @keyframes bandBreath{0%{opacity:.25;} 100%{opacity:.5;}}
-  /* --- จบส่วนแสงเหนือ --- */
 
   .sky{position:fixed;inset:0;pointer-events:none;z-index:0;}
   .sky .tw{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d,3s) ease-in-out infinite alternate;}
@@ -128,10 +127,14 @@
   .lockbtn{font-family:'Mali';font-weight:600;font-size:15px;color:var(--soft);background:rgba(255,255,255,.08);border:1.5px solid var(--card-line);border-radius:999px;padding:10px 22px;cursor:pointer;transition:.2s;}
   .lockbtn:hover{background:rgba(255,255,255,.16);color:#fff;}
   .parent{background:rgba(255,255,255,.05);border:1.5px dashed var(--card-line);border-radius:24px;padding:18px 16px;margin-bottom:18px;}
-  .parent h3{font-family:'Baloo Thai 2';font-weight:700;font-size:16px;margin:18px 0 9px;color:#fff;}
-  .parent h3:first-child{margin-top:2px;}
+  
+  /* แก้ไขตัวหนังสือซ้อนในหัวข้อ h3 */
+  .parent h3, .pm-pane h3{font-family:'Baloo Thai 2';font-weight:700;font-size:16px;margin:18px 0 9px;color:#fff; display:flex; align-items:center; gap:8px; line-height:1.4; flex-wrap:wrap;}
+  .parent h3:first-child, .pm-pane h3:first-child{margin-top:2px;}
+  
   .pbtns{display:flex;gap:10px;flex-wrap:wrap;}
-  .btn{font-family:'Baloo Thai 2';font-weight:700;font-size:15px;border:none;border-radius:14px;padding:11px 18px;cursor:pointer;transition:.15s;}
+  /* แก้ไขตัวหนังสือล้นปุ่ม */
+  .btn{font-family:'Baloo Thai 2';font-weight:700;font-size:15px;border:none;border-radius:14px;padding:11px 18px;cursor:pointer;transition:.15s; white-space:normal; line-height:1.4;}
   .btn-gold{background:linear-gradient(180deg,#ffe07a,#ffc23c);color:#5a2e00;box-shadow:0 5px 0 #d98e1c;}
   .btn-gold:active{transform:translateY(4px);box-shadow:0 1px 0 #d98e1c;}
   .btn-gold:disabled{opacity:.5;box-shadow:none;cursor:not-allowed;}
@@ -148,6 +151,9 @@
   .add-row{display:flex;gap:7px;margin-top:4px;}
   .add-row input{flex:1;font-family:'Mali';font-size:15px;color:#fff;background:rgba(255,255,255,.08);border:1.5px solid var(--card-line);border-radius:12px;padding:9px 11px;outline:none;}
   .add-row input:focus{border-color:var(--star);}
+  /* กำหนดขนาดช่องใส่ Icon ในส่วนเพิ่มใหม่ */
+  .add-row input.ico { flex: none; width: 48px; text-align: center; padding: 9px 0px; font-size: 18px; }
+
   .hint{font-size:12.5px;color:var(--soft);margin:4px 0 8px;}
   .pinrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
   .pinrow input{width:120px;font-family:'Baloo Thai 2';letter-spacing:6px;text-align:center;font-size:18px;color:#fff;background:rgba(255,255,255,.1);border:1.5px solid var(--card-line);border-radius:12px;padding:9px;outline:none;}
@@ -209,7 +215,6 @@
   .pm-close{position:absolute;top:13px;right:15px;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--card-line);background:rgba(255,255,255,.08);color:#fff;font-size:15px;cursor:pointer;z-index:2;transition:background .2s ease;}
   .pm-close:hover{background:rgba(255,255,255,.22);}
   .pm-body{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-right:6px;margin-right:-4px;}
-  .pm-body h3{text-align:left;}
   .pm-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
   .pm-head h4{flex:1;text-align:center;margin:0;}
   .pm-back{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--card-line);background:rgba(255,255,255,.08);color:#fff;font-size:20px;line-height:1;cursor:pointer;flex:none;transition:background .2s ease,transform .15s ease;}
@@ -234,6 +239,7 @@
   .btn,.task,.reward,.pitem,.tab,.profile-chip,.soundbtn{transition:transform .18s cubic-bezier(.2,.8,.3,1),background .2s ease,box-shadow .2s ease,opacity .2s ease;}
   .btn:active,.soundbtn:active,.task:active{transform:scale(.96);}
 </style>
+<!-- ===== Firebase (compat SDK via CDN) ===== -->
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore-compat.js"></script>
@@ -299,12 +305,31 @@
       <input class="nm" id="profName" maxlength="14" placeholder="ชื่อหนู" style="width:100%"><div class="hint" style="margin-top:10px">เลือกไอคอน (แตะเพื่อเปลี่ยน)</div><div class="av-grid" id="profAvatarGrid"></div>
     </div>
     <div class="pm-pane" data-pane="tasks">
-      <h3>📋 งานประจำวัน</h3><div class="erow"><span class="hint" style="margin:0">ทำครบ</span><input class="num" id="tasksPerStarInput" type="number" min="1"><span class="hint" style="margin:0">งาน = 1 ⭐</span></div><div id="taskEditor"></div><div class="add-row"><input id="newTask" maxlength="24" placeholder="เพิ่มงานใหม่"><button class="btn btn-ghost" id="addTask">เพิ่ม</button></div>
-      <h3>🤝 ภารกิจคู่</h3><div class="hint">แต่ละภารกิจได้ 1 ดาว (อิโมจิ · ชื่อ)</div><div id="coEditor"></div><div class="add-row"><input id="newCo" maxlength="24" placeholder="เพิ่มภารกิจคู่ใหม่"><button class="btn btn-ghost" id="addCo">เพิ่ม</button></div>
+      <h3>📋 งานประจำวัน</h3><div class="erow"><span class="hint" style="margin:0">ทำครบ</span><input class="num" id="tasksPerStarInput" type="number" min="1"><span class="hint" style="margin:0">งาน = 1 ⭐</span></div><div id="taskEditor"></div>
+      <!-- เปลี่ยนช่องเพิ่มงานให้มีช่องใส่อิโมจิด้วย -->
+      <div class="add-row">
+        <input id="newTaskIcon" class="ico" maxlength="2" placeholder="🌟">
+        <input id="newTask" class="nm" maxlength="24" placeholder="เพิ่มงานใหม่">
+        <button class="btn btn-ghost" id="addTask">เพิ่ม</button>
+      </div>
+      
+      <h3>🤝 ภารกิจคู่</h3><div class="hint">แต่ละภารกิจได้ 1 ดาว (อิโมจิ · ชื่อ)</div><div id="coEditor"></div>
+      <!-- เปลี่ยนช่องเพิ่มภารกิจคู่ให้มีช่องใส่อิโมจิด้วย -->
+      <div class="add-row">
+        <input id="newCoIcon" class="ico" maxlength="2" placeholder="🤝">
+        <input id="newCo" class="nm" maxlength="24" placeholder="เพิ่มภารกิจคู่ใหม่">
+        <button class="btn btn-ghost" id="addCo">เพิ่ม</button>
+      </div>
     </div>
     <div class="pm-pane" data-pane="rewards">
       <h3>🎁 รางวัล</h3><div id="rewardEditor"></div><div class="pbtns"><button class="btn btn-ghost" id="addReward">+ เพิ่มรางวัล</button></div>
-      <h3>🎡 วงล้อกิจกรรม</h3><div class="erow"><span class="hint" style="margin:0">หมุนได้วันละ</span><input class="num" id="wheelPerDayInput" type="number" min="1"><span class="hint" style="margin:0">ครั้ง (ไม่ใช้ดาว)</span></div><div id="wheelEditor"></div><div class="add-row"><input id="newWheel" maxlength="24" placeholder="เพิ่มกิจกรรมใหม่"><button class="btn btn-ghost" id="addWheel">เพิ่ม</button></div>
+      <h3>🎡 วงล้อกิจกรรม</h3><div class="erow"><span class="hint" style="margin:0">หมุนได้วันละ</span><input class="num" id="wheelPerDayInput" type="number" min="1"><span class="hint" style="margin:0">ครั้ง (ไม่ใช้ดาว)</span></div><div id="wheelEditor"></div>
+      <!-- เปลี่ยนช่องเพิ่มกิจกรรมวงล้อให้มีช่องใส่อิโมจิด้วย -->
+      <div class="add-row">
+        <input id="newWheelIcon" class="ico" maxlength="2" placeholder="🎈">
+        <input id="newWheel" class="nm" maxlength="24" placeholder="เพิ่มกิจกรรมใหม่">
+        <button class="btn btn-ghost" id="addWheel">เพิ่ม</button>
+      </div>
     </div>
     <div class="pm-pane" data-pane="messages">
       <h3>💌 ข้อความจากหนู</h3><div class="rlog" id="reactLog"></div><div class="pbtns"><button class="btn btn-ghost" id="clearReact">ล้างข้อความ</button></div>
@@ -693,14 +718,43 @@ $('saveNote').addEventListener('click',()=>{state.parentNote=$('noteInput').valu
 $('clearNote').addEventListener('click',()=>{state.parentNote='';$('noteInput').value='';save();renderNote();});
 $('mAdd').addEventListener('click',()=>{const r=$('mAdd').getBoundingClientRect();earnStars(1,r.left+r.width/2,r.top+r.height/2);});
 $('mRemove').addEventListener('click',decCount);
-$('addTask').addEventListener('click',()=>{const v=$('newTask').value.trim();if(!v)return;state.tasks.push({id:uid(),emoji:'🌟',label:v});$('newTask').value='';save();renderTaskEditor();renderTasksDisplay();});
+
+/* อัปเดตฟังก์ชันเพิ่มข้อมูล ให้ดึงอิโมจิจากช่อง input ใหม่ */
+$('addTask').addEventListener('click',()=>{
+  const v=$('newTask').value.trim();
+  const ic=$('newTaskIcon').value.trim()||'🌟'; // ถ้าไม่ใส่ ให้เป็น 🌟
+  if(!v)return;
+  state.tasks.push({id:uid(),emoji:ic,label:v});
+  $('newTask').value='';
+  $('newTaskIcon').value='';
+  save();renderTaskEditor();renderTasksDisplay();
+});
 $('newTask').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').click();});
-$('addCo').addEventListener('click',()=>{const v=$('newCo').value.trim();if(!v)return;state.coquests.push({id:uid(),e:'🤝',l:v});$('newCo').value='';save();renderCoEditor();renderCoDisplay();});
+
+$('addCo').addEventListener('click',()=>{
+  const v=$('newCo').value.trim();
+  const ic=$('newCoIcon').value.trim()||'🤝'; // ถ้าไม่ใส่ ให้เป็น 🤝
+  if(!v)return;
+  state.coquests.push({id:uid(),e:ic,l:v});
+  $('newCo').value='';
+  $('newCoIcon').value='';
+  save();renderCoEditor();renderCoDisplay();
+});
 $('newCo').addEventListener('keydown',e=>{if(e.key==='Enter')$('addCo').click();});
+
+$('addWheel').addEventListener('click',()=>{
+  const v=$('newWheel').value.trim();
+  const ic=$('newWheelIcon').value.trim()||'🎈'; // ถ้าไม่ใส่ ให้เป็น 🎈
+  if(!v)return;
+  state.wheelOptions.push({e:ic,l:v});
+  $('newWheel').value='';
+  $('newWheelIcon').value='';
+  save();renderWheelEditor();renderWheel();
+});
+$('newWheel').addEventListener('keydown',e=>{if(e.key==='Enter')$('addWheel').click();});
+
 $('wheelPerDayInput').addEventListener('input',e=>{state.wheelPerDay=Math.max(1,parseInt(e.target.value)||1);save();renderWheel();});
 $('tasksPerStarInput').addEventListener('input',e=>{state.tasksPerStar=Math.max(1,parseInt(e.target.value)||1);save();ensureDay();recomputeTaskStars(null);renderTasksDisplay();});
-$('addWheel').addEventListener('click',()=>{const v=$('newWheel').value.trim();if(!v)return;state.wheelOptions.push({e:'🎈',l:v});$('newWheel').value='';save();renderWheelEditor();renderWheel();});
-$('newWheel').addEventListener('keydown',e=>{if(e.key==='Enter')$('addWheel').click();});
 $('addReward').addEventListener('click',()=>{const mx=Math.max(0,...state.rewards.map(r=>r.threshold));state.rewards.push({id:uid(),icon:'🎁',name:'รางวัลใหม่',threshold:mx+15});save();renderRewardEditor();renderRewardsDisplay();});
 $('savePin').addEventListener('click',()=>{const v=$('pinSet').value;if(/^\d{4}$/.test(v)){state.pin=v;$('pinSet').value='';save();updatePinUI();render();}else{$('pinStatus').textContent='⚠️ รหัสต้องเป็นตัวเลข 4 หลัก';}});
 $('removePin').addEventListener('click',()=>{state.pin='';parentUnlocked=true;save();updatePinUI();render();});
