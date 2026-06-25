@@ -172,7 +172,8 @@
   .av:hover{background:rgba(255,255,255,.16);}.av.sel{border-color:var(--star);background:rgba(255,215,94,.22);transform:scale(1.08);}
   .welcome-input{width:100%;font-family:'Mali';font-weight:600;font-size:16px;color:#fff;background:rgba(255,255,255,.12);border:2px solid var(--card-line);border-radius:14px;padding:12px;outline:none;margin-bottom:12px;text-align:center;}
   .welcome-input:focus{border-color:var(--star);}
-  .plist{display:flex;flex-direction:column;gap:9px;margin:8px 0 14px;max-height:42vh;overflow:auto;}
+  .plist{display:flex;flex-direction:column;gap:9px;margin:8px 0 12px;max-height:42vh;overflow:auto;}
+  .sect-label{font-family:'Baloo Thai 2',sans-serif;font-weight:700;font-size:12.5px;color:var(--soft);margin:18px 0 9px;padding-top:13px;border-top:1px solid var(--card-line);}
   .pitem{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:16px;background:rgba(255,255,255,.08);border:2px solid transparent;cursor:pointer;transition:.15s;}
   .pitem:hover{background:rgba(255,255,255,.14);}.pitem.active{border-color:var(--star);background:rgba(255,215,94,.16);}
   .pitem .pav{font-size:25px;}
@@ -332,7 +333,19 @@
 <div class="overlay" id="surprise"><div class="modal"><div class="cel-rays"></div><h4>🎁 กล่องเซอร์ไพรส์!</h4><p>เปิดกับพ่อแม่กันเลย</p><div class="box-emoji" id="boxInner">🎁</div><div class="box-result" id="boxResult"></div><button class="btn btn-gold" id="boxBtn" style="position:relative">เปิดกล่อง! ✨</button></div></div>
 <div class="overlay" id="pinModal"><div class="modal" id="pinModalBox"><h4>🔒 ใส่รหัสผู้ปกครอง</h4><p>ใส่รหัส 4 หลัก</p><input class="pin-input" id="pinEntry" type="password" inputmode="numeric" maxlength="4" placeholder="••••"><div class="modal-btns"><button class="btn btn-ghost" id="pinCancel">ยกเลิก</button><button class="btn btn-gold" id="pinOk">ตกลง</button></div></div></div>
 <div class="overlay" id="welcome" style="z-index:75"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">🌟</div><h4>เพิ่มเด็กคนใหม่</h4><p>เลือกตัวการ์ตูนแล้วใส่ชื่อ</p><div class="av-grid" id="avGrid"></div><input class="welcome-input" id="welcomeName" maxlength="14" placeholder="ใส่ชื่อหนู"><div class="modal-btns"><button class="btn btn-ghost" id="welcomeCancel" style="display:none">ยกเลิก</button><button class="btn btn-gold" id="welcomeGo">เริ่มเลย ✨</button></div></div></div>
-<div class="overlay" id="profilesOverlay" style="z-index:75"><div class="modal"><h4>👨‍👩‍👧 ใครจะเล่นดี?</h4><div class="acct-bar">บัญชี: <b id="acctName">@user</b><button class="btn btn-ghost" id="signOut">ออกจากระบบ</button></div><button class="btn btn-gold" id="installBtn" style="display:none;width:100%;margin-bottom:10px">📲 ติดตั้งแอปลงเครื่อง</button><div class="pbtns" style="margin-bottom:10px"><button class="btn btn-ghost" id="exportBtn">💾 สำรองข้อมูล</button><button class="btn btn-ghost" id="importBtn">📥 กู้คืน</button></div><button class="btn btn-ghost" id="liteBtn" style="width:100%;margin-bottom:10px">🌌 แสงเหนือ: เคลื่อนไหว</button><input type="file" id="importFile" accept="application/json,.json" style="display:none"><div class="plist" id="plist"></div><div class="modal-btns"><button class="btn btn-ghost" id="profClose">ปิด</button><button class="btn btn-gold" id="addProfile">+ เพิ่มเด็ก</button></div></div></div>
+<div class="overlay" id="profilesOverlay" style="z-index:75"><div class="modal"><h4>👨‍👩‍👧 ใครจะเล่นดี?</h4>
+<div class="plist" id="plist"></div>
+<button class="btn btn-gold" id="addProfile" style="width:100%">+ เพิ่มเด็ก</button>
+<div class="sect-label">⚙️ แอป & ข้อมูล</div>
+<button class="btn btn-gold" id="installBtn" style="display:none;width:100%;margin-bottom:8px">📲 ติดตั้งแอปลงเครื่อง</button>
+<div class="pbtns" style="margin-bottom:8px"><button class="btn btn-ghost" id="exportBtn">💾 สำรอง</button><button class="btn btn-ghost" id="importBtn">📥 กู้คืน</button></div>
+<button class="btn btn-ghost" id="liteBtn" style="width:100%">🌌 แสงเหนือ: เคลื่อนไหว</button>
+<input type="file" id="importFile" accept="application/json,.json" style="display:none">
+<div class="sect-label">🔑 บัญชี</div>
+<div class="acct-bar" style="margin-bottom:9px">เข้าใช้ด้วย <b id="acctName">@user</b></div>
+<button class="btn btn-ghost" id="signOut" style="width:100%">ออกจากระบบ</button>
+<div class="modal-btns" style="margin-top:16px"><button class="btn btn-ghost" id="profClose" style="width:100%">ปิด</button></div>
+</div></div>
 <div class="overlay" id="auth" style="z-index:80"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji">⭐</div><h4 id="authTitle">เข้าสู่ระบบ</h4><p>สะสมดาวของครอบครัว</p>
 <div id="emailPane">
 <div class="tabs"><button class="tab active" id="tabLogin">เข้าสู่ระบบ</button><button class="tab" id="tabReg">สมัครสมาชิก</button></div>
