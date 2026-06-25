@@ -22,18 +22,22 @@
   html{background:#160f3d;overflow-x:hidden;overscroll-behavior:none;}
   body{font-family:'Mali',sans-serif;color:var(--text);background:transparent;min-height:100vh;overscroll-behavior:none;position:relative;}
   .skybg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(150% 100% at 50% 122%,rgba(255,158,208,.24) 0%,transparent 54%),linear-gradient(180deg,#160f3d 0%,#1e1448 40%,#271a5a 72%,#30206a 100%);}
-  /* ลด blur จาก 48px เป็น 32px ช่วยลดการโหลด GPU */
-  .aurora{position:fixed;inset:-15%;z-index:0;pointer-events:none;filter:blur(32px);opacity:.6;animation:auroraBreath 16s ease-in-out infinite;}
-  @keyframes auroraBreath{0%,100%{opacity:.5;}50%{opacity:.66;}}
-  .aurora span{position:absolute;border-radius:50%;will-change:transform;transform:translateZ(0);}
-  .scrolling .aurora,.scrolling .aurora span,.scrolling .aurora-band{animation-play-state:paused !important;}
-  body.lite .aurora,body.lite .aurora span,body.lite .aurora-band{animation:none !important;}
-  .a1{width:55vw;height:55vw;left:-10%;top:-5%;background:radial-gradient(circle,#5be0d4,transparent 65%);animation:drift1 18s ease-in-out infinite;}
-  .a2{width:50vw;height:50vw;right:-10%;top:10%;background:radial-gradient(circle,#c47bff,transparent 65%);animation:drift2 22s ease-in-out infinite;}
-  .a3{width:60vw;height:60vw;left:15%;bottom:-15%;background:radial-gradient(circle,#ff8fc4,transparent 65%);animation:drift3 26s ease-in-out infinite;}
-  @keyframes drift1{0%{transform:translate(0,0) scale(1);}25%{transform:translate(4%,5%) scale(1.07);}50%{transform:translate(9%,7%) scale(1.15);}75%{transform:translate(5%,2%) scale(1.06);}100%{transform:translate(0,0) scale(1);}}
-  @keyframes drift2{0%{transform:translate(0,0) scale(1.1);}25%{transform:translate(-5%,4%) scale(1.0);}50%{transform:translate(-8%,8%) scale(.9);}75%{transform:translate(-3%,3%) scale(1.02);}100%{transform:translate(0,0) scale(1.1);}}
-  @keyframes drift3{0%{transform:translate(0,0) scale(1);}25%{transform:translate(3%,-4%) scale(1.08);}50%{transform:translate(6%,-7%) scale(1.18);}75%{transform:translate(2%,-3%) scale(1.07);}100%{transform:translate(0,0) scale(1);}}
+  
+  /* --- แสงเหนือที่ปรับแต่งให้ลื่นไหล (ลดการใช้ GPU/RAM) --- */
+  .aurora{position:fixed;inset:-15%;z-index:0;pointer-events:none;filter:blur(32px);opacity:.6;animation:auroraBreath 10s ease-in-out infinite alternate;}
+  @keyframes auroraBreath{0%{opacity:.4;} 100%{opacity:.7;}}
+  .aurora span{position:absolute;border-radius:50%;}
+  .a1{width:55vw;height:55vw;left:-10%;top:-5%;background:radial-gradient(circle,#5be0d4,transparent 65%);}
+  .a2{width:50vw;height:50vw;right:-10%;top:10%;background:radial-gradient(circle,#c47bff,transparent 65%);}
+  .a3{width:60vw;height:60vw;left:15%;bottom:-15%;background:radial-gradient(circle,#ff8fc4,transparent 65%);}
+  .a4{width:52vw;height:52vw;left:4%;top:-12%;background:radial-gradient(circle,rgba(87,240,168,.9),transparent 64%);}
+
+  .aurora-band{position:fixed;top:-12%;left:-25%;right:-25%;height:64%;z-index:0;pointer-events:none;filter:blur(32px);opacity:.42;background:repeating-linear-gradient(74deg,transparent 0 50px,rgba(95,240,180,.55) 70px 96px,transparent 122px 178px,rgba(110,200,255,.45) 202px 232px,transparent 262px 332px,rgba(180,130,255,.5) 360px 402px,transparent 452px 540px);-webkit-mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);animation:bandBreath 14s ease-in-out infinite alternate;}
+  .aurora-band.b2{height:54%;opacity:.34;filter:blur(32px);background:repeating-linear-gradient(96deg,transparent 0 70px,rgba(120,255,210,.5) 95px 120px,transparent 150px 220px,rgba(150,140,255,.45) 250px 285px,transparent 320px 420px);animation:bandBreath 18s ease-in-out infinite alternate-reverse;}
+  .aurora-band.b3{height:72%;opacity:.3;filter:blur(32px);background:repeating-linear-gradient(84deg,transparent 0 90px,rgba(80,235,255,.5) 110px 138px,transparent 168px 250px,rgba(190,150,255,.42) 280px 312px,transparent 350px 470px);animation:bandBreath 22s ease-in-out infinite alternate;}
+  @keyframes bandBreath{0%{opacity:.25;} 100%{opacity:.5;}}
+  /* --- จบส่วนแสงเหนือ --- */
+
   .sky{position:fixed;inset:0;pointer-events:none;z-index:0;}
   .sky .tw{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d,3s) ease-in-out infinite alternate;}
   @keyframes tw{from{opacity:.12;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
@@ -225,24 +229,16 @@
   .ins{margin:10px 0 4px;padding-left:20px;display:flex;flex-direction:column;gap:10px;}
   .ins li{font-family:'Mali',sans-serif;font-size:14px;line-height:1.5;}
   .ins li b{color:var(--star);}
-  .a4{width:52vw;height:52vw;left:4%;top:-12%;background:radial-gradient(circle,rgba(87,240,168,.9),transparent 64%);animation:drift1 30s ease-in-out infinite reverse;}
-  .aurora-band{position:fixed;top:-12%;left:-25%;right:-25%;height:64%;z-index:0;pointer-events:none;filter:blur(32px);opacity:.42;background:repeating-linear-gradient(74deg,transparent 0 50px,rgba(95,240,180,.55) 70px 96px,transparent 122px 178px,rgba(110,200,255,.45) 202px 232px,transparent 262px 332px,rgba(180,130,255,.5) 360px 402px,transparent 452px 540px);-webkit-mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);animation:band 26s ease-in-out infinite;will-change:transform;transform:translateZ(0);}
-  .aurora-band.b2{height:54%;opacity:.34;filter:blur(32px);background:repeating-linear-gradient(96deg,transparent 0 70px,rgba(120,255,210,.5) 95px 120px,transparent 150px 220px,rgba(150,140,255,.45) 250px 285px,transparent 320px 420px);animation:band2 34s ease-in-out infinite;}
-  .aurora-band.b3{height:72%;opacity:.3;filter:blur(32px);background:repeating-linear-gradient(84deg,transparent 0 90px,rgba(80,235,255,.5) 110px 138px,transparent 168px 250px,rgba(190,150,255,.42) 280px 312px,transparent 350px 470px);animation:band3 30s ease-in-out infinite;}
-  @keyframes band{0%,100%{transform:translateX(0) skewX(-9deg) scaleY(1);opacity:.46;}50%{transform:translateX(-70px) skewX(7deg) scaleY(1.1);opacity:.6;}}
-  @keyframes band2{0%,100%{transform:translateX(0) skewX(8deg) scaleY(1.04);opacity:.3;}50%{transform:translateX(62px) skewX(-6deg) scaleY(.95);opacity:.42;}}
-  @keyframes band3{0%,100%{transform:translateX(0) skewX(-5deg) scaleY(1.02);opacity:.26;}50%{transform:translateX(88px) skewX(9deg) scaleY(1.12);opacity:.38;}}
   html{scroll-behavior:smooth;}
   .overlay{transition:opacity .28s ease,visibility .28s ease;}
   .btn,.task,.reward,.pitem,.tab,.profile-chip,.soundbtn{transition:transform .18s cubic-bezier(.2,.8,.3,1),background .2s ease,box-shadow .2s ease,opacity .2s ease;}
   .btn:active,.soundbtn:active,.task:active{transform:scale(.96);}
 </style>
-<!-- ===== Firebase (compat SDK via CDN) ===== -->
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore-compat.js"></script>
 <script>
-  /* ▼▼▼ ใส่ค่าจาก Firebase Console ของคุณตรงนี้ (อย่าลืมตั้งค่า Referrers บน Google Cloud ด้วย) ▼▼▼ */
+  /* ▼▼▼ ใส่ค่าจาก Firebase Console ของคุณตรงนี้ ▼▼▼ */
   const firebaseConfig = {
     apiKey: "AIzaSyCphPJBNCFvLeF0fMoPV36Ekc76aMWcWbk",
     authDomain: "starlight-leai.firebaseapp.com",
@@ -455,7 +451,19 @@ function sendReaction(i,btn){const r=REACTIONS[i];state.reactions.unshift({e:r.e
 
 /* co-quest */
 function coTap(id){ensureCoDay();if(state.coDone.done.includes(id))return;const pi=state.coDone.pending.indexOf(id);if(pi===-1){state.coDone.pending.push(id);save();renderCoDisplay();toast('บอกพ่อแม่ให้กดยืนยันนะ 💛');}else{state.coDone.pending.splice(pi,1);save();renderCoDisplay();}}
-function coConfirm(id,btn){ensureCoDay();const q=state.coquests.find(x=>x.id===id);if(!q)return;const pi=state.coDone.pending.indexOf(id);if(pi!==-1)state.coDone.pending.splice(pi,1);if(!state.coDone.done.includes(id))state.coDone.done.push(id);save();renderCoDisplay();const r=btn.getBoundingClientRect();earnStars(1,r.left+r.width/2,r.top+r.height/2);toast('เก่งมาก! ได้ 1 ดาว 🎉');}
+function coConfirm(id,btn){
+  ensureCoDay();
+  const q=state.coquests.find(x=>x.id===id);
+  if(!q)return;
+  const pi=state.coDone.pending.indexOf(id);
+  if(pi!==-1)state.coDone.pending.splice(pi,1);
+  if(!state.coDone.done.includes(id))state.coDone.done.push(id);
+  const r=btn.getBoundingClientRect(); // Get button position before rendering
+  save();
+  renderCoDisplay(); // Re-render DOM
+  earnStars(1,r.left+r.width/2,r.top+r.height/2);
+  toast('เก่งมาก! ได้ 1 ดาว 🎉');
+}
 
 /* wheel */
 function pt(cx,cy,r,deg){const a=(deg-90)*Math.PI/180;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
@@ -464,7 +472,7 @@ function renderWheel(){if(spinning)return;const opts=state.wheelOptions,n=opts.l
 function spinWheel(){if(spinning)return;ensureWheelDay();const per=state.wheelPerDay||3;if(state.wheelDay.used>=per){toast('วันนี้หมุนครบ '+per+' ครั้งแล้ว พรุ่งนี้ค่อยมาใหม่นะ 🌙');return;}spinning=true;$('spinBtn').disabled=true;state.wheelDay.used++;save();const n=state.wheelOptions.length,seg=360/n,i=Math.floor(Math.random()*n);const base=wheelRot-(wheelRot%360);wheelRot=base+360*5+(360-(i*seg+seg/2));const svg=$('wheelSvg');if(reduce){svg.style.transform=`rotate(${wheelRot}deg)`;spinning=false;renderWheel();wheelDone(i);return;}svg.style.transition='transform 4.2s cubic-bezier(.15,.9,.25,1)';requestAnimationFrame(()=>{svg.style.transform=`rotate(${wheelRot}deg)`;});const onEnd=()=>{svg.removeEventListener('transitionend',onEnd);svg.style.transition='';spinning=false;renderWheel();wheelDone(i);};svg.addEventListener('transitionend',onEnd);}
 function wheelDone(i){const o=state.wheelOptions[i];$('wrEmoji').textContent=o.e;$('wrTitle').textContent=o.l;$('wrSub').textContent='ไปทำกิจกรรมนี้กับพ่อแม่กันเลย!';$('wheelRes').classList.add('show');confetti();playUnlock();}
 
-/* render & delegation elements */
+/* render */
 function renderCluster(){let h='';const cap=Math.min(state.count,120);for(let i=0;i<cap;i++)h+=`<span class="s" style="--d:${(Math.random()*2).toFixed(1)}s">⭐</span>`;$('cluster').innerHTML=h;}
 function renderTasksDisplay(){ensureDay();const done=state.done.ids;$('taskList').innerHTML=state.tasks.map(t=>{const d=done.includes(t.id);return `<div class="task ${d?'done':''}" data-id="${t.id}"><div class="tcheck">${d?'⭐':''}</div><div class="temoji">${t.emoji||'🌟'}</div><div class="tlabel">${esc(t.label)}</div><div class="plus">${d?'✓':'แตะ'}</div></div>`;}).join('')||'<div class="empty">ยังไม่มีรายการงาน</div>';const per=state.tasksPerStar||3;const into=done.length%per;$('todayNote').textContent='ทำครบ '+per+' งาน = 1 ⭐ (ตอนนี้ '+into+'/'+per+')';}
 function renderCoDisplay(){ensureCoDay();$('coList').innerHTML=state.coquests.map(q=>{const pend=state.coDone.pending.includes(q.id),done=state.coDone.done.includes(q.id);let right;if(done)right=`<div class="plus done">✅ +1</div>`;else if(pend)right=isLocked()?`<div class="plus">รอพ่อแม่ ⏳</div>`:`<button class="co-confirm" data-id="${q.id}">ยืนยัน ✓</button>`;else right=`<div class="plus">+1 ⭐</div>`;return `<div class="task co ${done?'done':pend?'pending':''}" data-id="${q.id}"><div class="temoji">${q.e}</div><div class="tlabel">${esc(q.l)}</div>${right}</div>`;}).join('')||'<div class="empty">ยังไม่มีภารกิจคู่ — เพิ่มได้ในโหมดผู้ปกครอง</div>';}
@@ -527,7 +535,6 @@ function importData(file){const r=new FileReader();r.onload=()=>{let obj;try{obj
 
 /* ===== Event Delegations & Listeners ===== */
 function initDelegations() {
-  // Main Lists Delegations
   $('taskList').addEventListener('click', e => {
     const el = e.target.closest('.task');
     if(el) toggleTask(el.dataset.id, el);
@@ -549,7 +556,6 @@ function initDelegations() {
     if (b) sendReaction(+b.dataset.i, b);
   });
 
-  // Profiles Overlay Delegation
   $('plist').addEventListener('click', e => {
     const delBtn = e.target.closest('.pdel');
     if (delBtn) {
@@ -567,7 +573,6 @@ function initDelegations() {
     if (it) switchProfile(it.dataset.id);
   });
 
-  // Parent Settings - Avatar Grid Delegations
   $('profAvatarGrid').addEventListener('click', e => {
     const b = e.target.closest('.av');
     if(!b) return;
@@ -584,16 +589,48 @@ function initDelegations() {
     selectedAvatar = b.dataset.a;
   });
 
-  // Editors Input Delegations (saves locally to state and debounces sync)
-  $('taskEditor').addEventListener('input', e => {
-    const row = e.target.closest('.erow');
-    if(!row) return;
-    const t = state.tasks.find(x => x.id === row.dataset.id);
-    if(!t) return;
-    if(e.target.classList.contains('te-emoji')) t.emoji = e.target.value;
-    if(e.target.classList.contains('te-label')) t.label = e.target.value;
-    save(); renderTasksDisplay();
+  ['input', 'change'].forEach(evt => {
+    $('taskEditor').addEventListener(evt, e => {
+      const row = e.target.closest('.erow');
+      if(!row) return;
+      const t = state.tasks.find(x => x.id === row.dataset.id);
+      if(!t) return;
+      if(e.target.classList.contains('te-emoji')) t.emoji = e.target.value;
+      if(e.target.classList.contains('te-label')) t.label = e.target.value;
+      save(); renderTasksDisplay();
+    });
+
+    $('coEditor').addEventListener(evt, e => {
+      const row = e.target.closest('.erow');
+      if(!row) return;
+      const q = state.coquests.find(x => x.id === row.dataset.id);
+      if(!q) return;
+      if(e.target.classList.contains('co-e')) q.e = e.target.value;
+      if(e.target.classList.contains('co-l')) q.l = e.target.value;
+      save(); renderCoDisplay();
+    });
+
+    $('wheelEditor').addEventListener(evt, e => {
+      const row = e.target.closest('.erow');
+      if(!row) return;
+      const i = +row.dataset.i;
+      if(e.target.classList.contains('w-e')) { state.wheelOptions[i].e = e.target.value; renderWheel(); }
+      if(e.target.classList.contains('w-l')) { state.wheelOptions[i].l = e.target.value; }
+      save();
+    });
+
+    $('rewardEditor').addEventListener(evt, e => {
+      const row = e.target.closest('.erow');
+      if(!row) return;
+      const r = state.rewards.find(x => x.id === row.dataset.id);
+      if(!r) return;
+      if(e.target.classList.contains('re-icon')) { r.icon = e.target.value; renderRewardsDisplay(); }
+      if(e.target.classList.contains('re-name')) { r.name = e.target.value; renderRewardsDisplay(); }
+      if(e.target.classList.contains('re-th')) { r.threshold = Math.max(1, parseInt(e.target.value)||1); renderRewardsDisplay(); }
+      save();
+    });
   });
+
   $('taskEditor').addEventListener('click', e => {
     const del = e.target.closest('.del');
     if(!del) return;
@@ -603,15 +640,6 @@ function initDelegations() {
     save(); renderTaskEditor(); renderTasksDisplay();
   });
 
-  $('coEditor').addEventListener('input', e => {
-    const row = e.target.closest('.erow');
-    if(!row) return;
-    const q = state.coquests.find(x => x.id === row.dataset.id);
-    if(!q) return;
-    if(e.target.classList.contains('co-e')) q.e = e.target.value;
-    if(e.target.classList.contains('co-l')) q.l = e.target.value;
-    save(); renderCoDisplay();
-  });
   $('coEditor').addEventListener('click', e => {
     const del = e.target.closest('.del');
     if(!del) return;
@@ -620,14 +648,6 @@ function initDelegations() {
     save(); renderCoEditor(); renderCoDisplay();
   });
 
-  $('wheelEditor').addEventListener('input', e => {
-    const row = e.target.closest('.erow');
-    if(!row) return;
-    const i = +row.dataset.i;
-    if(e.target.classList.contains('w-e')) { state.wheelOptions[i].e = e.target.value; renderWheel(); }
-    if(e.target.classList.contains('w-l')) { state.wheelOptions[i].l = e.target.value; }
-    save();
-  });
   $('wheelEditor').addEventListener('click', e => {
     const del = e.target.closest('.del');
     if(!del) return;
@@ -636,16 +656,6 @@ function initDelegations() {
     save(); renderWheelEditor(); renderWheel();
   });
 
-  $('rewardEditor').addEventListener('input', e => {
-    const row = e.target.closest('.erow');
-    if(!row) return;
-    const r = state.rewards.find(x => x.id === row.dataset.id);
-    if(!r) return;
-    if(e.target.classList.contains('re-icon')) { r.icon = e.target.value; renderRewardsDisplay(); }
-    if(e.target.classList.contains('re-name')) { r.name = e.target.value; renderRewardsDisplay(); }
-    if(e.target.classList.contains('re-th')) { r.threshold = Math.max(1, parseInt(e.target.value)||1); renderRewardsDisplay(); }
-    save();
-  });
   $('rewardEditor').addEventListener('click', e => {
     const del = e.target.closest('.del');
     if(!del) return;
@@ -654,6 +664,7 @@ function initDelegations() {
     save(); renderRewardEditor(); renderRewardsDisplay();
   });
 }
+
 initDelegations();
 
 $('tabLogin').addEventListener('click',()=>setAuthMode('login'));
