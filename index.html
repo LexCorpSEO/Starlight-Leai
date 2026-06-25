@@ -202,15 +202,25 @@
   .pm-close:hover{background:rgba(255,255,255,.22);}
   .pm-body{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding-right:6px;margin-right:-4px;}
   .pm-body h3{text-align:left;}
-  .pm-tabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 9px;margin-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-  .pm-tabs::-webkit-scrollbar{display:none;}
-  .pm-tab-btn{flex:none;white-space:nowrap;font-family:'Baloo Thai 2',sans-serif;font-weight:700;font-size:13px;color:var(--soft);background:rgba(255,255,255,.08);border:1.5px solid var(--card-line);border-radius:999px;padding:7px 13px;cursor:pointer;transition:transform .15s ease,background .2s ease,color .2s ease;}
-  .pm-tab-btn:active{transform:scale(.94);}
-  .pm-tab-btn.active{color:#2a1a4a;background:linear-gradient(180deg,#ffe07a,#ffc23c);border-color:#ffc23c;}
+  .pm-head{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+  .pm-head h4{flex:1;text-align:center;margin:0;}
+  .pm-back{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--card-line);background:rgba(255,255,255,.08);color:#fff;font-size:20px;line-height:1;cursor:pointer;flex:none;transition:background .2s ease,transform .15s ease;}
+  .pm-back:active{transform:scale(.92);}
+  .pm-menu{display:flex;flex-direction:column;gap:10px;}
+  .pm-row{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:rgba(255,255,255,.07);border:1.5px solid var(--card-line);border-radius:16px;padding:13px 14px;cursor:pointer;color:#fff;transition:background .2s ease,transform .12s ease;}
+  .pm-row:active{transform:scale(.985);background:rgba(255,255,255,.13);}
+  .pm-ic{font-size:23px;width:44px;height:44px;display:grid;place-items:center;background:rgba(255,255,255,.09);border-radius:13px;flex:none;}
+  .pm-tx{display:flex;flex-direction:column;flex:1;min-width:0;}
+  .pm-tx b{font-family:'Baloo Thai 2',sans-serif;font-weight:700;font-size:15px;}
+  .pm-tx small{color:var(--soft);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pm-ch{color:var(--soft);font-size:22px;flex:none;}
   .pm-pane{display:none;}
   .pm-pane.active{display:block;animation:paneIn .25s ease;}
-  @keyframes paneIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+  @keyframes paneIn{from{opacity:0;transform:translateX(8px);}to{opacity:1;transform:none;}}
   .pm-foot{display:flex;justify-content:center;gap:10px;margin-top:12px;padding-top:13px;border-top:1px solid var(--card-line);}
+  .ins{margin:10px 0 4px;padding-left:20px;display:flex;flex-direction:column;gap:10px;}
+  .ins li{font-family:'Mali',sans-serif;font-size:14px;line-height:1.5;}
+  .ins li b{color:var(--star);}
   .a4{width:52vw;height:52vw;left:4%;top:-12%;background:radial-gradient(circle,rgba(87,240,168,.9),transparent 64%);animation:drift1 30s ease-in-out infinite reverse;}
   .aurora-band{position:fixed;top:-12%;left:-25%;right:-25%;height:64%;z-index:0;pointer-events:none;filter:blur(40px);opacity:.5;mix-blend-mode:screen;background:repeating-linear-gradient(74deg,transparent 0 50px,rgba(95,240,180,.55) 70px 96px,transparent 122px 178px,rgba(110,200,255,.45) 202px 232px,transparent 262px 332px,rgba(180,130,255,.5) 360px 402px,transparent 452px 540px);-webkit-mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);mask:linear-gradient(180deg,#000 0%,#000 38%,transparent 100%);animation:band 26s ease-in-out infinite;will-change:transform;}
   .aurora-band.b2{height:54%;opacity:.34;filter:blur(54px);background:repeating-linear-gradient(96deg,transparent 0 70px,rgba(120,255,210,.5) 95px 120px,transparent 150px 220px,rgba(150,140,255,.45) 250px 285px,transparent 320px 420px);animation:band2 34s ease-in-out infinite;}
@@ -274,26 +284,27 @@
   <div class="reveal" style="animation-delay:.6s"><div class="sec-h">💖 ส่งใจให้พ่อแม่ <small>แตะเพื่อส่งให้พ่อแม่</small></div><div class="react-grid" id="reactGrid"></div></div>
 </div>
 
-<div class="parent-overlay overlay" id="parentOverlay" style="z-index:78"><div class="modal parent-modal"><button class="pm-close" id="parentClose" aria-label="ปิด">✕</button><h4 style="margin-bottom:8px">⚙️ โหมดผู้ปกครอง</h4>
-  <div class="pm-tabs" id="pmTabs">
-    <button class="pm-tab-btn active" data-tab="profile">👤 โปรไฟล์</button>
-    <button class="pm-tab-btn" data-tab="tasks">📋 งาน·ภารกิจ</button>
-    <button class="pm-tab-btn" data-tab="rewards">🎁 รางวัล·วงล้อ</button>
-    <button class="pm-tab-btn" data-tab="messages">💌 ข้อความ</button>
-    <button class="pm-tab-btn" data-tab="settings">⚙️ ตั้งค่า</button>
-  </div>
+<div class="parent-overlay overlay" id="parentOverlay" style="z-index:78"><div class="modal parent-modal">
+  <div class="pm-head"><button class="pm-back" id="pmBack" style="display:none" aria-label="กลับ">‹</button><h4 id="pmTitle">⚙️ โหมดผู้ปกครอง</h4><button class="pm-close" id="parentClose" aria-label="ปิด">✕</button></div>
   <div class="pm-body">
-    <div class="pm-pane active" data-pane="profile">
-      <h3>👤 โปรไฟล์นี้</h3><div class="hint">เปลี่ยนตัวการ์ตูนและชื่อได้</div>
-      <input class="nm" id="profName" maxlength="14" placeholder="ชื่อหนู" style="width:100%"><div class="hint" style="margin-top:8px">เลือกไอคอน (แตะเพื่อเปลี่ยนได้ทุกเมื่อ)</div><div class="av-grid" id="profAvatarGrid"></div>
+    <div class="pm-menu" id="pmMenu">
+      <button class="pm-row" data-go="profile"><span class="pm-ic">👤</span><span class="pm-tx"><b>โปรไฟล์</b><small>ชื่อ และไอคอนตัวการ์ตูน</small></span><span class="pm-ch">›</span></button>
+      <button class="pm-row" data-go="tasks"><span class="pm-ic">📋</span><span class="pm-tx"><b>งาน & ภารกิจ</b><small>งานประจำวัน · ภารกิจคู่กับพ่อแม่</small></span><span class="pm-ch">›</span></button>
+      <button class="pm-row" data-go="rewards"><span class="pm-ic">🎁</span><span class="pm-tx"><b>รางวัล & วงล้อ</b><small>รางวัลเป้าหมาย · วงล้อกิจกรรม</small></span><span class="pm-ch">›</span></button>
+      <button class="pm-row" data-go="messages"><span class="pm-ic">💌</span><span class="pm-tx"><b>ข้อความ</b><small>ข้อความจากหนู · ฝากถึงหนู</small></span><span class="pm-ch">›</span></button>
+      <button class="pm-row" data-go="settings"><span class="pm-ic">⚙️</span><span class="pm-tx"><b>ตั้งค่า</b><small>ให้ดาว · รหัสล็อก · เริ่มใหม่</small></span><span class="pm-ch">›</span></button>
+    </div>
+    <div class="pm-pane" data-pane="profile">
+      <div class="hint">เปลี่ยนตัวการ์ตูนและชื่อได้</div>
+      <input class="nm" id="profName" maxlength="14" placeholder="ชื่อหนู" style="width:100%"><div class="hint" style="margin-top:10px">เลือกไอคอน (แตะเพื่อเปลี่ยน)</div><div class="av-grid" id="profAvatarGrid"></div>
     </div>
     <div class="pm-pane" data-pane="tasks">
-      <h3>📋 แก้ไขงานประจำวัน</h3><div class="erow"><span class="hint" style="margin:0">ทำครบ</span><input class="num" id="tasksPerStarInput" type="number" min="1"><span class="hint" style="margin:0">งาน = 1 ⭐</span></div><div id="taskEditor"></div><div class="add-row"><input id="newTask" maxlength="24" placeholder="เพิ่มงานใหม่"><button class="btn btn-ghost" id="addTask">เพิ่ม</button></div>
-      <h3>🤝 แก้ไขภารกิจคู่</h3><div class="hint">แต่ละภารกิจได้ 1 ดาว (อิโมจิ · ชื่อ)</div><div id="coEditor"></div><div class="add-row"><input id="newCo" maxlength="24" placeholder="เพิ่มภารกิจคู่ใหม่"><button class="btn btn-ghost" id="addCo">เพิ่ม</button></div>
+      <h3>📋 งานประจำวัน</h3><div class="erow"><span class="hint" style="margin:0">ทำครบ</span><input class="num" id="tasksPerStarInput" type="number" min="1"><span class="hint" style="margin:0">งาน = 1 ⭐</span></div><div id="taskEditor"></div><div class="add-row"><input id="newTask" maxlength="24" placeholder="เพิ่มงานใหม่"><button class="btn btn-ghost" id="addTask">เพิ่ม</button></div>
+      <h3>🤝 ภารกิจคู่</h3><div class="hint">แต่ละภารกิจได้ 1 ดาว (อิโมจิ · ชื่อ)</div><div id="coEditor"></div><div class="add-row"><input id="newCo" maxlength="24" placeholder="เพิ่มภารกิจคู่ใหม่"><button class="btn btn-ghost" id="addCo">เพิ่ม</button></div>
     </div>
     <div class="pm-pane" data-pane="rewards">
-      <h3>🎁 แก้ไขรางวัล</h3><div id="rewardEditor"></div><div class="pbtns"><button class="btn btn-ghost" id="addReward">+ เพิ่มรางวัล</button></div>
-      <h3>🎡 แก้ไขวงล้อกิจกรรม</h3><div class="erow"><span class="hint" style="margin:0">หมุนได้วันละ</span><input class="num" id="wheelPerDayInput" type="number" min="1"><span class="hint" style="margin:0">ครั้ง (ไม่ใช้ดาว)</span></div><div id="wheelEditor"></div><div class="add-row"><input id="newWheel" maxlength="24" placeholder="เพิ่มกิจกรรมใหม่"><button class="btn btn-ghost" id="addWheel">เพิ่ม</button></div>
+      <h3>🎁 รางวัล</h3><div id="rewardEditor"></div><div class="pbtns"><button class="btn btn-ghost" id="addReward">+ เพิ่มรางวัล</button></div>
+      <h3>🎡 วงล้อกิจกรรม</h3><div class="erow"><span class="hint" style="margin:0">หมุนได้วันละ</span><input class="num" id="wheelPerDayInput" type="number" min="1"><span class="hint" style="margin:0">ครั้ง (ไม่ใช้ดาว)</span></div><div id="wheelEditor"></div><div class="add-row"><input id="newWheel" maxlength="24" placeholder="เพิ่มกิจกรรมใหม่"><button class="btn btn-ghost" id="addWheel">เพิ่ม</button></div>
     </div>
     <div class="pm-pane" data-pane="messages">
       <h3>💌 ข้อความจากหนู</h3><div class="rlog" id="reactLog"></div><div class="pbtns"><button class="btn btn-ghost" id="clearReact">ล้างข้อความ</button></div>
@@ -312,6 +323,7 @@
 <div class="toast" id="toast"></div>
 <div class="overlay" id="loadErr" style="z-index:82"><div class="modal"><div class="cel-emoji">📡</div><h4 id="loadErrTitle">โหลดข้อมูลไม่สำเร็จ</h4><p id="loadErrSub">ตรวจอินเทอร์เน็ตแล้วลองใหม่</p><button class="btn btn-gold" id="loadErrBtn" style="position:relative">ลองใหม่ 🔄</button></div></div>
 <div class="overlay" id="verifyOverlay" style="z-index:81"><div class="modal"><div class="cel-emoji">📧</div><h4>ยืนยันอีเมลก่อนนะ</h4><p id="verifySub">เราส่งลิงก์ยืนยันไปที่อีเมลของคุณแล้ว เปิดอีเมลแล้วกดลิงก์ จากนั้นกลับมากด "ยืนยันแล้ว"</p><div class="modal-btns" style="flex-direction:column;gap:8px"><button class="btn btn-gold" id="verifyDone" style="width:100%">ยืนยันแล้ว ✓ (โหลดใหม่)</button><button class="btn btn-ghost" id="verifyResend" style="width:100%">ส่งอีเมลยืนยันอีกครั้ง</button><button class="btn btn-ghost" id="verifySignout" style="width:100%">ใช้บัญชีอื่น</button></div></div></div>
+<div class="overlay" id="installHelp" style="z-index:81"><div class="modal"><button class="pm-close" id="installHelpClose" aria-label="ปิด">✕</button><div class="cel-emoji">📲</div><h4>ติดตั้งแอปลงเครื่อง</h4><p id="installLead">ติดตั้งแล้วเปิดจากหน้าจอโฮมได้เหมือนแอปจริง เต็มจอ เปิดเร็ว</p><div id="installSteps" style="text-align:left;margin:6px 0 4px"></div><button class="btn btn-gold" id="installNowBtn" style="width:100%;display:none">ติดตั้งเลย 📲</button></div></div>
 
 <div class="overlay" id="cel"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji" id="celEmoji">🎁</div><div class="cel-title" id="celTitle">ปลดล็อกแล้ว</div><div class="cel-sub" id="celSub">หนูเก่งมาก ๆ</div><button class="btn btn-gold" id="celBtn" style="position:relative">เย้! 🎉</button></div></div>
 <div class="overlay" id="wheelRes"><div class="modal"><div class="cel-rays"></div><div class="cel-emoji" id="wrEmoji">🎡</div><div class="cel-title" id="wrTitle"></div><div class="cel-sub" id="wrSub"></div><button class="btn btn-gold" id="wrBtn" style="position:relative">ไปเล่นกัน! 🎉</button></div></div>
@@ -452,8 +464,10 @@ function renderRewardEditor(){$('rewardEditor').innerHTML=state.rewards.map(r=>`
 function renderReactLog(){const log=$('reactLog');if(!state.reactions.length){log.innerHTML='<div class="empty">ยังไม่มีข้อความจากหนู</div>';return;}log.innerHTML=state.reactions.slice(0,30).map(r=>`<div class="ri"><span class="re">${r.e}</span><span>${esc(r.l)}</span><span class="rt">${timeAgo(r.t)}</span></div>`).join('');}
 function updatePinUI(){$('pinStatus').textContent=state.pin?'ตั้งรหัสไว้แล้ว — เด็กต้องใส่รหัสจึงเข้าโหมดนี้ได้':'ยังไม่ได้ตั้งรหัส (ใครก็เข้าโหมดผู้ปกครองได้)';$('removePin').style.display=state.pin?'inline-block':'none';}
 function renderParentEditors(){$('profName').value=state.name||'';buildAvGridInto('profAvatarGrid',state.avatar||'🐻',a=>{state.avatar=a;save();renderChip();});$('noteInput').value=state.parentNote||'';renderTaskEditor();renderCoEditor();renderWheelEditor();renderRewardEditor();renderReactLog();updatePinUI();}
-function switchPmTab(name){document.querySelectorAll('.pm-tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));document.querySelectorAll('.pm-pane').forEach(p=>p.classList.toggle('active',p.dataset.pane===name));const body=$('parentOverlay').querySelector('.pm-body');if(body)body.scrollTop=0;}
-function openParent(){if(!state)return;if(state.pin&&!parentUnlocked){openPin();return;}if(state.pin)parentUnlocked=true;renderParentEditors();switchPmTab('profile');$('parentOverlay').classList.add('show');$('parentOverlay').scrollTop=0;}
+const PM_TITLES={profile:'👤 โปรไฟล์',tasks:'📋 งาน & ภารกิจ',rewards:'🎁 รางวัล & วงล้อ',messages:'💌 ข้อความ',settings:'⚙️ ตั้งค่า'};
+function pmOpenPane(name){$('pmMenu').style.display='none';document.querySelectorAll('.pm-pane').forEach(p=>p.classList.toggle('active',p.dataset.pane===name));$('pmTitle').textContent=PM_TITLES[name]||'';$('pmBack').style.display='';const b=$('parentOverlay').querySelector('.pm-body');if(b)b.scrollTop=0;}
+function pmBackToMenu(){document.querySelectorAll('.pm-pane').forEach(p=>p.classList.remove('active'));$('pmMenu').style.display='';$('pmTitle').textContent='⚙️ โหมดผู้ปกครอง';$('pmBack').style.display='none';const b=$('parentOverlay').querySelector('.pm-body');if(b)b.scrollTop=0;}
+function openParent(){if(!state)return;if(state.pin&&!parentUnlocked){openPin();return;}if(state.pin)parentUnlocked=true;renderParentEditors();pmBackToMenu();$('parentOverlay').classList.add('show');$('parentOverlay').scrollTop=0;}
 function closeParent(){$('parentOverlay').classList.remove('show');}
 function lockParent(){parentUnlocked=false;closeParent();toast('ล็อกโหมดผู้ปกครองแล้ว 🔒');}
 function render(){state=active();const has=!!state;$('wrap').style.visibility=has?'visible':'hidden';if(!has)return;ensureDay();ensureCoDay();renderDisplay();if($('parentOverlay').classList.contains('show'))renderParentEditors();$('soundBtn').textContent=state.sound?'🔊':'🔇';}
@@ -529,7 +543,8 @@ $('addReward').addEventListener('click',()=>{const mx=Math.max(0,...state.reward
 $('savePin').addEventListener('click',()=>{const v=$('pinSet').value;if(/^\d{4}$/.test(v)){state.pin=v;$('pinSet').value='';save();updatePinUI();render();}else{$('pinStatus').textContent='⚠️ รหัสต้องเป็นตัวเลข 4 หลัก';}});
 $('removePin').addEventListener('click',()=>{state.pin='';parentUnlocked=true;save();updatePinUI();render();});
 $('parentGear').addEventListener('click',openParent);
-$('pmTabs').addEventListener('click',e=>{const b=e.target.closest('.pm-tab-btn');if(b)switchPmTab(b.dataset.tab);});
+$('pmMenu').addEventListener('click',e=>{const r=e.target.closest('.pm-row');if(r)pmOpenPane(r.dataset.go);});
+$('pmBack').addEventListener('click',pmBackToMenu);
 $('parentClose').addEventListener('click',closeParent);
 $('parentDone').addEventListener('click',closeParent);
 $('parentLockBtn').addEventListener('click',lockParent);
@@ -568,8 +583,11 @@ function isStandalone(){return window.matchMedia('(display-mode: standalone)').m
 function showInstallBtn(){const b=$('installBtn');if(b&&!isStandalone())b.style.display='block';}
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;showInstallBtn();});
 window.addEventListener('appinstalled',()=>{deferredPrompt=null;const b=$('installBtn');if(b)b.style.display='none';toast('ติดตั้งแอปสำเร็จ! เปิดจากหน้าจอโฮมได้เลย 🎉');});
-async function doInstall(){if(deferredPrompt){deferredPrompt.prompt();const r=await deferredPrompt.userChoice;deferredPrompt=null;if(r&&r.outcome==='accepted'){$('installBtn').style.display='none';toast('กำลังติดตั้ง... 📲');}return;}if(isIOS()){toast('บน iPhone/iPad: กดปุ่ม "แชร์" ⬆️ ด้านล่าง แล้วเลือก "เพิ่มไปยังหน้าจอโฮม"');return;}toast('เปิดเมนู ⋮ ของเบราว์เซอร์ แล้วเลือก "ติดตั้งแอป" หรือ "เพิ่มไปยังหน้าจอโฮม"');}
-if($('installBtn')){$('installBtn').addEventListener('click',doInstall);if(!isStandalone())showInstallBtn();}
+function openInstallHelp(){const ios=isIOS();let h='';if(deferredPrompt){$('installNowBtn').style.display='block';h='<p class="hint" style="text-align:center">กดปุ่มด้านล่างเพื่อติดตั้งได้เลย 👇</p>';}else if(ios){$('installNowBtn').style.display='none';h='<ol class="ins"><li>เปิดหน้านี้ด้วย <b>Safari</b> (ไม่ใช่ Chrome)</li><li>กดปุ่ม <b>แชร์</b> <span style="font-size:17px">⬆️</span> ที่แถบล่าง</li><li>เลื่อนหา <b>"เพิ่มไปยังหน้าจอโฮม"</b></li><li>กด <b>เพิ่ม</b> มุมขวาบน เสร็จ! 🎉</li></ol>';}else{$('installNowBtn').style.display='none';h='<ol class="ins"><li>เปิดเมนู <b>⋮</b> มุมขวาบนของเบราว์เซอร์ (Chrome)</li><li>เลือก <b>"ติดตั้งแอป"</b> หรือ <b>"เพิ่มลงในหน้าจอหลัก"</b></li><li>กดยืนยัน เสร็จ! 🎉</li></ol><p class="hint" style="margin-top:8px">* ถ้าไม่เจอ ลองรอ 2-3 วิแล้วเปิดเมนูใหม่</p>';}$('installSteps').innerHTML=h;closeProfiles();$('installHelp').classList.add('show');}
+async function doInstall(){if(deferredPrompt){$('installHelp').classList.remove('show');deferredPrompt.prompt();const r=await deferredPrompt.userChoice;deferredPrompt=null;if(r&&r.outcome==='accepted'){const b=$('installBtn');if(b)b.style.display='none';toast('กำลังติดตั้ง... 📲');}return;}}
+if($('installBtn')){$('installBtn').addEventListener('click',openInstallHelp);if(!isStandalone())$('installBtn').style.display='block';}
+$('installNowBtn').addEventListener('click',doInstall);
+$('installHelpClose').addEventListener('click',()=>$('installHelp').classList.remove('show'));
 </script>
 </body>
 </html>
