@@ -37,6 +37,10 @@
   .aurora-band.b3{height:72%;opacity:.3;filter:blur(32px);background:repeating-linear-gradient(84deg,transparent 0 90px,rgba(80,235,255,.5) 110px 138px,transparent 168px 250px,rgba(190,150,255,.42) 280px 312px,transparent 350px 470px);animation:bandBreath 22s ease-in-out infinite alternate;}
   @keyframes bandBreath{0%{opacity:.25;} 100%{opacity:.5;}}
 
+  /* คำสั่งสำหรับปิดแสงเหนือเมื่อกดปุ่ม (แก้บัค) */
+  body.lite .aurora, body.lite .aurora-band { display: none !important; }
+  /* --- จบส่วนแสงเหนือ --- */
+
   .sky{position:fixed;inset:0;pointer-events:none;z-index:0;}
   .sky .tw{position:absolute;border-radius:50%;background:#fff;animation:tw var(--d,3s) ease-in-out infinite alternate;}
   @keyframes tw{from{opacity:.12;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
@@ -128,12 +132,10 @@
   .lockbtn:hover{background:rgba(255,255,255,.16);color:#fff;}
   .parent{background:rgba(255,255,255,.05);border:1.5px dashed var(--card-line);border-radius:24px;padding:18px 16px;margin-bottom:18px;}
   
-  /* แก้ไขตัวหนังสือซ้อนในหัวข้อ h3 */
   .parent h3, .pm-pane h3{font-family:'Baloo Thai 2';font-weight:700;font-size:16px;margin:18px 0 9px;color:#fff; display:flex; align-items:center; gap:8px; line-height:1.4; flex-wrap:wrap;}
   .parent h3:first-child, .pm-pane h3:first-child{margin-top:2px;}
   
   .pbtns{display:flex;gap:10px;flex-wrap:wrap;}
-  /* แก้ไขตัวหนังสือล้นปุ่ม */
   .btn{font-family:'Baloo Thai 2';font-weight:700;font-size:15px;border:none;border-radius:14px;padding:11px 18px;cursor:pointer;transition:.15s; white-space:normal; line-height:1.4;}
   .btn-gold{background:linear-gradient(180deg,#ffe07a,#ffc23c);color:#5a2e00;box-shadow:0 5px 0 #d98e1c;}
   .btn-gold:active{transform:translateY(4px);box-shadow:0 1px 0 #d98e1c;}
@@ -151,7 +153,6 @@
   .add-row{display:flex;gap:7px;margin-top:4px;}
   .add-row input{flex:1;font-family:'Mali';font-size:15px;color:#fff;background:rgba(255,255,255,.08);border:1.5px solid var(--card-line);border-radius:12px;padding:9px 11px;outline:none;}
   .add-row input:focus{border-color:var(--star);}
-  /* กำหนดขนาดช่องใส่ Icon ในส่วนเพิ่มใหม่ */
   .add-row input.ico { flex: none; width: 48px; text-align: center; padding: 9px 0px; font-size: 18px; }
 
   .hint{font-size:12.5px;color:var(--soft);margin:4px 0 8px;}
@@ -239,7 +240,6 @@
   .btn,.task,.reward,.pitem,.tab,.profile-chip,.soundbtn{transition:transform .18s cubic-bezier(.2,.8,.3,1),background .2s ease,box-shadow .2s ease,opacity .2s ease;}
   .btn:active,.soundbtn:active,.task:active{transform:scale(.96);}
 </style>
-<!-- ===== Firebase (compat SDK via CDN) ===== -->
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore-compat.js"></script>
@@ -306,7 +306,6 @@
     </div>
     <div class="pm-pane" data-pane="tasks">
       <h3>📋 งานประจำวัน</h3><div class="erow"><span class="hint" style="margin:0">ทำครบ</span><input class="num" id="tasksPerStarInput" type="number" min="1"><span class="hint" style="margin:0">งาน = 1 ⭐</span></div><div id="taskEditor"></div>
-      <!-- ช่องใส่อิโมจิขยาย maxlength เป็น 10 เพื่อรองรับคีย์บอร์ดมือถือ -->
       <div class="add-row">
         <input id="newTaskIcon" class="ico" maxlength="10" placeholder="🌟">
         <input id="newTask" class="nm" maxlength="24" placeholder="เพิ่มงานใหม่">
@@ -359,7 +358,7 @@
 <div class="sect-label">⚙️ แอป & ข้อมูล</div>
 <button class="btn btn-gold" id="installBtn" style="display:none;width:100%;margin-bottom:8px">📲 ติดตั้งแอปลงเครื่อง</button>
 <div class="pbtns" style="margin-bottom:8px"><button class="btn btn-ghost" id="exportBtn">💾 สำรอง</button><button class="btn btn-ghost" id="importBtn">📥 กู้คืน</button></div>
-<button class="btn btn-ghost" id="liteBtn" style="width:100%">🌌 แสงเหนือ: เคลื่อนไหว</button>
+<button class="btn btn-ghost" id="liteBtn" style="width:100%">🌌 แสงเหนือ: เปิดอยู่ (แตะเพื่อปิด)</button>
 <input type="file" id="importFile" accept="application/json,.json" style="display:none">
 <div class="sect-label">🔑 บัญชี</div>
 <div class="acct-bar" style="margin-bottom:9px">เข้าใช้ด้วย <b id="acctName">@user</b></div>
@@ -804,9 +803,21 @@ async function doInstall(){if(deferredPrompt){$('installHelp').classList.remove(
 if($('installBtn')){$('installBtn').addEventListener('click',openInstallHelp);if(!isStandalone())$('installBtn').style.display='block';}
 $('installNowBtn').addEventListener('click',doInstall);
 $('installHelpClose').addEventListener('click',()=>$('installHelp').classList.remove('show'));
+
+/* --- ฟังก์ชันปุ่มซ่อน/แสดงแสงเหนือ --- */
 function liteOn(){try{return localStorage.getItem('sl_lite')==='1';}catch(_){return false;}}
-function applyLite(){const on=liteOn();document.body.classList.toggle('lite',on);const b=$('liteBtn');if(b)b.textContent=on?'🌌 แสงเหนือ: นิ่ง (ลื่นสุด)':'🌌 แสงเหนือ: เคลื่อนไหว';}
-function toggleLite(){const on=liteOn();try{localStorage.setItem('sl_lite',on?'0':'1');}catch(_){}applyLite();toast(on?'เปิดแสงเหนือเคลื่อนไหว ✨':'ลดเอฟเฟกต์แล้ว ลื่นขึ้น 🚀');}
+function applyLite(){
+  const on=liteOn();
+  document.body.classList.toggle('lite',on);
+  const b=$('liteBtn');
+  if(b) b.textContent = on ? '🌌 แสงเหนือ: ❌ ปิดอยู่ (แตะเพื่อเปิด)' : '🌌 แสงเหนือ: ✨ เปิดอยู่ (แตะเพื่อปิด)';
+}
+function toggleLite(){
+  const on=liteOn();
+  try{localStorage.setItem('sl_lite',on?'0':'1');}catch(_){}
+  applyLite();
+  toast(on ? 'เปิดแสงเหนือให้แล้ว ✨' : 'ปิดแสงเหนือแล้ว ลื่นสุดๆ 🚀');
+}
 applyLite();
 if($('liteBtn'))$('liteBtn').addEventListener('click',toggleLite);
 </script>
