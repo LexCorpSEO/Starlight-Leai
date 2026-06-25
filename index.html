@@ -21,9 +21,9 @@
   html,body{height:100%;}
   html{background:#160f3d;overscroll-behavior:none;}
   body{font-family:'Mali',sans-serif;color:var(--text);background:var(--sky-top);min-height:100vh;overflow-x:hidden;overscroll-behavior:none;position:relative;}
-  body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(120% 80% at 50% 120%,var(--glow) 0%,transparent 45%),linear-gradient(180deg,var(--sky-top) 0%,var(--sky-mid) 55%,var(--sky-low) 100%);}
-  .aurora{position:fixed;inset:-25%;z-index:0;pointer-events:none;filter:blur(54px);opacity:.78;animation:auroraBreath 16s ease-in-out infinite;will-change:opacity;}
-  @keyframes auroraBreath{0%,100%{opacity:.6;}50%{opacity:.82;}}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(150% 100% at 50% 122%,rgba(255,158,208,.28) 0%,transparent 52%),linear-gradient(180deg,#160f3d 0%,#1e1448 40%,#271a5a 72%,#30206a 100%);}
+  .aurora{position:fixed;inset:-25%;z-index:0;pointer-events:none;filter:blur(54px);opacity:.6;animation:auroraBreath 16s ease-in-out infinite;will-change:opacity;}
+  @keyframes auroraBreath{0%,100%{opacity:.5;}50%{opacity:.66;}}
   .aurora span{position:absolute;border-radius:50%;will-change:transform;transform:translateZ(0);}
   .scrolling .aurora,.scrolling .aurora span,.scrolling .aurora-band{animation-play-state:paused !important;}
   body.lite .aurora,body.lite .aurora span,body.lite .aurora-band{animation:none !important;}
@@ -263,7 +263,7 @@
 </script>
 </head>
 <body>
-<div class="aurora" style="opacity:.72"><span class="a1"></span><span class="a2"></span><span class="a3"></span><span class="a4"></span></div><div class="aurora-band"></div><div class="aurora-band b2"></div><div class="aurora-band b3"></div>
+<div class="aurora"><span class="a1"></span><span class="a2"></span><span class="a3"></span><span class="a4"></span></div><div class="aurora-band"></div><div class="aurora-band b2"></div><div class="aurora-band b3"></div>
 <div class="sky" id="sky"></div>
 
 <div class="wrap" id="wrap" style="visibility:hidden">
