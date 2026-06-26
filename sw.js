@@ -1,5 +1,5 @@
 /* Starlight service worker — app-shell cache for offline + installability */
-const CACHE = 'starlight-v35';
+const CACHE = 'starlight-v36';
 const SHELL = [
   './',
   './index.html',
