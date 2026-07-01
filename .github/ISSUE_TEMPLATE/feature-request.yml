@@ -1,0 +1,89 @@
+name: 💡 Feature Request
+description: เสนอฟีเจอร์ใหม่ที่อยากให้มี
+title: "[FEATURE] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        มีไอเดียฟีเจอร์ใหม่มาแชร์กันได้เลย
+        อย่าลืมว่าแอปนี้ต้อง ฟรี 100% ไม่มีโฆษณา ไม่มี tracking
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: ปัญหาอะไรที่ฟีเจอร์นี้จะแก้
+      description: อธิบายปัญหาที่คุณเจอ
+      placeholder: "เช่น ผมอยากให้ลูกได้รับรางวัลเร็วกว่านี้ เพราะเขาใจร้อน"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: ฟีเจอร์ที่คุณคิดว่าควรมี
+      description: อธิบายว่าฟีเจอร์ควรทำงานยังไง
+      placeholder: "เช่น ให้ผู้ปกครอกสามารถตั้งค่าให้ลูกได้ดาวทุกๆ 1 งานแทน 3 งาน"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: ทางเลือกอื่นที่คิดไว้
+      description: มีวิธีอื่นที่คิดไว้ไหม
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: หมวดหมู่
+      options:
+        - สำหรับเด็ก (gameplay, rewards)
+        - สำหรับผู้ปกครอก (settings, reports)
+        - UI/UX (ดีไซน์, ใช้งานง่ายขึ้น)
+        - Performance (เร็วขึ้น, กินเน็ตน้อยลง)
+        - Privacy/Security
+        - SEO/Accessibility
+        - PWA (ติดตั้งเป็นแอป)
+        - Integration (LINE, Google Calendar, ฯลฯ)
+        - อื่นๆ
+    validations:
+      required: true
+
+  - type: dropdown
+    id: for-who
+    attributes:
+      label: ใครจะใช้ฟีเจอร์นี้
+      options:
+        - เด็ก
+        - ผู้ปกครอก
+        - ทั้งสอง
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: pledge
+    attributes:
+      label: ฟีเจอร์นี้สอดคล้องกับ Free Forever Pledge ไหม
+      description: แอปนี้ต้องฟรี 100% ไม่มีโฆษณา ไม่มี tracking
+      options:
+        - label: ฟีเจอร์นี้ไม่ต้องเสียเงิน
+          required: true
+        - label: ฟีเจอร์นี้ไม่เพิ่มโฆษณา
+          required: true
+        - label: ฟีเจอร์นี้ไม่เก็บข้อมูลไปขาย
+          required: true
+
+  - type: textarea
+    id: mockup
+    attributes:
+      label: Mockup / Wireframe (ถ้ามี)
+      description: แนบภาพหรือวาดภาพง่ายๆ ได้
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: ผมค้นหา feature request เดียวกันแล้ว ไม่พบ
+          required: true
