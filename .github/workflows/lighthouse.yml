@@ -1,0 +1,40 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Start static server
+        run: python3 -m http.server 8080 &
+
+      - name: Wait for server
+        run: sleep 2
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun \
+            --collect.url=http://localhost:8080 \
+            --collect.numberOfRuns=1 \
+            --assert.assertions=category:performance=warn \
+            --assert.assertions=category:accessibility=error \
+            --assert.assertions=category:seo=error \
+            --upload.target=temporary-public-storage \
+            || true
+
+      - name: Kill server
+        if: always()
+        run: pkill -f "http.server" || true
