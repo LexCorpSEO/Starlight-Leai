@@ -1,0 +1,108 @@
+name: 🐛 Bug Report
+description: รายงานบั๊กเพื่อให้เราแก้ไข
+title: "[BUG] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ขอบคุณที่แจ้งบั๊กครับ
+        กรุณากรอกข้อมูลให้ครบ เพื่อให้เราแก้ไขได้เร็วที่สุด
+
+  - type: textarea
+    id: description
+    attributes:
+      label: อธิบายบั๊ก
+      description: บอกเราว่าเกิดอะไรขึ้น
+      placeholder: "เช่น กดปุ่มหมุนวงล้อแล้ววงล้อไม่หมุน"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: ขั้นตอนการเกิดบั๊ก
+      description: ทำยังไงถึงเจอบั๊ก
+      placeholder: |
+        1. เปิดแอป
+        2. ล็อกอินด้วย Google
+        3. กดปุ่มหมุนวงล้อ
+        4. วงล้อไม่หมุน
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ที่คาดหวัง
+      description: ควรจะเกิดอะไรขึ้น
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ที่เกิดจริง
+      description: เกิดอะไรขึ้นจริง
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: เบราว์เซอร์
+      options:
+        - Chrome (Android)
+        - Chrome (Desktop)
+        - Safari (iOS)
+        - Safari (macOS)
+        - Firefox
+        - Edge
+        - อื่นๆ
+    validations:
+      required: true
+
+  - type: input
+    id: browser-version
+    attributes:
+      label: เวอร์ชันเบราว์เซอร์ (ถ้ารู้)
+      placeholder: "เช่น Chrome 120"
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: อุปกรณ์
+      options:
+        - มือถือ Android
+        - มือถือ iPhone
+        - แท็บเล็ต Android
+        - แท็บเล็ต iPad
+        - PC Windows
+        - Mac
+        - อื่นๆ
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: ภาพหน้าจอ
+      description: แนบภาพได้ (drag & drop)
+      placeholder: "ลากภาพมาวางตรงนี้"
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console Error (ถ้ามี)
+      description: เปิด F12 - Console แล้วก็อปข้อความ error มาวาง
+      render: shell
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: ผมค้นหา issue เดียวกันแล้ว ไม่พบ
+          required: true
+        - label: ผมลอง refresh หน้าเว็บแล้ว บั๊กยังอยู่
+          required: true
