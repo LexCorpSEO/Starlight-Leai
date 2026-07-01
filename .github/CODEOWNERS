@@ -1,0 +1,21 @@
+# CODEOWNERS — ผู้ดูแลแต่ละส่วนของโค้ด
+# รูปแบบ: <path> <github-username>
+
+# Default owner (ถ้าไม่ตรงกับด้านล่าง)
+*                           @lexcorpseo
+
+# ไฟล์หลัก
+/index.html                 @lexcorpseo
+/manifest.json              @lexcorpseo
+
+# มาสคอตและ animation
+/assets/lottie/             @lexcorpseo
+/assets/img/                @lexcorpseo
+
+# GitHub config
+/.github/                   @lexcorpseo
+
+# Documentation
+/docs/                      @lexcorpseo
+/README.md                  @lexcorpseo
+/CONTRIBUTING.md            @lexcorpseo
