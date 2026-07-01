@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://lexcorpseo.github.io/Starlight-Leai/sitemap.xml
+
+# ไม่ index ไฟล์ที่ไม่จำเป็น
+Disallow: /assets/lottie/
+Disallow: /docs/
