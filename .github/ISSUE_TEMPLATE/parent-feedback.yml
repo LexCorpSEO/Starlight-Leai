@@ -1,0 +1,100 @@
+name: 💌 ผู้ปกครอก Feedback
+description: ส่งความคิดเห็นจากการใช้งานจริงในครอบครัว
+title: "[FEEDBACK] "
+labels: ["parent-feedback", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ขอบคุณที่ใช้แอป "สะสมดาว" กับครอบครัวของคุณ
+        ไม่ต้องมีความรู้ด้านเทคนิคก็แชร์ได้ เล่าเรื่องๆ ก็พอ
+
+  - type: textarea
+    id: feedback
+    attributes:
+      label: ความคิดเห็น / ประสบการณ์
+      description: เล่าให้เราฟังได้เลย ว่าชอบ/ไม่ชอบอะไร
+      placeholder: "เช่น ลูกสาวชอบมาสคอตมาก ทุกเช้ามาเปิดดูก่อนไปโรงเรียน"
+    validations:
+      required: true
+
+  - type: input
+    id: child-age
+    attributes:
+      label: อายุเด็กที่ใช้
+      placeholder: "เช่น 5 ขวบ / ป.1"
+
+  - type: dropdown
+    id: how-often
+    attributes:
+      label: ใช้บ่อยแค่ไหน
+      options:
+        - ทุกวัน
+        - 2-3 วันต่อสัปดาห์
+        - สัปดาห์ละครั้ง
+        - นานๆ ครั้ง
+        - เพิ่งเริ่มใช้
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: ใช้บนอุปกรณ์อะไร
+      options:
+        - มือถือ Android
+        - มือถือ iPhone
+        - แท็บเล็ต
+        - คอมพิวเตอร์
+        - หลายเครื่อง
+
+  - type: dropdown
+    id: favorite
+    attributes:
+      label: ฟีเจอร์ที่ลูกชอบที่สุด
+      options:
+        - งานประจำวัน
+        - ฝึกเขียนชื่อ
+        - วงล้อกิจกรรม
+        - รางวัล
+        - ภารกิจคู่
+        - ข้อความ
+        - มาสคอตน้องดาว
+        - อื่นๆ
+
+  - type: dropdown
+    id: want-improve
+    attributes:
+      label: อยากให้ปรับปรุงส่วนไหน
+      options:
+        - ใช้ง่ายขึ้น
+        - เพิ่มฟีเจอร์ใหม่
+        - ภาพ/ดีไซน์สวยขึ้น
+        - เร็วขึ้น
+        - ไม่ต้องปรับ เก่งแล้ว
+
+  - type: textarea
+    id: wish
+    attributes:
+      label: ถ้าให้ตั้งใจมาก อยากให้มีฟีเจอร์อะไร
+      placeholder: "เช่น อยากให้มีเสียงเพลงก่อนนอน"
+
+  - type: checkboxes
+    id: share
+    attributes:
+      label: อนุญาตให้เราใช้ feedback ของคุณ
+      options:
+        - label: อนุญาตให้ quote ในหน้าเว็บ/โซเชียล (ไม่ใส่ชื่อ)
+        - label: อนุญาตให้เราติดต่อกลับ (ถ้ามีคำถามเพิ่ม)
+
+  - type: input
+    id: contact
+    attributes:
+      label: อีเมล (ถ้าอนุญาตให้ติดต่อกลับ)
+      placeholder: "your@email.com"
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: ยืนยัน
+      options:
+        - label: ผมยอมรับว่าข้อมูลนี้ไม่มีข้อมูลส่วนตัวที่ละเอียดอ่อน (เช่น ที่อยู่, เบอร์โทร)
+          required: true
